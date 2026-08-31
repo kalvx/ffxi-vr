@@ -1,4 +1,4 @@
-# Valkrum Rising FFXI Field Guide
+# FFXI VR: Current Reality Compendium v3
 
 Static GitHub Pages site for `https://kalvx.github.io/ffxi-vr/`.
 
@@ -11,9 +11,9 @@ Static GitHub Pages site for `https://kalvx.github.io/ffxi-vr/`.
 
 ## Layout
 
-- `/` — public jobs, macro, abilities, weapons, quests, and missions field guide.
+- `/` — public jobs, macros, items, spells, weapon skills, job abilities, interactive skillchains, fishing, quests, missions, and Vana’diel clock.
 - `/admin/` — passphrase gate.
-- `/admin/content/` — Valkrum Rising GM command compendium.
+- `/admin/content/` — FFXI VR: Current Reality GM command compendium.
 
 ## Security note
 
