@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Valkrum Rising · GM Access</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="login-page">
+  <main class="login-card">
+    <div class="crystal">✦</div>
+    <p class="eyebrow">Valkrum Rising · Restricted Field Manual</p>
+    <h1>GM Access</h1>
+    <p class="intro">Enter the local administrator passphrase to open the private command compendium.</p>
+    <form id="login-form">
+      <label for="password">Passphrase</label>
+      <input id="password" type="password" autocomplete="current-password" required autofocus>
+      <button type="submit">Unlock compendium</button>
+      <p id="status" role="alert"></p>
+    </form>
+    <a class="back" href="../">← Return to public field guide</a>
+    <p class="warning">GitHub Pages is static hosting. This gate discourages casual access, but cannot provide server-grade protection.</p>
+  </main>
+  <script src="auth-config.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

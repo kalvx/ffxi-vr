@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Valkrum Rising FFXI job guides, macros, abilities, weapons, quests and missions.">
+  <title>Valkrum Rising Field Guide</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/components.css">
+  <script src="assets/site.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="crystal">✦</span><span><small>Valkrum Rising</small><strong>Field Guide</strong></span></a>
+    <nav><a href="#jobs">Jobs</a><a href="#abilities">Abilities</a><a href="#weapons">Weapons</a><a href="#quests">Quests</a><a href="#missions">Missions</a><a class="admin-link" href="admin/">GM Login</a></nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">A private world · rebuilt with care</p>
+        <h1>Your road through<br><em>Vana’diel</em> starts here.</h1>
+        <p class="lede">A focused companion for Valkrum Rising—job fundamentals, practical macros, weapon choices, and a clean path through early quests and missions.</p>
+        <div class="hero-actions"><a class="primary" href="#jobs">Choose a job</a><a href="#start">Start here</a></div>
+      </div>
+      <div class="hero-panel">
+        <p>Field Manual · Volume I</p>
+        <div><strong>22</strong><span>adventuring jobs</span></div>
+        <div><strong>66</strong><span>starter macros</span></div>
+        <div><strong>6</strong><span>guide chapters</span></div>
+        <small>Built for the Valkrum Rising server era and expanded in small, verified releases.</small>
+      </div>
+    </section>
+
+    <section class="chapter intro" id="start">
+      <div class="chapter-head"><span>01</span><div><p>New adventurer route</p><h2>Start with a strong foundation.</h2></div></div>
+      <div class="feature-grid">
+        <article><b>01</b><h3>Pick a role</h3><p>Damage, defense, healing, support, or pet control. Choose what sounds fun before chasing a perfect build.</p></article>
+        <article><b>02</b><h3>Set six macros</h3><p>Begin with targeting, one core ability, one emergency action, and your most-used spells or pet commands.</p></article>
+        <article><b>03</b><h3>Train naturally</h3><p>Weapon and magic skills matter. Fight appropriate enemies and keep your primary tools near their current cap.</p></article>
+        <article><b>04</b><h3>Follow your nation</h3><p>Nation missions provide the clearest early progression. Side quests can be layered in as you explore.</p></article>
+      </div>
+    </section>
+
+    <section class="chapter" id="jobs">
+      <div class="chapter-head"><span>02</span><div><p>Job atlas & macro workshop</p><h2>Find your way to fight.</h2></div></div>
+      <div class="job-tools">
+        <div class="search"><span>⌕</span><input id="job-search" type="search" placeholder="Search job, role, or macro…"></div>
+        <div class="role-filters" id="role-filters"><button class="active" data-role="all">All jobs</button><button data-role="damage">Damage</button><button data-role="support">Support</button><button data-role="defense">Defense</button><button data-role="pet">Pet</button></div>
+      </div>
+      <div class="job-layout">
+        <div class="job-list" id="job-list"></div>
+        <article class="job-detail" id="job-detail" aria-live="polite"></article>
+      </div>
+      <div class="token-guide">
+        <div><code>&lt;t&gt;</code><span>current target</span></div><div><code>&lt;me&gt;</code><span>your character</span></div><div><code>&lt;stpc&gt;</code><span>select a player</span></div><div><code>&lt;stnpc&gt;</code><span>select an enemy</span></div><div><code>&lt;stal&gt;</code><span>alliance member</span></div>
+      </div>
+    </section>
+
+    <section class="chapter" id="abilities">
+      <div class="chapter-head"><span>03</span><div><p>Ability fundamentals</p><h2>Read the rhythm of combat.</h2></div></div>
+      <div class="guide-grid">
+        <article><span>JA</span><h3>Job abilities</h3><p>Use <code>/ja "Ability" &lt;target&gt;</code>. Most self-enhancements use <code>&lt;me&gt;</code>; hostile abilities usually use <code>&lt;t&gt;</code>.</p></article>
+        <article><span>MA</span><h3>Magic</h3><p>Use <code>/ma "Spell" &lt;target&gt;</code>. Sub-targets such as <code>&lt;stpc&gt;</code> let healers choose a player without changing their locked target.</p></article>
+        <article><span>PET</span><h3>Pet commands</h3><p>Use <code>/pet "Command" &lt;target&gt;</code>. Summoner Assault, Beastmaster Fight, and Puppetmaster Deploy all send a companion into battle.</p></article>
+        <article><span>WS</span><h3>Weapon skills</h3><p>Use <code>/ws "Weapon Skill" &lt;t&gt;</code> at sufficient TP. Coordinate skillchain properties rather than firing every weapon skill immediately.</p></article>
+        <article><span>RA</span><h3>Ranged attacks</h3><p><code>/ra &lt;t&gt;</code> starts a ranged attack. Distance, ammunition, ranged skill, and enemy movement affect the result.</p></article>
+        <article><span>2HR</span><h3>Emergency abilities</h3><p>Powerful long-recast abilities can rescue a difficult pull. Keep them on a deliberate macro page rather than beside routine actions.</p></article>
+      </div>
+    </section>
+
+    <section class="chapter" id="weapons">
+      <div class="chapter-head"><span>04</span><div><p>Weapon field notes</p><h2>Match the tool to the job.</h2></div></div>
+      <div class="weapon-table">
+        <div class="table-head"><span>Weapon</span><span>Common users</span><span>What it teaches</span></div>
+        <div><b>Hand-to-Hand</b><span>MNK · PUP</span><p>Fast multi-hit pressure and steady TP flow.</p></div>
+        <div><b>Dagger</b><span>THF · DNC · RDM</span><p>Quick attacks, positional play, and utility weapon skills.</p></div>
+        <div><b>Sword</b><span>PLD · RDM · BLU</span><p>Balanced offense with broad defensive and magical job support.</p></div>
+        <div><b>Great Sword</b><span>DRK · RUN</span><p>Heavy single hits and strong offensive weapon skills.</p></div>
+        <div><b>Axe / Great Axe</b><span>WAR · BST</span><p>Reliable physical damage and defense-down options.</p></div>
+        <div><b>Scythe</b><span>DRK · BST</span><p>Slow, powerful strikes with drain-oriented weapon skills.</p></div>
+        <div><b>Polearm</b><span>DRG · SAM</span><p>Excellent reach, piercing damage, and jump synergy.</p></div>
+        <div><b>Katana</b><span>NIN</span><p>Fast dual-wield flow paired with ninjutsu.</p></div>
+        <div><b>Great Katana</b><span>SAM</span><p>TP control and flexible skillchain building.</p></div>
+        <div><b>Club / Staff</b><span>WHM · BLM · SMN · SCH · GEO</span><p>Magic-focused stats with blunt damage when needed.</p></div>
+        <div><b>Bow / Marksmanship</b><span>RNG · COR</span><p>Distance management, ammunition, and ranged accuracy.</p></div>
+      </div>
+      <p class="callout"><strong>Training rule:</strong> equip the weapon you intend to use before a long leveling session. Skill gaps become much harder to repair later.</p>
+    </section>
+
+    <section class="chapter split" id="quests">
+      <div>
+        <div class="chapter-head"><span>05</span><div><p>Quest compass</p><h2>Explore with purpose.</h2></div></div>
+        <div class="timeline">
+          <article><span>Home nation</span><h3>Talk before traveling</h3><p>Check gates, shops, guilds, and residential districts. Early quests teach the geography and unlock useful conveniences.</p></article>
+          <article><span>Fields</span><h3>Collect while leveling</h3><p>Keep common drops until you know their quest and crafting value. Inventory planning is part of classic FFXI progression.</p></article>
+          <article><span>Reputation</span><h3>Repeat with restraint</h3><p>Repeatable quests can raise fame and unlock deeper stories, but nation missions remain the primary spine.</p></article>
+        </div>
+      </div>
+      <aside class="checklist"><p class="eyebrow">Quest readiness</p><h3>Before leaving town</h3><label><input type="checkbox"> Set your home point</label><label><input type="checkbox"> Activate Signet</label><label><input type="checkbox"> Carry maps and basic medicine</label><label><input type="checkbox"> Check inventory space</label><label><input type="checkbox"> Review current objectives</label></aside>
+    </section>
+
+    <section class="chapter" id="missions">
+      <div class="chapter-head"><span>06</span><div><p>Mission roadmap</p><h2>Follow the story outward.</h2></div></div>
+      <div class="mission-road">
+        <article><b>Rank 1–2</b><h3>Serve your nation</h3><p>Learn the nearby regions, beastmen, and gate-guard mission flow.</p></article>
+        <i></i><article><b>Rank 3</b><h3>Three nations</h3><p>The world opens as national stories begin to intersect.</p></article>
+        <i></i><article><b>Rank 4–5</b><h3>Jeuno and beyond</h3><p>Prepare for longer travel, dangerous dungeons, and coordinated fights.</p></article>
+        <i></i><article><b>Rank 6+</b><h3>Endgame foundations</h3><p>Nation leadership stories deepen and broader expansion paths await.</p></article>
+      </div>
+      <p class="callout">This is the light roadmap. Detailed mission pages, prerequisites, NPC locations, and server-specific notes are planned for Field Manual II.</p>
+    </section>
+  </main>
+
+  <footer><div><span>✦</span><strong>Valkrum Rising</strong></div><p>FFXI private server field guide · Volume I</p><a href="admin/">Administration</a></footer>
+</body>
+</html>
