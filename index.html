@@ -9,13 +9,20 @@
   <link rel="stylesheet" href="assets/components.css">
   <link rel="stylesheet" href="assets/v3.css">
   <link rel="stylesheet" href="assets/v3-fishing.css">
+  <link rel="stylesheet" href="assets/v4.css">
+  <link rel="stylesheet" href="assets/v4-clock.css">
+  <link rel="stylesheet" href="assets/v4-data.css">
+  <link rel="stylesheet" href="assets/v4-calendar.css">
+  <link rel="stylesheet" href="assets/v4-jobs.css">
   <script src="assets/site.js" defer></script>
   <script src="assets/v3.js" defer></script>
+  <script src="assets/v4.js" defer></script>
+  <script src="assets/v4-data.js" defer></script>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="#top"><span class="crystal">✦</span><span><small>FFXI VR</small><strong>Current Reality</strong></span></a>
-    <nav><a href="#jobs">Jobs</a><a href="#reference">Reference</a><a href="#skillchains">Skillchains</a><a href="#fishing">Fishing</a><a href="#missions">Missions</a><a class="admin-link" href="admin/">GM Login</a></nav>
+    <nav><a href="#jobs">Jobs</a><a href="#macros">Macros</a><a href="#gear">Gear</a><a href="#crafts">Crafts</a><a href="#skillchains">Skillchains</a><a href="#fishing">Fishing</a><a class="admin-link" href="admin/">GM Login</a></nav>
   </header>
 
   <main id="top">
@@ -27,12 +34,12 @@
         <div class="hero-actions"><a class="primary" href="#jobs">Choose a job</a><a href="#start">Start here</a></div>
       </div>
       <div class="hero-panel">
-        <p>Compendium · Version III</p>
-        <div class="vana-clock" id="vana-clock"><span>Vana’diel time</span><strong id="vana-time">--:--</strong><small id="vana-date">Synchronizing…</small></div>
+        <p>Compendium · Version IV</p>
+        <div class="vana-clock" id="vana-clock"><span>Vana’diel time</span><strong id="vana-time">--:--</strong><small id="vana-date">Synchronizing…</small><div class="elemental-day"><i id="vana-element-icon">◆</i><p><b id="vana-element">Element</b><em id="vana-next-day">Next day in --:--</em></p></div><div class="moon-readout"><span>Moon</span><b id="vana-moon">Calculating…</b></div></div>
         <div><strong>22</strong><span>adventuring jobs</span></div>
-        <div><strong>66</strong><span>starter macros</span></div>
-        <div><strong>4</strong><span>searchable references</span></div>
-        <small>The clock follows standard LandSandBoat Vana’diel time and stays aligned when the server host’s system clock is accurate.</small>
+        <div><strong>1,700+</strong><span>copy-ready actions</span></div>
+        <div><strong>28K+</strong><span>server records</span></div>
+        <small>Automatically calculated from the same epoch and 25× time scale used by the a899 map server.</small>
       </div>
     </section>
 
@@ -46,8 +53,8 @@
       </div>
     </section>
 
-    <section class="chapter" id="jobs">
-      <div class="chapter-head"><span>02</span><div><p>Job atlas & macro workshop</p><h2>Find your way to fight.</h2></div></div>
+    <section class="chapter" id="macros">
+      <div class="chapter-head"><span>02</span><div><p>Searchable command builder</p><h2>Macro Workshop.</h2></div></div>
       <div class="job-tools">
         <div class="search"><span>⌕</span><input id="job-search" type="search" placeholder="Search job, role, or macro…"></div>
         <div class="role-filters" id="role-filters"><button class="active" data-role="all">All jobs</button><button data-role="damage">Damage</button><button data-role="support">Support</button><button data-role="defense">Defense</button><button data-role="pet">Pet</button></div>
@@ -59,10 +66,20 @@
       <div class="token-guide">
         <div><code>&lt;t&gt;</code><span>current target</span></div><div><code>&lt;me&gt;</code><span>your character</span></div><div><code>&lt;stpc&gt;</code><span>select a player</span></div><div><code>&lt;stnpc&gt;</code><span>select an enemy</span></div><div><code>&lt;stal&gt;</code><span>alliance member</span></div>
       </div>
+      <div class="macro-library">
+        <div class="reference-toolbar"><div class="search"><span>⌕</span><input id="macro-search" type="search" placeholder="Search every spell, ability, weapon skill, or command…"></div><select id="macro-job"></select><select id="macro-type"><option value="all">All commands</option><option value="ability">Abilities</option><option value="spell">Spells</option><option value="weaponskill">Weapon skills</option></select></div>
+        <div class="macro-results" id="macro-results"></div>
+      </div>
+    </section>
+
+    <section class="chapter" id="jobs">
+      <div class="chapter-head"><span>03</span><div><p>Complete server job dossiers</p><h2>Know everything your job can become.</h2></div></div>
+      <div class="job-dossier-controls"><label>Job<select id="dossier-job"></select></label><div id="dossier-tabs"><button class="active" data-view="overview">Overview</button><button data-view="abilities">Abilities</button><button data-view="spells">Spells</button><button data-view="weaponSkills">Weapon skills</button><button data-view="equipment">Equipment</button><button data-view="skills">Skill ranks</button></div></div>
+      <article class="job-dossier" id="job-dossier" aria-live="polite"><p>Loading server job records…</p></article>
     </section>
 
     <section class="chapter" id="abilities">
-      <div class="chapter-head"><span>03</span><div><p>Ability fundamentals</p><h2>Read the rhythm of combat.</h2></div></div>
+      <div class="chapter-head"><span>04</span><div><p>Ability fundamentals</p><h2>Read the rhythm of combat.</h2></div></div>
       <div class="guide-grid">
         <article><span>JA</span><h3>Job abilities</h3><p>Use <code>/ja "Ability" &lt;target&gt;</code>. Most self-enhancements use <code>&lt;me&gt;</code>; hostile abilities usually use <code>&lt;t&gt;</code>.</p></article>
         <article><span>MA</span><h3>Magic</h3><p>Use <code>/ma "Spell" &lt;target&gt;</code>. Sub-targets such as <code>&lt;stpc&gt;</code> let healers choose a player without changing their locked target.</p></article>
@@ -74,7 +91,7 @@
     </section>
 
     <section class="chapter" id="weapons">
-      <div class="chapter-head"><span>04</span><div><p>Weapon field notes</p><h2>Match the tool to the job.</h2></div></div>
+      <div class="chapter-head"><span>05</span><div><p>Weapon field notes</p><h2>Match the tool to the job.</h2></div></div>
       <div class="weapon-table">
         <div class="table-head"><span>Weapon</span><span>Common users</span><span>What it teaches</span></div>
         <div><b>Hand-to-Hand</b><span>MNK · PUP</span><p>Fast multi-hit pressure and steady TP flow.</p></div>
@@ -93,17 +110,41 @@
     </section>
 
     <section class="chapter" id="reference">
-      <div class="chapter-head"><span>05</span><div><p>Searchable database</p><h2>Know what you carry and cast.</h2></div></div>
+      <div class="chapter-head"><span>06</span><div><p>Complete server database</p><h2>Know what you carry and cast.</h2></div></div>
       <div class="reference-tabs" id="reference-tabs">
         <button class="active" data-dataset="items">Items</button><button data-dataset="spells">Spells</button><button data-dataset="weaponSkills">Weapon skills</button><button data-dataset="jobAbilities">Job abilities</button>
       </div>
       <div class="reference-toolbar"><div class="search"><span>⌕</span><input id="reference-search" type="search" placeholder="Search name, job, type, or effect…"></div><span id="reference-count"></span></div>
       <div class="reference-grid" id="reference-grid" aria-live="polite"></div>
-      <p class="callout"><strong>Version III foundation:</strong> this searchable catalog ships with a useful core collection. A later database export can replace it with exact records from <code>ffxidb_recovery_test</code>.</p>
+      <p class="callout" id="database-summary"><strong>Loading:</strong> preparing the complete server-matched reference.</p>
+    </section>
+
+    <section class="chapter" id="gear">
+      <div class="chapter-head"><span>07</span><div><p>Text-based equipment planner</p><h2>Build for the level you are.</h2></div></div>
+      <div class="gear-controls">
+        <label>Job<select id="gear-job"></select></label>
+        <label>Level<input id="gear-level" type="number" min="1" max="99" value="30"></label>
+        <label>Priority<select id="gear-focus"><option value="balanced">Balanced</option><option value="accuracy">Accuracy</option><option value="attack">Attack</option><option value="defense">Defense</option><option value="magic">Magic</option></select></label>
+      </div>
+      <div class="gear-result" id="gear-result" aria-live="polite"></div>
+      <p class="source-note">The planner is an original milestone guide inspired by the comparison approach used by <a href="https://myffxigear.kicks-ass.org/" target="_blank" rel="noopener">Claquesous Equipment</a>. Availability and augments can differ by server.</p>
+    </section>
+
+    <section class="chapter" id="crafts">
+      <div class="chapter-head"><span>08</span><div><p>Complete recipe workshop</p><h2>Choose the next repeatable synth.</h2></div></div>
+      <div class="craft-controls">
+        <div class="craft-tabs" id="craft-tabs"></div>
+        <label>Current skill<input id="craft-skill" type="number" min="0" max="110" value="0"></label>
+        <label class="check-control"><input id="craft-simple" type="checkbox" checked> Favor 1–2 ingredient recipes</label>
+      </div>
+      <div class="craft-overview" id="craft-overview"></div>
+      <div class="recipe-table" id="recipe-table" aria-live="polite"></div>
+      <div class="rank-strip" id="rank-strip"></div>
+      <p class="callout"><strong>How to use the route:</strong> synth a few levels below the cap while success is reliable, then move forward as gains slow. Guild rank tests are separate from Guild Point contracts; Guild Points begin at Novice after the contract is signed.</p>
     </section>
 
     <section class="chapter" id="skillchains">
-      <div class="chapter-head"><span>06</span><div><p>Interactive skillchain planner</p><h2>Build the next connection.</h2></div></div>
+      <div class="chapter-head"><span>09</span><div><p>Interactive skillchain planner</p><h2>Build the next connection.</h2></div></div>
       <p class="chain-intro">Select the property created by the first weapon skill. The planner highlights valid follow-up properties and the resulting skillchain.</p>
       <div class="chain-picker" id="chain-picker"></div>
       <div class="chain-results" id="chain-results" aria-live="polite"></div>
@@ -111,7 +152,7 @@
     </section>
 
     <section class="chapter" id="fishing">
-      <div class="chapter-head"><span>07</span><div><p>Fisher’s field journal</p><h2>Choose the water, rod, and bait.</h2></div></div>
+      <div class="chapter-head"><span>10</span><div><p>Fisher’s field journal</p><h2>Choose the water, rod, and bait.</h2></div></div>
       <div class="fishing-grid">
         <article><span>01</span><h3>Begin with dependable gear</h3><p>Fisherman’s gear adds fishing skill. A Halcyon Rod is a practical early choice; Lu Shang’s and Ebisu become long-term goals.</p></article>
         <article><span>02</span><h3>Match bait to the catch</h3><p>Freshwater and saltwater pools contain different fish. Rod strength, bait type, fish size, and target skill all affect the result.</p></article>
@@ -121,14 +162,24 @@
       <div class="fish-route">
         <div><b>Skill 0–11</b><strong>Moat Carp</strong><span>Halcyon Rod · Insect Ball</span></div>
         <i></i><div><b>Skill 11–27</b><strong>Nebimonite</strong><span>Halcyon Rod · Shrimp Lure</span></div>
-        <i></i><div><b>Advanced</b><strong>Target by zone</strong><span>Upgrade gear and follow fish caps</span></div>
+        <i></i><div><b>Skill 27–53</b><strong>Istridye</strong><span>Nashmau · Lu Shang’s Rod · Rogue Rig</span></div>
+        <i></i><div><b>Skill 53–90</b><strong>Mercanbaligi / Ahtapot</strong><span>Nashmau · Lu Shang’s Rod · Shrimp Lure</span></div>
+        <i></i><div><b>Skill 86–99</b><strong>Pterygotus</strong><span>Lugworm or Sinking Minnow</span></div>
       </div>
-      <p class="source-note">Fishing references: <a href="https://www.bg-wiki.com/ffxi/Category:Fishing" target="_blank" rel="noopener">BG-Wiki Fishing</a> · <a href="https://www.bg-wiki.com/ffxi/Community_Fishing_Guide" target="_blank" rel="noopener">Community Fishing Guide</a> · <a href="https://www.bg-wiki.com/ffxi/Category:Moon_Phase" target="_blank" rel="noopener">Moon Phase</a>. Server-specific behavior can differ from retail documentation.</p>
+      <p class="source-note">Fishing route references: <a href="https://www.bluegartr.com/threads/84574-Fishing-Guide-1-100" target="_blank" rel="noopener">BlueGartr Fishing Guide 1–100</a> · <a href="https://www.bg-wiki.com/ffxi/Community_Fishing_Guide" target="_blank" rel="noopener">BG-Wiki Community Fishing Guide</a>. Server-specific pools and bite behavior can differ.</p>
+    </section>
+
+    <section class="chapter" id="calendar">
+      <div class="chapter-head"><span>11</span><div><p>Vana’diel elemental calendar</p><h2>Read the day before you synth.</h2></div></div>
+      <div class="element-cycle">
+        <article class="fire"><b>▲</b><strong>Firesday</strong><span>Fire · strong against Ice</span></article><article class="earth"><b>◆</b><strong>Earthsday</strong><span>Earth · strong against Lightning</span></article><article class="water"><b>●</b><strong>Watersday</strong><span>Water · strong against Fire</span></article><article class="wind"><b>✦</b><strong>Windsday</strong><span>Wind · strong against Earth</span></article><article class="ice"><b>❄</b><strong>Iceday</strong><span>Ice · strong against Wind</span></article><article class="lightning"><b>ϟ</b><strong>Lightningday</strong><span>Lightning · strong against Water</span></article><article class="light"><b>✹</b><strong>Lightsday</strong><span>Light · opposes Dark</span></article><article class="dark"><b>◐</b><strong>Darksday</strong><span>Dark · opposes Light</span></article>
+      </div>
+      <p class="callout"><strong>Live guidance:</strong> the hero clock highlights the current element, moon phase, and exact Earth-time countdown to the next day. Regional clouds and storms are separate zone weather and are not inferred from the weekday.</p>
     </section>
 
     <section class="chapter split" id="quests">
       <div>
-        <div class="chapter-head"><span>08</span><div><p>Quest compass</p><h2>Explore with purpose.</h2></div></div>
+        <div class="chapter-head"><span>12</span><div><p>Quest compass</p><h2>Explore with purpose.</h2></div></div>
         <div class="timeline">
           <article><span>Home nation</span><h3>Talk before traveling</h3><p>Check gates, shops, guilds, and residential districts. Early quests teach the geography and unlock useful conveniences.</p></article>
           <article><span>Fields</span><h3>Collect while leveling</h3><p>Keep common drops until you know their quest and crafting value. Inventory planning is part of classic FFXI progression.</p></article>
@@ -139,7 +190,7 @@
     </section>
 
     <section class="chapter" id="missions">
-      <div class="chapter-head"><span>09</span><div><p>Mission roadmap</p><h2>Follow the story outward.</h2></div></div>
+      <div class="chapter-head"><span>13</span><div><p>Mission roadmap</p><h2>Follow the story outward.</h2></div></div>
       <div class="mission-road">
         <article><b>Rank 1–2</b><h3>Serve your nation</h3><p>Learn the nearby regions, beastmen, and gate-guard mission flow.</p></article>
         <i></i><article><b>Rank 3</b><h3>Three nations</h3><p>The world opens as national stories begin to intersect.</p></article>
@@ -150,6 +201,6 @@
     </section>
   </main>
 
-  <footer><div><span>✦</span><strong>FFXI VR: Current Reality</strong></div><p>Private server compendium · Version III</p><a href="admin/">Administration</a></footer>
+  <footer><div><span>✦</span><strong>FFXI VR: Current Reality</strong></div><p>Private server compendium · Version IV</p><a href="admin/">Administration</a></footer>
 </body>
 </html>

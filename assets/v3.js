@@ -20,7 +20,9 @@ function renderReference() {
   const query = document.querySelector('#reference-search').value.trim().toLowerCase();
   const rows = referenceData[activeDataset].filter(row => row.join(' ').toLowerCase().includes(query));
   document.querySelector('#reference-count').textContent = `${rows.length} ${datasetNames[activeDataset].toLowerCase()}`;
-  document.querySelector('#reference-grid').innerHTML = rows.map(row => `<article><div><span>${row[3]}</span><h3>${row[0]}</h3></div><b>${row[1]}</b><p>${row[2]}</p></article>`).join('') || '<p class="empty">No matching records.</p>';
+  const visible = rows.slice(0, 120);
+  document.querySelector('#reference-grid').innerHTML = visible.map(row => `<article><div><span>${row[3]}</span><h3>${row[0]}</h3></div><b>${row[1]}</b><p>${row[2]}</p></article>`).join('') || '<p class="empty">No matching records.</p>';
+  if (rows.length > visible.length) document.querySelector('#reference-grid').insertAdjacentHTML('beforeend', `<p class="empty result-limit">Showing the first ${visible.length}. Refine your search to reach the remaining ${rows.length - visible.length} records.</p>`);
 }
 
 document.querySelectorAll('#reference-tabs [data-dataset]').forEach(button => button.addEventListener('click', () => {
@@ -73,5 +75,3 @@ function updateVanaClock() {
 
 renderReference();
 renderChains();
-updateVanaClock();
-setInterval(updateVanaClock, 1000);

@@ -1,0 +1,8 @@
+.elemental-day{justify-content:flex-start!important;gap:13px!important;padding:13px 0!important}
+.elemental-day i{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);font-size:20px;font-style:normal}
+.elemental-day p{margin:0}
+.elemental-day b,.elemental-day em{display:block;font:8px/1.6 Arial;text-transform:uppercase}
+.elemental-day b{color:var(--ink)}
+.elemental-day em{color:var(--muted);font-style:normal}
+.moon-readout{padding:11px 0!important}
+.moon-readout b{color:var(--gold)!important;font:11px Arial!important}

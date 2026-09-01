@@ -1,4 +1,4 @@
-# FFXI VR: Current Reality Compendium v3
+# FFXI VR: Current Reality Compendium v4
 
 Static GitHub Pages site for `https://kalvx.github.io/ffxi-vr/`.
 
@@ -11,7 +11,7 @@ Static GitHub Pages site for `https://kalvx.github.io/ffxi-vr/`.
 
 ## Layout
 
-- `/` — public jobs, macros, items, spells, weapon skills, job abilities, interactive skillchains, fishing, quests, missions, and Vana’diel clock.
+- `/` — public jobs, macros, gear milestones, craft routes, recipes, skillchains, fishing, weather observations, quests, missions, and a server-aligned Vana’diel clock.
 - `/admin/` — passphrase gate.
 - `/admin/content/` — FFXI VR: Current Reality GM command compendium.
 

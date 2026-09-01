@@ -1,0 +1,8 @@
+.element-cycle{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.element-cycle article{padding:18px;border:1px solid var(--line);background:#09171c}
+.element-cycle b{display:block;font-size:25px}
+.element-cycle strong{display:block;margin:12px 0 6px;font-size:17px;font-weight:400}
+.element-cycle span{color:var(--muted);font:9px Arial;text-transform:uppercase}
+.element-cycle .fire b{color:#ef6b4a}.element-cycle .earth b{color:#c9a65b}.element-cycle .water b{color:#4aa6d8}.element-cycle .wind b{color:#62c79a}.element-cycle .ice b{color:#83d8e8}.element-cycle .lightning b{color:#a989e8}.element-cycle .light b{color:#f1df91}.element-cycle .dark b{color:#9b77b7}
+@media(max-width:900px){.element-cycle{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.element-cycle{grid-template-columns:1fr}}
