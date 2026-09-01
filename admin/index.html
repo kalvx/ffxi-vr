@@ -3,25 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>FFXI VR: Current Reality · GM Access</title>
-  <link rel="stylesheet" href="admin.css">
+  <title>Administration | FFXI VR: Current Reality</title>
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/v4.css">
 </head>
-<body class="login-page">
-  <main class="login-card">
-    <div class="crystal">✦</div>
-    <p class="eyebrow">FFXI VR: Current Reality · Restricted Field Manual</p>
-    <h1>GM Access</h1>
-    <p class="intro">Enter the local administrator passphrase to open the private command compendium.</p>
-    <form id="login-form">
-      <label for="password">Passphrase</label>
-      <input id="password" type="password" autocomplete="current-password" required autofocus>
-      <button type="submit">Unlock compendium</button>
-      <p id="status" role="alert"></p>
-    </form>
-    <a class="back" href="../">← Return to public field guide</a>
-    <p class="warning">GitHub Pages is static hosting. This gate discourages casual access, but cannot provide server-grade protection.</p>
+<body>
+  <main class="chapter" style="max-width:760px;margin:5rem auto;padding:2rem">
+    <p class="eyebrow">Private administration</p>
+    <h1>Current Reality GM Operations</h1>
+    <p class="lede">GM commands and server-management references are not stored in the public compendium.</p>
+    <section class="chapter" style="margin-top:2rem">
+      <h2>Authenticated server required</h2>
+      <p>The private library is served separately by the Current Reality Admin Server. When that local service is stopped, the protected material is unavailable.</p>
+      <p><a class="button" href="http://127.0.0.1:8089/">Open local Admin Server</a></p>
+      <p><small>This address works only on the computer running the admin service.</small></p>
+    </section>
+    <p><a href="../">← Return to the public compendium</a></p>
   </main>
-  <script src="auth-config.js"></script>
-  <script src="auth.js"></script>
 </body>
 </html>
