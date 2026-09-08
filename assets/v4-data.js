@@ -1,3 +1,4 @@
+const itemDetailStyles=document.createElement('link');itemDetailStyles.rel='stylesheet';itemDetailStyles.href=new URL('item-details.css',document.currentScript.src);document.head.append(itemDetailStyles);
 let gameData=null,dossierJob='WAR',dossierView='overview',dossierLevel='1-10';
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const seconds=value=>value?value>=60?`${Math.round(value/60)} min`:`${value} sec`:'—';
@@ -15,13 +16,34 @@ const slotNames={1:'Main',2:'Sub',4:'Ranged',8:'Ammo',16:'Head',32:'Body',64:'Ha
 function equipSlot(slot){return Object.entries(slotNames).filter(([bit])=>slot&Number(bit)).map(([,name])=>name).join(' / ')||'Equipment';}
 function itemGroup(x){if(x.kind==='Weapon')return['Weapons',x.weapon?.skill||'Weapon'];if(x.kind==='Equipment'){const slot=equipSlot(x.equip?.slot||0);return[/^(Head|Body|Hands|Legs|Feet)$/.test(slot)?'Armor':'Accessories',slot]};if(x.id<=1023)return['Furnishings','Furnishing'];if(x.kind==='Usable')return['Consumables','Consumable'];if(x.id>=8192&&x.id<=10239)return['Automaton & special','Automaton / special item'];return['Materials & miscellaneous','Material / miscellaneous']}
 
+function itemLink(id){return `${location.pathname}?item=${id}`;}
+const itemSourceShards=new Map();
+async function loadItemSource(id){const shard=Math.floor(Number(id)/256);if(!itemSourceShards.has(shard)){const source=document.querySelector('script[src$="v4-data.js"]')?.src||location.href;itemSourceShards.set(shard,fetch(new URL(`data/item-sources/${shard}.json`,source)).then(r=>{if(!r.ok)throw new Error(`Item sources ${r.status}`);return r.json();}));}const records=await itemSourceShards.get(shard);return records[String(id)]||{};}
+function recipeSummary(recipe){return `${recipe.crystal.name}: ${recipe.ingredients.map(x=>`${x.name}${x.qty>1?` ×${x.qty}`:''}`).join(' + ')}`;}
+function sourceSection(title,rows,empty='No matching source is recorded in this server build.'){return `<section><h3>${esc(title)}</h3>${rows.length?`<div class="item-source-list">${rows.join('')}</div>`:`<p class="empty">${esc(empty)}</p>`}</section>`;}
+async function openItemDetail(id,push=true){
+  const item=gameData?.items.find(x=>x.id===Number(id));if(!item)return;
+  const sourceRecord=await loadItemSource(item.id);item.ah=sourceRecord.ah||item.ah;item.sources=sourceRecord.sources||item.sources;
+  let panel=document.querySelector('#item-detail');if(!panel){panel=document.createElement('article');panel.id='item-detail';panel.className='item-detail';document.querySelector('#reference-grid').before(panel);}
+  const s=item.sources||{},recipes=new Map(gameData.recipes.map(x=>[x.id,x]));
+  const ah=item.ah?.listed?item.ah.path.join(' → '):item.ah?.path?.join(' → ')||'Not categorized';
+  const vendors=(s.vendors||[]).map(x=>`<article><strong>${esc(x.name)}</strong><span>${esc(x.zone)}${x.x!=null?` · coordinates ${x.x}, ${x.y}, ${x.z}`:''}</span><small>${x.price!=null?`${x.price.toLocaleString()} gil`:x.priceMin!=null?`${x.priceMin.toLocaleString()}–${x.priceMax.toLocaleString()} gil · Guild shop`:'Shop inventory'}</small></article>`);
+  const drops=(s.drops||[]).map(x=>`<article><strong>${esc(x.monster)}</strong><span>${esc(x.zone)} · Lv. ${x.levelMin}${x.levelMax!==x.levelMin?`–${x.levelMax}`:''}</span><small>Recorded item rate: ${x.rate}%</small></article>`);
+  const quests=(s.quests||[]).map(x=>`<article><strong>${esc(x.quest)}</strong><span>${esc(x.area)}</span><small>Referenced by this server quest script</small></article>`);
+  const crafted=(s.craftedBy||[]).map(rid=>recipes.get(rid)).filter(Boolean).map(r=>`<article><strong>${Object.entries(r.skills).map(([k,v])=>`${k} ${v}`).join(' · ')}</strong><span>${esc(recipeSummary(r))}</span><small>Produces ${r.result.qty} × ${esc(r.result.name)}</small></article>`);
+  const used=(s.usedIn||[]).map(rid=>recipes.get(rid)).filter(Boolean).map(r=>`<article><strong>${esc(r.result.name)}</strong><span>${esc(recipeSummary(r))}</span><small>${Object.entries(r.skills).map(([k,v])=>`${k} ${v}`).join(' · ')}</small></article>`);
+  panel.innerHTML=`<header><div><p class="eyebrow">Item ${item.id}</p><h2>${esc(item.name)}</h2><p>${esc(item.kind)} · Stack ${item.stack} · Base vendor value ${item.sell.toLocaleString()} gil</p></div><button type="button" data-close-item aria-label="Close item details">×</button></header><div class="item-ah-path"><small>Auction House location</small><strong>${esc(ah)}</strong>${item.ah?.listed?'':`<span>This item cannot be listed in a normal Auction House category.</span>`}</div><div class="item-source-grid">${sourceSection('NPC and guild shops',vendors)}${sourceSection('Monster drops',drops)}${sourceSection('Quest involvement',quests)}${sourceSection('Crafted with',crafted)}${sourceSection('Used in recipes',used)}</div><footer><a href="${itemLink(item.id)}">Permanent link to this item</a></footer>`;
+  panel.querySelector('[data-close-item]').onclick=()=>{panel.remove();history.replaceState({},'',location.pathname);};
+  panel.scrollIntoView({behavior:'smooth',block:'start'});if(push)history.replaceState({},'',itemLink(item.id));
+}
+window.openItemDetail=openItemDetail;
 function loadReferenceData(){
-  referenceData.items=gameData.items.map(x=>{const [group,subtype]=itemGroup(x);return[x.name,subtype,[x.equip?`Level ${x.equip.level}${x.equip.ilevel?` · iLvl ${x.equip.ilevel}`:''}`:'',x.weapon?`${x.weapon.damage} DMG · ${x.weapon.delay} delay · ${x.weapon.skill}`:'',x.usable?`${x.usable.charges||'Single'} use · ${seconds(x.usable.reuse)} reuse`:'',`Stack ${x.stack}`].filter(Boolean).join(' · '),group,group]});
+  referenceData.items=gameData.items.map(x=>{const [group,subtype]=itemGroup(x);return[x.name,subtype,[x.equip?`Level ${x.equip.level}${x.equip.ilevel?` · iLvl ${x.equip.ilevel}`:''}`:'',x.weapon?`${x.weapon.damage} DMG · ${x.weapon.delay} delay · ${x.weapon.skill}`:'',x.usable?`${x.usable.charges||'Single'} use · ${seconds(x.usable.reuse)} reuse`:'',`Stack ${x.stack}`].filter(Boolean).join(' · '),group,group,x.id]});
   referenceData.spells=gameData.spells.map(x=>[x.name,Object.entries(x.jobs).map(([j,l])=>`${j} ${l}`).join(' · ')||'Special',`${x.element} · ${x.mp} MP · cast ${x.cast} ms · recast ${x.recast} ms${x.aoe?' · Area':''}`,'Spell']);
   referenceData.weaponSkills=gameData.weaponSkills.map(x=>[x.name,x.weapon,`Skill ${x.skill}${x.sc.length?` · ${x.sc.join(' / ')}`:''} · ${x.jobs.join(' · ')||'Special'}`,'Weapon skill']);
   referenceData.jobAbilities=gameData.abilities.map(x=>[x.name,`${x.job}${x.level?` Lv.${x.level}`:''}`,`Recast ${seconds(x.recast)}${x.aoe?' · Area':''}${x.content?` · ${x.content}`:''}`,'Ability']);
   document.querySelector('#database-summary').innerHTML=`<strong>Complete server reference:</strong> ${gameData.meta.items.toLocaleString()} items · ${gameData.meta.spells.toLocaleString()} spells · ${gameData.meta.weaponSkills.toLocaleString()} weapon skills · ${gameData.meta.abilities.toLocaleString()} abilities · ${gameData.meta.recipes.toLocaleString()} recipes.`;
-  renderReference();
+  renderReference();const requested=new URLSearchParams(location.search).get('item');if(requested)openItemDetail(requested,false);
 }
 
 function actionCard(type,name,detail,command){return `<article><span>${esc(type)}</span><strong>${esc(name)}</strong><p>${esc(detail)}</p><code>${esc(command)}</code><button data-copy="${esc(command)}">Copy</button></article>`;}
