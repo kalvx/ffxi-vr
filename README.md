@@ -1,20 +1,21 @@
-# FFXI VR: Current Reality Compendium v4
+# FFXI VR: Current Reality Compendium
 
 Static GitHub Pages site for `https://kalvx.github.io/ffxi-vr/`.
 
 ## Before publishing
 
-1. Run `tools\SET_ADMIN_PASSWORD.ps1` in PowerShell.
-2. Test locally with `START_LOCAL.bat`.
+1. Test locally with `START_LOCAL.bat`.
+2. Confirm no GM-command data or secrets are present.
 3. Publish the contents of this folder to the `main` branch of `kalvx/ffxi-vr`.
 4. In GitHub, enable Pages from `main` / `(root)`.
 
 ## Layout
 
-- `/` — public jobs, macros, gear milestones, craft routes, recipes, skillchains, fishing, weather observations, quests, missions, and a server-aligned Vana’diel clock.
-- `/admin/` — passphrase gate.
-- `/admin/content/` — FFXI VR: Current Reality GM command compendium.
+- `/` — lightweight category hub and server-aligned Vana’diel clock.
+- `/guides/` — player travel, nation mission, and city quest guides.
+- `/library.html` — searchable jobs, macros, addons, items, crafting, skillchains, fishing, and calendar tools.
+- `/admin/` — information-only bridge to the separately hosted private admin server.
 
 ## Security note
 
-GitHub Pages has no server-side authentication. The admin gate stores a SHA-256 hash and prevents casual browser access, but determined visitors can inspect or download anything committed to a public repository. Do not put credentials, database passwords, personal data, or other secrets in this repository.
+GitHub Pages has no server-side authentication. Never commit GM commands, private reference exports, credentials, database passwords, personal data, password hashes, or authentication scripts to this repository. The operational GM manual belongs only in the separate password-protected private admin server.

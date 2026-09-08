@@ -3,333 +3,80 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="FFXI VR: Current Reality guides, searchable reference tools, skillchains, and live Vana’diel time.">
+  <meta name="description" content="FFXI VR: Current Reality missions, quests, player guides, tools, and server reference.">
   <title>FFXI VR: Current Reality Compendium</title>
   <link rel="stylesheet" href="assets/site.css">
-  <link rel="stylesheet" href="assets/components.css">
-  <link rel="stylesheet" href="assets/v3.css">
-  <link rel="stylesheet" href="assets/v3-fishing.css">
-  <link rel="stylesheet" href="assets/v4.css">
-  <link rel="stylesheet" href="assets/v4-clock.css">
-  <link rel="stylesheet" href="assets/v4-data.css">
-  <link rel="stylesheet" href="assets/v4-calendar.css">
-  <link rel="stylesheet" href="assets/v4-jobs.css">
-  <script src="assets/site.js" defer></script>
-  <script src="assets/v3.js" defer></script>
-  <script src="assets/v4.js" defer></script>
-  <script src="assets/v4-data.js" defer></script>
-  <style>
-    .addon-toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:22px 0}.addon-toolbar .search{flex:1;min-width:260px}.addon-command-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}.addon-card{background:linear-gradient(145deg,rgba(31,34,60,.96),rgba(13,16,30,.96));border:1px solid rgba(145,125,255,.28);border-radius:18px;padding:20px;box-shadow:0 14px 35px rgba(0,0,0,.18)}.addon-card[hidden]{display:none}.addon-card-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}.addon-card-head i{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:rgba(123,96,255,.16);color:#b8aaff;font-style:normal}.addon-card h3{margin:0}.addon-card>p{color:#aeb2c5;min-height:42px}.command-list{display:grid;gap:8px;margin-top:15px}.command-row{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;padding:10px 12px;border-radius:11px;background:rgba(4,7,15,.55);border:1px solid rgba(255,255,255,.07)}.command-row code{color:#8ee8ff;overflow-wrap:anywhere}.command-row span{color:#959aad;font-size:.78rem}.addon-empty{display:none;padding:28px;text-align:center;color:#aeb2c5}.addon-empty.visible{display:block}.command-note{margin-top:18px}
-  </style>
-</head>
+  <link rel="stylesheet" href="assets/wiki.css">
+  <script src="assets/home.js" defer></script>
+<script src="assets/wiki.js" defer></script></head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#top"><span class="crystal">✦</span><span><small>FFXI VR</small><strong>Current Reality</strong></span></a>
-    <nav><a href="#jobs">Jobs</a><a href="#macros">Macros</a><a href="#addons">Addons</a><a href="#gear">Gear</a><a href="#crafts">Crafts</a><a href="#skillchains">Skillchains</a><a href="#fishing">Fishing</a><a class="admin-link" href="admin/">GM Login</a></nav>
-  </header>
+  <header class="topbar"><a class="brand" href="index.html"><span class="crystal">✦</span><span><small>FFXI VR</small><strong>Current Reality</strong></span></a><nav aria-label="Main navigation"><a href="guides/index.html">Guides</a><a href="missions/index.html">Missions</a><a href="quests/index.html">Quests</a><a href="trusts/index.html">Trusts</a><a href="reference/index.html">Database</a><a class="admin-link" href="admin/index.html">GM Login</a></nav></header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="hero-copy">
-        <img class="hero-logo" src="assets/vr-current-reality-logo.png" alt="VR Current Reality">
-        <p class="eyebrow">One world · a different reality</p>
-        <p class="lede">The living companion for FFXI VR: Current Reality—jobs, macros, items, spells, weapon skills, skillchains, quests, missions, and server-aligned Vana’diel time.</p>
-        <div class="hero-actions"><a class="primary" href="#jobs">Choose a job</a><a href="#start">Start here</a></div>
-      </div>
-      <div class="hero-panel">
-        <p>Compendium · Version IV</p>
-        <div class="vana-clock" id="vana-clock"><span>Vana’diel time</span><strong id="vana-time">--:--</strong><small id="vana-date">Synchronizing…</small><div class="elemental-day"><i id="vana-element-icon">◆</i><p><b id="vana-element">Element</b><em id="vana-next-day">Next day in --:--</em></p></div><div class="moon-readout"><span>Moon</span><b id="vana-moon">Calculating…</b></div></div>
-        <div><strong>22</strong><span>adventuring jobs</span></div>
-        <div><strong>1,700+</strong><span>copy-ready actions</span></div>
-        <div><strong>28K+</strong><span>server records</span></div>
-        <small>Automatically calculated from the same epoch and 25× time scale used by the a899 map server.</small>
-      </div>
-    </section>
+  <div class="wiki-layout home-layout">
+    <aside class="wiki-sidebar"><h2>Compendium</h2><nav aria-label="Compendium directory"><h3>Adventure</h3><a href="guides/index.html">Guide index</a><a href="missions/index.html">Missions</a><a href="quests/index.html">Quests</a><a href="travel/index.html">Travel</a><a href="trusts/index.html">Trusts</a><h3>Character</h3><a href="jobs/index.html">Jobs</a><a href="macros/index.html">Macros</a><a href="skillchains/index.html">Skillchains</a><h3>Items & systems</h3><a href="gear/index.html">Gear</a><a href="crafting/index.html">Crafting</a><a href="fishing/index.html">Fishing</a><a href="calendar/index.html">Calendar</a><a href="reference/index.html">Database</a><a href="addons/index.html">Addons</a></nav></aside>
 
-    <section class="chapter intro" id="start">
-      <div class="chapter-head"><span>01</span><div><p>New adventurer route</p><h2>Start with a strong foundation.</h2></div></div>
-      <div class="feature-grid">
-        <article><b>01</b><h3>Pick a role</h3><p>Damage, defense, healing, support, or pet control. Choose what sounds fun before chasing a perfect build.</p></article>
-        <article><b>02</b><h3>Set six macros</h3><p>Begin with targeting, one core ability, one emergency action, and your most-used spells or pet commands.</p></article>
-        <article><b>03</b><h3>Train naturally</h3><p>Weapon and magic skills matter. Fight appropriate enemies and keep your primary tools near their current cap.</p></article>
-        <article><b>04</b><h3>Follow your nation</h3><p>Nation missions provide the clearest early progression. Side quests can be layered in as you explore.</p></article>
-      </div>
-    </section>
-
-    <section class="chapter" id="macros">
-      <div class="chapter-head"><span>02</span><div><p>Searchable command builder</p><h2>Macro Workshop.</h2></div></div>
-      <div class="job-tools">
-        <div class="search"><span>⌕</span><input id="job-search" type="search" placeholder="Search job, role, or macro…"></div>
-        <div class="role-filters" id="role-filters"><button class="active" data-role="all">All jobs</button><button data-role="damage">Damage</button><button data-role="support">Support</button><button data-role="defense">Defense</button><button data-role="pet">Pet</button></div>
-      </div>
-      <div class="job-layout">
-        <div class="job-list" id="job-list"></div>
-        <article class="job-detail" id="job-detail" aria-live="polite"></article>
-      </div>
-      <div class="token-guide">
-        <div><code>&lt;t&gt;</code><span>current target</span></div><div><code>&lt;me&gt;</code><span>your character</span></div><div><code>&lt;stpc&gt;</code><span>select a player</span></div><div><code>&lt;stnpc&gt;</code><span>select an enemy</span></div><div><code>&lt;stal&gt;</code><span>alliance member</span></div>
-      </div>
-      <div class="macro-library">
-        <div class="reference-toolbar"><div class="search"><span>⌕</span><input id="macro-search" type="search" placeholder="Search /ws, /equip, targets, pet commands, waits, or any action…"></div><select id="macro-job"></select><select id="macro-type"><option value="all">All commands</option><option value="weaponskill">Weapon skills · /ws</option><option value="ability">Abilities · /ja</option><option value="spell">Spells · /ma</option><option value="pet">Pet commands · /pet</option><option value="equipment">Equipment · /equip</option><option value="combat">Combat and targeting</option><option value="item">Items</option><option value="communication">Chat and notices</option><option value="utility">Waits and utility</option></select></div>
-        <div class="macro-results" id="macro-results"></div>
-      </div>
-    </section>
-
-    <section class="chapter" id="addons">
-      <div class="chapter-head"><span>✦</span><div><p>Current Reality client reference</p><h2>Addon Command Compendium.</h2></div></div>
-      <p>Search the commands included with the Current Reality Ashita 4 client. Commands are entered in the in-game chat box. Addons and plugins can also be enabled or disabled from Launcher Settings before Play.</p>
-      <div class="addon-toolbar"><div class="search"><span>⌕</span><input id="addon-search" type="search" placeholder="Search addon, command, camera, map, FPS, party…" autocomplete="off"></div><span id="addon-count"></span></div>
-      <div class="addon-command-grid" id="addon-command-grid">
-        <article class="addon-card" data-addon="ashita addon plugin load unload reload management">
-          <div class="addon-card-head"><i>⚙</i><h3>Ashita management</h3></div><p>Load, unload, or reload a bundled addon or plugin during the current session.</p>
-          <div class="command-list">
-            <div class="command-row"><code>/addon load &lt;name&gt;</code><span>Load an addon, such as xicamera or boussole.</span></div>
-            <div class="command-row"><code>/addon unload &lt;name&gt;</code><span>Unload an addon for this session.</span></div>
-            <div class="command-row"><code>/addon reload &lt;name&gt;</code><span>Reload an addon after changing its configuration.</span></div>
-            <div class="command-row"><code>/load &lt;plugin&gt;</code><span>Load an Ashita plugin.</span></div>
-            <div class="command-row"><code>/unload &lt;plugin&gt;</code><span>Unload an Ashita plugin.</span></div>
-          </div>
-        </article>
-
-        <article class="addon-card" data-addon="xicamera camera zoom distance battle pan speed lock">
-          <div class="addon-card-head"><i>◉</i><h3>XICamera</h3></div><p>Adjust normal and battle camera distance, rotation range, and panning speed.</p>
-          <div class="command-list">
-            <div class="command-row"><code>/cam distance 9</code><span>Set normal camera distance. Alias: <code>/cam d 9</code>.</span></div>
-            <div class="command-row"><code>/cam battle 12</code><span>Set battle camera distance. Alias: <code>/cam b 12</code>.</span></div>
-            <div class="command-row"><code>/cam brange 4</code><span>Set battle rotation range from 0–100. Alias: <code>/cam br</code>.</span></div>
-            <div class="command-row"><code>/cam battlelock on</code><span>Lock or unlock the battle range governor. Alias: <code>/cam bl</code>.</span></div>
-            <div class="command-row"><code>/cam hspeed 3</code><span>Set horizontal panning speed. Alias: <code>/cam hs</code>.</span></div>
-            <div class="command-row"><code>/cam vspeed 10.7</code><span>Set vertical panning speed. Alias: <code>/cam vs</code>.</span></div>
-            <div class="command-row"><code>/cam incr</code><span>Increase normal distance. Aliases: <code>/cam in</code>.</span></div>
-            <div class="command-row"><code>/cam decr</code><span>Decrease normal distance. Alias: <code>/cam de</code>.</span></div>
-            <div class="command-row"><code>/cam bincr</code><span>Increase battle distance. Alias: <code>/cam bin</code>.</span></div>
-            <div class="command-row"><code>/cam bdecr</code><span>Decrease battle distance. Alias: <code>/cam bde</code>.</span></div>
-            <div class="command-row"><code>/cam saveOnIncrement</code><span>Toggle saving when incrementing or decrementing. Alias: <code>/cam soi</code>.</span></div>
-            <div class="command-row"><code>/cam autoCalcVertSpeed</code><span>Toggle automatic vertical-speed calculation. Alias: <code>/cam acv</code>.</span></div>
-            <div class="command-row"><code>/cam status</code><span>Show current camera settings. Alias: <code>/cam s</code>.</span></div>
-            <div class="command-row"><code>/cam help</code><span>Show XICamera help. Alias: <code>/cam h</code>.</span></div>
-          </div>
-        </article>
-
-        <article class="addon-card" data-addon="boussole map minimap navigation markers homepoints survival guides floors">
-          <div class="addon-card-head"><i>⌖</i><h3>Boussole</h3></div><p>Control the enhanced map, minimap, markers, and generated floor information.</p>
-          <div class="command-list">
-            <div class="command-row"><code>/boussole</code><span>Toggle the Boussole interface.</span></div>
-            <div class="command-row"><code>/boussole show</code><span>Show the interface.</span></div>
-            <div class="command-row"><code>/boussole hide</code><span>Hide the interface.</span></div>
-            <div class="command-row"><code>/boussole minimap</code><span>Toggle minimap mode.</span></div>
-            <div class="command-row"><code>/boussole genfloors</code><span>Regenerate the zone-floor data file.</span></div>
-          </div>
-        </article>
-
-        <article class="addon-card" data-addon="xipivot pivot remapster dat overlay maps mods query dump">
-          <div class="addon-card-head"><i>⇄</i><h3>XIPivot and Remapster</h3></div><p>Inspect and manage non-destructive DAT overlays. Remapster is the default Current Reality map overlay.</p>
-          <div class="command-list">
-            <div class="command-row"><code>/pivot</code><span>Open the XIPivot configuration interface.</span></div>
-            <div class="command-row"><code>/pivot dump</code><span>Write the current overlay list and cache settings to the Pivot log.</span></div>
-            <div class="command-row"><code>/pivot query &lt;DAT path&gt;</code><span>Identify which overlay supplies a particular file.</span></div>
-            <div class="command-row"><code>/pivot query all</code><span>Write a report containing all active redirects.</span></div>
-            <div class="command-row"><code>/pivot help</code><span>Show Pivot command help.</span></div>
-          </div>
-        </article>
-
-        <article class="addon-card" data-addon="fps framerate frame rate limit display">
-          <div class="addon-card-head"><i>▥</i><h3>FPS</h3></div><p>Current Reality loads the FPS addon automatically and binds the standard FPS control.</p>
-          <div class="command-list">
-            <div class="command-row"><code>/fps</code><span>Use the addon’s FPS command interface.</span></div>
-            <div class="command-row"><code>F12</code><span>Current Reality startup binding for the FPS command.</span></div>
-            <div class="command-row"><code>/addon reload fps</code><span>Reload FPS after changing its saved configuration.</span></div>
-          </div>
-        </article>
-
-        <article class="addon-card" data-addon="screenshot image capture hide interface sysrq print screen">
-          <div class="addon-card-head"><i>▣</i><h3>Screenshot</h3></div><p>Capture screenshots with optional interface hiding.</p>
-          <div class="command-list">
-            <div class="command-row"><code>/screenshot hide</code><span>Capture while hiding supported interface elements.</span></div>
-            <div class="command-row"><code>Print Screen</code><span>Current Reality startup binding for <code>/screenshot hide</code>.</span></div>
-            <div class="command-row"><code>/load screenshot</code><span>Load the Screenshot plugin.</span></div>
-          </div>
-        </article>
-
-        <article class="addon-card" data-addon="toon minimap distance move timestamp tparty party utility load unload">
-          <div class="addon-card-head"><i>✦</i><h3>Bundled feature controls</h3></div><p>These features are normally controlled with the launcher toggles. Use these commands for temporary in-game session changes.</p>
-          <div class="command-list">
-            <div class="command-row"><code>/load toon</code><span>Load Toon shading. Use <code>/unload toon</code> to disable it.</span></div>
-            <div class="command-row"><code>/load minimap</code><span>Load the classic Minimap plugin when Boussole is not preferred.</span></div>
-            <div class="command-row"><code>/addon load distance</code><span>Load target-distance information.</span></div>
-            <div class="command-row"><code>/addon load move</code><span>Load the Move addon.</span></div>
-            <div class="command-row"><code>/addon load timestamp</code><span>Load chat timestamps.</span></div>
-            <div class="command-row"><code>/addon load tparty</code><span>Load enhanced party/alliance information.</span></div>
-            <div class="command-row"><code>/addon unload &lt;name&gt;</code><span>Temporarily unload any of these addons.</span></div>
-          </div>
-        </article>
-
-        <article class="addon-card" data-addon="keybind paste ambient target alliance controls">
-          <div class="addon-card-head"><i>⌨</i><h3>Current Reality keybinds</h3></div><p>Useful bindings installed by the bundled Ashita startup script.</p>
-          <div class="command-list">
-            <div class="command-row"><code>Insert</code><span>Open the Ashita interface.</span></div>
-            <div class="command-row"><code>Ctrl + V</code><span>Paste clipboard text into FFXI.</span></div>
-            <div class="command-row"><code>F11</code><span>Run the ambient-light command.</span></div>
-            <div class="command-row"><code>Ctrl + F1…F6</code><span>Target alliance slots 10–15.</span></div>
-            <div class="command-row"><code>Alt + F1…F6</code><span>Target alliance slots 20–25.</span></div>
-          </div>
-        </article>
-      </div>
-      <p class="callout command-note"><strong>Persistent changes:</strong> Use Current Reality Launcher Settings when you want a feature choice saved for future launches. Direct load and unload commands affect only the active game session unless the addon saves its own settings.</p>
-      <p class="addon-empty" id="addon-empty">No bundled addon commands match that search.</p>
-    </section>
-
-    <section class="chapter" id="jobs">
-      <div class="chapter-head"><span>03</span><div><p>Complete server job dossiers</p><h2>Know everything your job can become.</h2></div></div>
-      <div class="job-dossier-controls"><label>Job<select id="dossier-job"></select></label><div id="dossier-tabs"><button class="active" data-view="overview">Overview</button><button data-view="abilities">Abilities</button><button data-view="spells">Spells</button><button data-view="weaponSkills">Weapon skills</button><button data-view="equipment">Equipment</button><button data-view="skills">Skill ranks</button></div></div>
-      <article class="job-dossier" id="job-dossier" aria-live="polite"><p>Loading server job records…</p></article>
-    </section>
-
-    <section class="chapter" id="abilities">
-      <div class="chapter-head"><span>04</span><div><p>Ability fundamentals</p><h2>Read the rhythm of combat.</h2></div></div>
-      <div class="guide-grid">
-        <article><span>JA</span><h3>Job abilities</h3><p>Use <code>/ja "Ability" &lt;target&gt;</code>. Most self-enhancements use <code>&lt;me&gt;</code>; hostile abilities usually use <code>&lt;t&gt;</code>.</p></article>
-        <article><span>MA</span><h3>Magic</h3><p>Use <code>/ma "Spell" &lt;target&gt;</code>. Sub-targets such as <code>&lt;stpc&gt;</code> let healers choose a player without changing their locked target.</p></article>
-        <article><span>PET</span><h3>Pet commands</h3><p>Use <code>/pet "Command" &lt;target&gt;</code>. Summoner Assault, Beastmaster Fight, and Puppetmaster Deploy all send a companion into battle.</p></article>
-        <article><span>WS</span><h3>Weapon skills</h3><p>Use <code>/ws "Weapon Skill" &lt;t&gt;</code> at sufficient TP. Coordinate skillchain properties rather than firing every weapon skill immediately.</p></article>
-        <article><span>RA</span><h3>Ranged attacks</h3><p><code>/ra &lt;t&gt;</code> starts a ranged attack. Distance, ammunition, ranged skill, and enemy movement affect the result.</p></article>
-        <article><span>2HR</span><h3>Emergency abilities</h3><p>Powerful long-recast abilities can rescue a difficult pull. Keep them on a deliberate macro page rather than beside routine actions.</p></article>
-      </div>
-    </section>
-
-    <section class="chapter" id="weapons">
-      <div class="chapter-head"><span>05</span><div><p>Weapon field notes</p><h2>Match the tool to the job.</h2></div></div>
-      <div class="weapon-table">
-        <div class="table-head"><span>Weapon</span><span>Common users</span><span>What it teaches</span></div>
-        <div><b>Hand-to-Hand</b><span>MNK · PUP</span><p>Fast multi-hit pressure and steady TP flow.</p></div>
-        <div><b>Dagger</b><span>THF · DNC · RDM</span><p>Quick attacks, positional play, and utility weapon skills.</p></div>
-        <div><b>Sword</b><span>PLD · RDM · BLU</span><p>Balanced offense with broad defensive and magical job support.</p></div>
-        <div><b>Great Sword</b><span>DRK · RUN</span><p>Heavy single hits and strong offensive weapon skills.</p></div>
-        <div><b>Axe / Great Axe</b><span>WAR · BST</span><p>Reliable physical damage and defense-down options.</p></div>
-        <div><b>Scythe</b><span>DRK · BST</span><p>Slow, powerful strikes with drain-oriented weapon skills.</p></div>
-        <div><b>Polearm</b><span>DRG · SAM</span><p>Excellent reach, piercing damage, and jump synergy.</p></div>
-        <div><b>Katana</b><span>NIN</span><p>Fast dual-wield flow paired with ninjutsu.</p></div>
-        <div><b>Great Katana</b><span>SAM</span><p>TP control and flexible skillchain building.</p></div>
-        <div><b>Club / Staff</b><span>WHM · BLM · SMN · SCH · GEO</span><p>Magic-focused stats with blunt damage when needed.</p></div>
-        <div><b>Bow / Marksmanship</b><span>RNG · COR</span><p>Distance management, ammunition, and ranged accuracy.</p></div>
-      </div>
-      <p class="callout"><strong>Training rule:</strong> equip the weapon you intend to use before a long leveling session. Skill gaps become much harder to repair later.</p>
-    </section>
-
-    <section class="chapter" id="reference">
-      <div class="chapter-head"><span>06</span><div><p>Complete server database</p><h2>Know what you carry and cast.</h2></div></div>
-      <div class="reference-tabs" id="reference-tabs">
-        <button class="active" data-dataset="items">Items</button><button data-dataset="spells">Spells</button><button data-dataset="weaponSkills">Weapon skills</button><button data-dataset="jobAbilities">Job abilities</button>
-      </div>
-      <div class="reference-toolbar"><div class="search"><span>⌕</span><input id="reference-search" type="search" placeholder="Search name, job, type, or effect…"></div><span id="reference-count"></span></div>
-      <div class="reference-grid" id="reference-grid" aria-live="polite"></div>
-      <p class="callout" id="database-summary"><strong>Loading:</strong> preparing the complete server-matched reference.</p>
-    </section>
-
-    <section class="chapter" id="gear">
-      <div class="chapter-head"><span>07</span><div><p>Text-based equipment planner</p><h2>Build for the level you are.</h2></div></div>
-      <div class="gear-controls">
-        <label>Job<select id="gear-job"></select></label>
-        <label>Level<input id="gear-level" type="number" min="1" max="99" value="30"></label>
-        <label>Priority<select id="gear-focus"><option value="balanced">Balanced</option><option value="accuracy">Accuracy</option><option value="attack">Attack</option><option value="defense">Defense</option><option value="magic">Magic</option></select></label>
-      </div>
-      <div class="gear-result" id="gear-result" aria-live="polite"></div>
-      <p class="source-note">The planner is an original milestone guide inspired by the comparison approach used by <a href="https://myffxigear.kicks-ass.org/" target="_blank" rel="noopener">Claquesous Equipment</a>. Availability and augments can differ by server.</p>
-    </section>
-
-    <section class="chapter" id="crafts">
-      <div class="chapter-head"><span>08</span><div><p>Complete recipe workshop</p><h2>Choose the next repeatable synth.</h2></div></div>
-      <div class="craft-controls">
-        <div class="craft-tabs" id="craft-tabs"></div>
-        <label>Current skill<input id="craft-skill" type="number" min="0" max="110" value="0"></label>
-        <label class="check-control"><input id="craft-simple" type="checkbox" checked> Favor 1–2 ingredient recipes</label>
-      </div>
-      <div class="craft-overview" id="craft-overview"></div>
-      <div class="recipe-table" id="recipe-table" aria-live="polite"></div>
-      <div class="rank-strip" id="rank-strip"></div>
-      <p class="callout"><strong>How to use the route:</strong> synth a few levels below the cap while success is reliable, then move forward as gains slow. Guild rank tests are separate from Guild Point contracts; Guild Points begin at Novice after the contract is signed.</p>
-    </section>
-
-    <section class="chapter" id="skillchains">
-      <div class="chapter-head"><span>09</span><div><p>Interactive skillchain planner</p><h2>Build the next connection.</h2></div></div>
-      <p class="chain-intro">Select the property created by the first weapon skill. The planner highlights valid follow-up properties and the resulting skillchain.</p>
-      <div class="chain-picker" id="chain-picker"></div>
-      <div class="chain-results" id="chain-results" aria-live="polite"></div>
-      <div class="chain-legend"><span class="level-one">Level 1</span><span class="level-two">Level 2</span><span class="level-three">Level 3</span></div>
-    </section>
-
-    <section class="chapter" id="fishing">
-      <div class="chapter-head"><span>10</span><div><p>Fisher’s field journal</p><h2>Choose the water, rod, and bait.</h2></div></div>
-      <div class="fishing-grid">
-        <article><span>01</span><h3>Begin with dependable gear</h3><p>Fisherman’s gear adds fishing skill. A Halcyon Rod is a practical early choice; Lu Shang’s and Ebisu become long-term goals.</p></article>
-        <article><span>02</span><h3>Match bait to the catch</h3><p>Freshwater and saltwater pools contain different fish. Rod strength, bait type, fish size, and target skill all affect the result.</p></article>
-        <article><span>03</span><h3>Read the hook message</h3><p>Small fish, large fish, items, and monsters announce themselves differently. Empty the catch’s stamina before attempting to reel it in.</p></article>
-        <article><span>04</span><h3>Watch Vana’diel’s moon</h3><p>Full and new moons shorten bite time; quarter moons are slower. Use <code>/clock on</code> in game to check the current phase.</p></article>
-      </div>
-      <div class="fish-route">
-        <div><b>Skill 0–11</b><strong>Moat Carp</strong><span>Halcyon Rod · Insect Ball</span></div>
-        <i></i><div><b>Skill 11–27</b><strong>Nebimonite</strong><span>Halcyon Rod · Shrimp Lure</span></div>
-        <i></i><div><b>Skill 27–53</b><strong>Istridye</strong><span>Nashmau · Lu Shang’s Rod · Rogue Rig</span></div>
-        <i></i><div><b>Skill 53–90</b><strong>Mercanbaligi / Ahtapot</strong><span>Nashmau · Lu Shang’s Rod · Shrimp Lure</span></div>
-        <i></i><div><b>Skill 86–99</b><strong>Pterygotus</strong><span>Lugworm or Sinking Minnow</span></div>
-      </div>
-      <p class="source-note">Fishing route references: <a href="https://www.bluegartr.com/threads/84574-Fishing-Guide-1-100" target="_blank" rel="noopener">BlueGartr Fishing Guide 1–100</a> · <a href="https://www.bg-wiki.com/ffxi/Community_Fishing_Guide" target="_blank" rel="noopener">BG-Wiki Community Fishing Guide</a>. Server-specific pools and bite behavior can differ.</p>
-    </section>
-
-    <section class="chapter" id="calendar">
-      <div class="chapter-head"><span>11</span><div><p>Vana’diel elemental calendar</p><h2>Read the day before you synth.</h2></div></div>
-      <div class="element-cycle">
-        <article class="fire"><b>▲</b><strong>Firesday</strong><span>Fire · strong against Ice</span></article><article class="earth"><b>◆</b><strong>Earthsday</strong><span>Earth · strong against Lightning</span></article><article class="water"><b>●</b><strong>Watersday</strong><span>Water · strong against Fire</span></article><article class="wind"><b>✦</b><strong>Windsday</strong><span>Wind · strong against Earth</span></article><article class="ice"><b>❄</b><strong>Iceday</strong><span>Ice · strong against Wind</span></article><article class="lightning"><b>ϟ</b><strong>Lightningday</strong><span>Lightning · strong against Water</span></article><article class="light"><b>✹</b><strong>Lightsday</strong><span>Light · opposes Dark</span></article><article class="dark"><b>◐</b><strong>Darksday</strong><span>Dark · opposes Light</span></article>
-      </div>
-      <p class="callout"><strong>Live guidance:</strong> the hero clock highlights the current element, moon phase, and exact Earth-time countdown to the next day. Regional clouds and storms are separate zone weather and are not inferred from the weekday.</p>
-    </section>
-
-    <section class="chapter split" id="quests">
-      <div>
-        <div class="chapter-head"><span>12</span><div><p>Quest compass</p><h2>Explore with purpose.</h2></div></div>
-        <div class="timeline">
-          <article><span>Home nation</span><h3>Talk before traveling</h3><p>Check gates, shops, guilds, and residential districts. Early quests teach the geography and unlock useful conveniences.</p></article>
-          <article><span>Fields</span><h3>Collect while leveling</h3><p>Keep common drops until you know their quest and crafting value. Inventory planning is part of classic FFXI progression.</p></article>
-          <article><span>Reputation</span><h3>Repeat with restraint</h3><p>Repeatable quests can raise fame and unlock deeper stories, but nation missions remain the primary spine.</p></article>
+    <main class="wiki-main home-main">
+      <header class="home-banner">
+        <div>
+          <img src="assets/vr-current-reality-logo.webp" alt="VR Current Reality" width="430" height="235">
+          <p class="eyebrow">The road through Vana’diel starts here</p>
+          <h1>Welcome, adventurer.</h1>
+          <p>Follow the story, unlock the world, master your job, and find the information you need without digging through one endless page.</p>
         </div>
-      </div>
-      <aside class="checklist"><p class="eyebrow">Quest readiness</p><h3>Before leaving town</h3><label><input type="checkbox"> Set your home point</label><label><input type="checkbox"> Activate Signet</label><label><input type="checkbox"> Carry maps and basic medicine</label><label><input type="checkbox"> Check inventory space</label><label><input type="checkbox"> Review current objectives</label></aside>
-    </section>
+        <aside class="home-clock" aria-label="Current Vana’diel time">
+          <span>Vana’diel time</span>
+          <strong id="vana-time">--:--</strong>
+          <small id="vana-date">Synchronizing…</small>
+          <b id="vana-element">Calculating element…</b>
+          <em id="vana-moon">Calculating moon…</em>
+          <i id="vana-element-icon" hidden></i><i id="vana-next-day" hidden></i>
+        </aside>
+      </header>
 
-    <section class="chapter" id="missions">
-      <div class="chapter-head"><span>13</span><div><p>Mission roadmap</p><h2>Follow the story outward.</h2></div></div>
-      <div class="mission-road">
-        <article><b>Rank 1–2</b><h3>Serve your nation</h3><p>Learn the nearby regions, beastmen, and gate-guard mission flow.</p></article>
-        <i></i><article><b>Rank 3</b><h3>Three nations</h3><p>The world opens as national stories begin to intersect.</p></article>
-        <i></i><article><b>Rank 4–5</b><h3>Jeuno and beyond</h3><p>Prepare for longer travel, dangerous dungeons, and coordinated fights.</p></article>
-        <i></i><article><b>Rank 6+</b><h3>Endgame foundations</h3><p>Nation leadership stories deepen and broader expansion paths await.</p></article>
-      </div>
-      <p class="callout">This is the light roadmap. Detailed mission pages, prerequisites, NPC locations, and server-specific notes are planned for Field Manual II.</p>
-    </section>
-  </main>
+      <section class="home-feature-grid" aria-label="Featured compendium sections">
+        <article class="home-feature story">
+          <p>Story & progression</p>
+          <h2>Missions and Quests</h2>
+          <div class="home-link-cloud"><a href="missions/san-doria/index.html">San d’Oria</a><a href="missions/bastok/index.html">Bastok</a><a href="missions/windurst/index.html">Windurst</a><a href="quests/index.html">City Quests</a><a href="travel/index.html">Travel Unlocks</a></div>
+        </article>
+        <article class="home-feature battle">
+          <p>Prepare for battle</p>
+          <h2>Jobs and Combat</h2>
+          <div class="home-link-cloud"><a href="jobs/index.html">Job Dossiers</a><a href="gear/index.html">Equipment</a><a href="macros/index.html">Macros</a><a href="skillchains/index.html">Skillchains</a><a href="trusts/index.html">Trusts</a></div>
+        </article>
+      </section>
 
-  <footer><div><span>✦</span><strong>FFXI VR: Current Reality</strong></div><p>Private server compendium · Version IV</p><a href="admin/">Administration</a></footer>
-  <script>
-    (() => {
-      const search = document.getElementById('addon-search');
-      const cards = [...document.querySelectorAll('.addon-card')];
-      const count = document.getElementById('addon-count');
-      const empty = document.getElementById('addon-empty');
-      if (!search || !cards.length) return;
-      const filter = () => {
-        const query = search.value.trim().toLowerCase();
-        let visible = 0;
-        cards.forEach(card => {
-          const matches = !query || `${card.dataset.addon || ''} ${card.textContent}`.toLowerCase().includes(query);
-          card.hidden = !matches;
-          if (matches) visible += 1;
-        });
-        count.textContent = `${visible} of ${cards.length} guides`;
-        empty?.classList.toggle('visible', visible === 0);
-      };
-      search.addEventListener('input', filter);
-      filter();
-    })();
-  </script>
+      <section class="home-portal">
+        <article>
+          <header><span>01</span><h2>Adventurer Guides</h2></header>
+          <a href="guides/index.html"><b>New & Returning Players</b><small>Start here and choose your route.</small></a>
+          <a href="travel/airship-pass.html"><b>Airship Pass</b><small>Jeuno and the three nations.</small></a>
+          <a href="travel/kazham-pass.html"><b>Kazham Pass</b><small>Keys, payment, and boarding.</small></a>
+          <a href="travel/outposts.html"><b>Outpost Warps</b><small>Supply runs and regional travel.</small></a>
+        </article>
+        <article>
+          <header><span>02</span><h2>Character & Party</h2></header>
+          <a href="jobs/index.html"><b>Jobs</b><small>Abilities, spells, skills, and roles.</small></a>
+          <a href="trusts/index.html"><b>Trusts</b><small>Commands, limits, roster, and acquisition.</small></a>
+          <a href="gear/index.html"><b>Gear Planner</b><small>Equipment milestones by job and level.</small></a>
+          <a href="macros/index.html"><b>Macro Workshop</b><small>Searchable, copy-ready player commands.</small></a>
+        </article>
+        <article>
+          <header><span>03</span><h2>Items & Crafting</h2></header>
+          <a href="reference/index.html"><b>Server Database</b><small>Items, magic, abilities, and weapon skills.</small></a>
+          <a href="crafting/index.html"><b>Crafting</b><small>Guilds, recipes, ranks, and skill-up routes.</small></a>
+          <a href="fishing/index.html"><b>Fishing</b><small>Waters, bait, catches, and progression.</small></a>
+          <a href="calendar/index.html"><b>Vana’diel Calendar</b><small>Days, elements, moon phases, and timing.</small></a>
+        </article>
+      </section>
+
+      <section class="home-strip">
+        <div><p class="eyebrow">Current Reality resources</p><h2>Built for this server.</h2></div>
+        <nav><a href="addons/index.html">Client Addons</a><a href="reference/index.html">Search Records</a><a href="admin/index.html">Administration</a></nav>
+      </section>
+    </main>
+  </div>
+
+  <footer><div>✦ FFXI VR: Current Reality</div><p>Player Compendium</p><a href="admin/index.html">Administration</a></footer>
 </body>
 </html>

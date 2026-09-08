@@ -16,9 +16,24 @@ const referenceData = {
 const datasetNames = {items:'Items',spells:'Spells',weaponSkills:'Weapon skills',jobAbilities:'Job abilities'};
 let activeDataset = 'items';
 
+function ensureReferenceCategory() {
+  let select = document.querySelector('#reference-category');
+  if (!select) {
+    select = document.createElement('select');
+    select.id = 'reference-category';
+    select.innerHTML = '<option value="all">All item categories</option><option>Weapons</option><option>Armor</option><option>Accessories</option><option>Furnishings</option><option>Consumables</option><option>Automaton & special</option><option>Materials & miscellaneous</option>';
+    document.querySelector('#reference-count').before(select);
+    select.addEventListener('change', renderReference);
+  }
+  select.hidden = activeDataset !== 'items';
+  if (select.hidden) select.value = 'all';
+  return select;
+}
+
 function renderReference() {
   const query = document.querySelector('#reference-search').value.trim().toLowerCase();
-  const rows = referenceData[activeDataset].filter(row => row.join(' ').toLowerCase().includes(query));
+  const category = ensureReferenceCategory().value;
+  const rows = referenceData[activeDataset].filter(row => row.join(' ').toLowerCase().includes(query) && (activeDataset !== 'items' || category === 'all' || row[4] === category));
   document.querySelector('#reference-count').textContent = `${rows.length} ${datasetNames[activeDataset].toLowerCase()}`;
   const visible = rows.slice(0, 120);
   document.querySelector('#reference-grid').innerHTML = visible.map(row => `<article><div><span>${row[3]}</span><h3>${row[0]}</h3></div><b>${row[1]}</b><p>${row[2]}</p></article>`).join('') || '<p class="empty">No matching records.</p>';
@@ -50,10 +65,11 @@ const chains = {
   Darkness:[['Darkness','Darkness',3]]
 };
 let activeChain = 'Transfixion';
+const burstElements={Transfixion:'Light',Compression:'Dark',Liquefaction:'Fire',Scission:'Earth',Reverberation:'Water',Detonation:'Wind',Induration:'Ice',Impaction:'Lightning',Fusion:'Fire · Light',Fragmentation:'Wind · Lightning',Distortion:'Ice · Water',Gravitation:'Earth · Dark',Light:'Light · Fire · Wind · Lightning',Darkness:'Dark · Ice · Earth · Water'};
 
 function renderChains() {
   document.querySelector('#chain-picker').innerHTML = Object.keys(chains).map(name => `<button class="${name === activeChain ? 'active' : ''}" data-chain="${name}">${name}</button>`).join('');
-  document.querySelector('#chain-results').innerHTML = chains[activeChain].map(([follow,result,level]) => `<article class="chain-level-${level}"><span>Follow with</span><strong>${follow}</strong><i>→</i><div><small>Result</small><b>${result}</b><em>Level ${level}</em></div></article>`).join('');
+  document.querySelector('#chain-results').innerHTML = chains[activeChain].map(([follow,result,level]) => {const skills=(window.gameData?.weaponSkills||[]).filter(ws=>ws.sc.includes(follow)).slice(0,18);const examples=skills.length?skills.map(ws=>`${ws.name} (${ws.weapon})`).join(' · '):'Weapon-skill examples load with the server database.';return `<article class="chain-level-${level}"><span>Follow with</span><strong>${follow}</strong><i>→</i><div><small>Result</small><b>${result}</b><em>Level ${level}</em></div><small class="chain-ws-list"><b>Weapon skills:</b> ${examples}</small><p class="chain-burst">Magic burst: ${burstElements[result]||'See resulting element'}</p></article>`}).join('');
   document.querySelectorAll('[data-chain]').forEach(button => button.addEventListener('click', () => { activeChain = button.dataset.chain; renderChains(); }));
 }
 

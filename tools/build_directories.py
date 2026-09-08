@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+missions={
+'san-doria':['1-1 Smash the Orcish Scouts','1-2 Bat Hunt','1-3 Save the Children','2-1 The Rescue Drill','2-2 The Davoi Report','2-3 Journey Abroad','3-1 Infiltrate Davoi','3-2 The Crystal Spring','3-3 Appointment to Jeuno','4-1 Magicite','5-1 The Ruins of Fei’Yin','5-2 The Shadow Lord','6-1 Leaute’s Last Wishes','6-2 Ranperre’s Final Rest','7-1 Prestige of the Papsque','7-2 The Secret Weapon','8-1 Coming of Age','8-2 Lightbringer','9-1 Breaking Barriers','9-2 The Heir to the Light'],
+'bastok':['1-1 The Zeruhn Report','1-2 A Geological Survey','1-3 Fetichism','2-1 The Crystal Line','2-2 Wading Beasts','2-3 The Emissary','3-1 The Four Musketeers','3-2 To the Forsaken Mines','3-3 Jeuno','4-1 Magicite','5-1 Dark Legacy','5-2 Xarcabard, Land of Truths','6-1 Return of the Talekeeper','6-2 The Pirates’ Cove','7-1 The Final Image','7-2 On My Way','8-1 The Chains That Bind Us','8-2 Enter the Talekeeper','9-1 The Salt of the Earth','9-2 Where Two Paths Converge'],
+'windurst':['1-1 The Horutoto Ruins Experiment','1-2 The Heart of the Matter','1-3 The Price of Peace','2-1 Lost for Words','2-2 A Testing Time','2-3 The Three Kingdoms','3-1 To Each His Own Right','3-2 Written in the Stars','3-3 A New Journey','4-1 Magicite','5-1 The Final Seal','5-2 The Shadow Awaits','6-1 Full Moon Fountain','6-2 Saintly Invitation','7-1 The Sixth Ministry','7-2 Awakening of the Gods','8-1 Vain','8-2 The Jester Who’d Be King','9-1 Doll of the Dead','9-2 Moon Reading']}
+quest_areas={'san-doria':['Southern San d’Oria','Northern San d’Oria','Port San d’Oria','Chateau d’Oraguille'],'bastok':['Bastok Mines','Bastok Markets','Port Bastok','Metalworks'],'windurst':['Windurst Waters','Windurst Walls','Windurst Woods','Port Windurst','Heavens Tower'],'jeuno':['Lower Jeuno','Upper Jeuno','Port Jeuno','Ru’Lude Gardens']}
+def shell(title,kicker,body,up):
+ return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title} | Current Reality</title><link rel="stylesheet" href="{up}assets/site.css"><link rel="stylesheet" href="{up}assets/wiki.css"></head><body><header class="topbar"><a class="brand" href="{up}"><span class="crystal">✦</span><span><small>FFXI VR</small><strong>Current Reality</strong></span></a><nav><a href="../">Directory</a><a href="{up}guides/">Guides</a><a class="admin-link" href="{up}admin/">GM Login</a></nav></header><main class="wiki-layout"><aside class="wiki-sidebar"><h2>{title}</h2><nav><a href="../">Back to directory</a><a href="{up}travel/">Travel</a><a href="{up}trusts/">Trusts</a></nav></aside><article class="wiki-main"><header class="wiki-title"><p class="eyebrow">{kicker}</p><h1>{title}</h1></header>{body}</article></main></body></html>'''
+for slug,rows in missions.items():
+ name={'san-doria':'San d’Oria','bastok':'Bastok','windurst':'Windurst'}[slug]
+ cards=''.join(f'<article><h2>{row}</h2><p>Individual A-to-Z walkthrough page.</p></article>' for row in rows)
+ body=f'<section class="wiki-section"><h2>Ranks 1–10</h2><div class="command-grid">{cards}</div></section><p class="notice">The directory is live; detailed pages will replace the old summary text as each route is verified.</p>'
+ p=ROOT/'missions'/slug;p.mkdir(parents=True,exist_ok=True);(p/'index.html').write_text(shell(f'{name} Missions','Nation mission directory',body,'../../'),encoding='utf-8')
+for slug,areas in quest_areas.items():
+ name={'san-doria':'San d’Oria','bastok':'Bastok','windurst':'Windurst','jeuno':'Jeuno'}[slug]
+ cards=''.join(f'<article><h2>{area}</h2><p>NPC and quest-chain directory.</p></article>' for area in areas)
+ body=f'<section class="wiki-section"><h2>Districts</h2><div class="command-grid">{cards}</div></section><p class="notice">Generic filler quests have been removed; complete walkthroughs will be listed here after route verification.</p>'
+ p=ROOT/'quests'/slug;p.mkdir(parents=True,exist_ok=True);(p/'index.html').write_text(shell(f'{name} Quests','City quest directory',body,'../../'),encoding='utf-8')

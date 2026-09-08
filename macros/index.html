@@ -1,0 +1,60 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Macros for FFXI VR: Current Reality."><title>Macros | FFXI VR: Current Reality</title><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/v3.css"><link rel="stylesheet" href="../assets/v3-fishing.css"><link rel="stylesheet" href="../assets/v4.css"><link rel="stylesheet" href="../assets/v4-clock.css"><link rel="stylesheet" href="../assets/v4-data.css"><link rel="stylesheet" href="../assets/v4-calendar.css"><link rel="stylesheet" href="../assets/v4-jobs.css"><link rel="stylesheet" href="../assets/wiki.css"><script src="../assets/wiki.js" defer></script><script src="../assets/site.js" defer></script><script src="../assets/v3.js" defer></script><script src="../assets/v4.js" defer></script><script src="../assets/v4-data.js" defer></script></head><body><header class="topbar"><a class="brand" href="../index.html"><span class="crystal">✦</span><span><small>FFXI VR</small><strong>Current Reality</strong></span></a><nav aria-label="Main navigation"><a href="../guides/index.html">Guides</a><a href="../missions/index.html">Missions</a><a href="../quests/index.html">Quests</a><a href="../trusts/index.html">Trusts</a><a href="../reference/index.html">Database</a><a class="admin-link" href="../admin/index.html">GM Login</a></nav></header><div class="wiki-layout"><aside class="wiki-sidebar"><h2>Compendium</h2><nav aria-label="Compendium directory"><h3>Adventure</h3><a href="../guides/index.html">Guide index</a><a href="../missions/index.html">Missions</a><a href="../quests/index.html">Quests</a><a href="../travel/index.html">Travel</a><a href="../trusts/index.html">Trusts</a><h3>Character</h3><a href="../jobs/index.html">Jobs</a><a aria-current="page" href="../macros/index.html">Macros</a><a href="../skillchains/index.html">Skillchains</a><h3>Items & systems</h3><a href="../gear/index.html">Gear</a><a href="../crafting/index.html">Crafting</a><a href="../fishing/index.html">Fishing</a><a href="../calendar/index.html">Calendar</a><a href="../reference/index.html">Database</a><a href="../addons/index.html">Addons</a></nav></aside><main class="wiki-main"><header class="wiki-title"><p class="eyebrow">Standalone compendium page</p><h1>Macros</h1><p>This information now lives on its own page—use the left navigation to move between subjects without crossing the full Compendium.</p></header><section class="chapter" id="macros">
+      <div class="chapter-head"><span>02</span><div><p>Searchable command builder</p><h2>Macro Workshop.</h2></div></div>
+      <div class="job-tools">
+        <div class="search"><span>⌕</span><input id="job-search" type="search" placeholder="Search job, role, or macro…"></div>
+        <div class="role-filters" id="role-filters"><button class="active" data-role="all">All jobs</button><button data-role="damage">Damage</button><button data-role="support">Support</button><button data-role="defense">Defense</button><button data-role="pet">Pet</button></div>
+      </div>
+      <div class="job-layout">
+        <div class="job-list" id="job-list"></div>
+        <article class="job-detail" id="job-detail" aria-live="polite"></article>
+      </div>
+      <div class="token-guide">
+        <div><code>&lt;t&gt;</code><span>current target</span></div><div><code>&lt;me&gt;</code><span>your character</span></div><div><code>&lt;stpc&gt;</code><span>select a player</span></div><div><code>&lt;stnpc&gt;</code><span>select an enemy</span></div><div><code>&lt;stal&gt;</code><span>alliance member</span></div>
+      </div>
+      <div class="macro-library">
+        <div class="reference-toolbar"><div class="search"><span>⌕</span><input id="macro-search" type="search" placeholder="Search /ws, /equip, targets, pet commands, waits, or any action…"></div><select id="macro-job"></select><select id="macro-type"><option value="all">All commands</option><option value="weaponskill">Weapon skills · /ws</option><option value="ability">Abilities · /ja</option><option value="spell">Spells · /ma</option><option value="pet">Pet commands · /pet</option><option value="equipment">Equipment · /equip</option><option value="combat">Combat and targeting</option><option value="item">Items</option><option value="communication">Chat and notices</option><option value="utility">Waits and utility</option></select></div>
+        <div class="macro-results" id="macro-results"></div>
+      </div>
+    </section></main></div><div hidden aria-hidden="true"><div id="vana-time"></div><div id="vana-date"></div><div id="vana-element-icon"></div><div id="vana-element"></div><div id="vana-next-day"></div><div id="vana-moon"></div><section class="chapter" id="jobs">
+      <div class="chapter-head"><span>03</span><div><p>Complete server job dossiers</p><h2>Know everything your job can become.</h2></div></div>
+      <div class="job-dossier-controls"><label>Job<select id="dossier-job"></select></label><div id="dossier-tabs"><button class="active" data-view="overview">Overview</button><button data-view="abilities">Abilities</button><button data-view="spells">Spells</button><button data-view="weaponSkills">Weapon skills</button><button data-view="equipment">Equipment</button><button data-view="skills">Skill ranks</button></div></div>
+      <article class="job-dossier" id="job-dossier" aria-live="polite"><p>Loading server job records…</p></article>
+    </section>
+<section class="chapter" id="reference">
+      <div class="chapter-head"><span>06</span><div><p>Complete server database</p><h2>Know what you carry and cast.</h2></div></div>
+      <div class="reference-tabs" id="reference-tabs">
+        <button class="active" data-dataset="items">Items</button><button data-dataset="spells">Spells</button><button data-dataset="weaponSkills">Weapon skills</button><button data-dataset="jobAbilities">Job abilities</button>
+      </div>
+      <div class="reference-toolbar"><div class="search"><span>⌕</span><input id="reference-search" type="search" placeholder="Search name, job, type, or effect…"></div><span id="reference-count"></span></div>
+      <div class="reference-grid" id="reference-grid" aria-live="polite"></div>
+      <p class="callout" id="database-summary"><strong>Loading:</strong> preparing the complete server-matched reference.</p>
+    </section>
+<section class="chapter" id="gear">
+      <div class="chapter-head"><span>07</span><div><p>Text-based equipment planner</p><h2>Build for the level you are.</h2></div></div>
+      <div class="gear-controls">
+        <label>Job<select id="gear-job"></select></label>
+        <label>Level<input id="gear-level" type="number" min="1" max="99" value="30"></label>
+        <label>Priority<select id="gear-focus"><option value="balanced">Balanced</option><option value="accuracy">Accuracy</option><option value="attack">Attack</option><option value="defense">Defense</option><option value="magic">Magic</option></select></label>
+      </div>
+      <div class="gear-result" id="gear-result" aria-live="polite"></div>
+      <p class="source-note">The planner is an original milestone guide inspired by the comparison approach used by <a href="https://myffxigear.kicks-ass.org/" target="_blank" rel="noopener">Claquesous Equipment</a>. Availability and augments can differ by server.</p>
+    </section>
+<section class="chapter" id="crafts">
+      <div class="chapter-head"><span>08</span><div><p>Complete recipe workshop</p><h2>Choose the next repeatable synth.</h2></div></div>
+      <div class="craft-controls">
+        <div class="craft-tabs" id="craft-tabs"></div>
+        <label>Current skill<input id="craft-skill" type="number" min="0" max="110" value="0"></label>
+        <label class="check-control"><input id="craft-simple" type="checkbox" checked> Favor 1–2 ingredient recipes</label>
+      </div>
+      <div class="craft-overview" id="craft-overview"></div>
+      <div class="recipe-table" id="recipe-table" aria-live="polite"></div>
+      <div class="rank-strip" id="rank-strip"></div>
+      <p class="callout"><strong>How to use the route:</strong> synth a few levels below the cap while success is reliable, then move forward as gains slow. Guild rank tests are separate from Guild Point contracts; Guild Points begin at Novice after the contract is signed.</p>
+    </section>
+<section class="chapter" id="skillchains">
+      <div class="chapter-head"><span>09</span><div><p>Interactive skillchain planner</p><h2>Build the next connection.</h2></div></div>
+      <p class="chain-intro">Select the property created by the first weapon skill. The planner highlights valid follow-up properties and the resulting skillchain.</p>
+      <div class="chain-picker" id="chain-picker"></div>
+      <div class="chain-results" id="chain-results" aria-live="polite"></div>
+      <div class="chain-legend"><span class="level-one">Level 1</span><span class="level-two">Level 2</span><span class="level-three">Level 3</span></div>
+    </section></div><footer><div>✦ FFXI VR: Current Reality</div><p>Player Compendium · Macros</p><a href="../admin/index.html">Administration</a></footer></body></html>

@@ -1,0 +1,109 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Client Addons for FFXI VR: Current Reality."><title>Client Addons | FFXI VR: Current Reality</title><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/components.css"><link rel="stylesheet" href="../assets/v3.css"><link rel="stylesheet" href="../assets/v3-fishing.css"><link rel="stylesheet" href="../assets/v4.css"><link rel="stylesheet" href="../assets/v4-clock.css"><link rel="stylesheet" href="../assets/v4-data.css"><link rel="stylesheet" href="../assets/v4-calendar.css"><link rel="stylesheet" href="../assets/v4-jobs.css"><link rel="stylesheet" href="../assets/wiki.css"><script src="../assets/wiki.js" defer></script></head><body><header class="topbar"><a class="brand" href="../index.html"><span class="crystal">✦</span><span><small>FFXI VR</small><strong>Current Reality</strong></span></a><nav aria-label="Main navigation"><a href="../guides/index.html">Guides</a><a href="../missions/index.html">Missions</a><a href="../quests/index.html">Quests</a><a href="../trusts/index.html">Trusts</a><a href="../reference/index.html">Database</a><a class="admin-link" href="../admin/index.html">GM Login</a></nav></header><div class="wiki-layout"><aside class="wiki-sidebar"><h2>Compendium</h2><nav aria-label="Compendium directory"><h3>Adventure</h3><a href="../guides/index.html">Guide index</a><a href="../missions/index.html">Missions</a><a href="../quests/index.html">Quests</a><a href="../travel/index.html">Travel</a><a href="../trusts/index.html">Trusts</a><h3>Character</h3><a href="../jobs/index.html">Jobs</a><a href="../macros/index.html">Macros</a><a href="../skillchains/index.html">Skillchains</a><h3>Items & systems</h3><a href="../gear/index.html">Gear</a><a href="../crafting/index.html">Crafting</a><a href="../fishing/index.html">Fishing</a><a href="../calendar/index.html">Calendar</a><a href="../reference/index.html">Database</a><a aria-current="page" href="../addons/index.html">Addons</a></nav></aside><main class="wiki-main"><header class="wiki-title"><p class="eyebrow">Standalone compendium page</p><h1>Client Addons</h1><p>This information now lives on its own page—use the left navigation to move between subjects without crossing the full Compendium.</p></header><section class="chapter" id="addons">
+      <div class="chapter-head"><span>✦</span><div><p>Current Reality client reference</p><h2>Addon Command Compendium.</h2></div></div>
+      <p>Search the commands included with the Current Reality Ashita 4 client. Commands are entered in the in-game chat box. Addons and plugins can also be enabled or disabled from Launcher Settings before Play.</p>
+      <div class="addon-toolbar"><div class="search"><span>⌕</span><input id="addon-search" type="search" placeholder="Search addon, command, camera, map, FPS, party…" autocomplete="off"></div><span id="addon-count"></span></div>
+      <div class="addon-command-grid" id="addon-command-grid">
+        <article class="addon-card" data-addon="ashita addon plugin load unload reload management">
+          <div class="addon-card-head"><i>⚙</i><h3>Ashita management</h3></div><p>Load, unload, or reload a bundled addon or plugin during the current session.</p>
+          <div class="command-list">
+            <div class="command-row"><code>/addon load &lt;name&gt;</code><span>Load an addon, such as xicamera or boussole.</span></div>
+            <div class="command-row"><code>/addon unload &lt;name&gt;</code><span>Unload an addon for this session.</span></div>
+            <div class="command-row"><code>/addon reload &lt;name&gt;</code><span>Reload an addon after changing its configuration.</span></div>
+            <div class="command-row"><code>/load &lt;plugin&gt;</code><span>Load an Ashita plugin.</span></div>
+            <div class="command-row"><code>/unload &lt;plugin&gt;</code><span>Unload an Ashita plugin.</span></div>
+          </div>
+        </article>
+
+        <article class="addon-card" data-addon="xicamera camera zoom distance battle pan speed lock">
+          <div class="addon-card-head"><i>◉</i><h3>XICamera</h3></div><p>Adjust normal and battle camera distance, rotation range, and panning speed.</p>
+          <div class="command-list">
+            <div class="command-row"><code>/cam distance 9</code><span>Set normal camera distance. Alias: <code>/cam d 9</code>.</span></div>
+            <div class="command-row"><code>/cam battle 12</code><span>Set battle camera distance. Alias: <code>/cam b 12</code>.</span></div>
+            <div class="command-row"><code>/cam brange 4</code><span>Set battle rotation range from 0–100. Alias: <code>/cam br</code>.</span></div>
+            <div class="command-row"><code>/cam battlelock on</code><span>Lock or unlock the battle range governor. Alias: <code>/cam bl</code>.</span></div>
+            <div class="command-row"><code>/cam hspeed 3</code><span>Set horizontal panning speed. Alias: <code>/cam hs</code>.</span></div>
+            <div class="command-row"><code>/cam vspeed 10.7</code><span>Set vertical panning speed. Alias: <code>/cam vs</code>.</span></div>
+            <div class="command-row"><code>/cam incr</code><span>Increase normal distance. Aliases: <code>/cam in</code>.</span></div>
+            <div class="command-row"><code>/cam decr</code><span>Decrease normal distance. Alias: <code>/cam de</code>.</span></div>
+            <div class="command-row"><code>/cam bincr</code><span>Increase battle distance. Alias: <code>/cam bin</code>.</span></div>
+            <div class="command-row"><code>/cam bdecr</code><span>Decrease battle distance. Alias: <code>/cam bde</code>.</span></div>
+            <div class="command-row"><code>/cam saveOnIncrement</code><span>Toggle saving when incrementing or decrementing. Alias: <code>/cam soi</code>.</span></div>
+            <div class="command-row"><code>/cam autoCalcVertSpeed</code><span>Toggle automatic vertical-speed calculation. Alias: <code>/cam acv</code>.</span></div>
+            <div class="command-row"><code>/cam status</code><span>Show current camera settings. Alias: <code>/cam s</code>.</span></div>
+            <div class="command-row"><code>/cam help</code><span>Show XICamera help. Alias: <code>/cam h</code>.</span></div>
+          </div>
+        </article>
+
+        <article class="addon-card" data-addon="boussole map minimap navigation markers homepoints survival guides floors">
+          <div class="addon-card-head"><i>⌖</i><h3>Boussole</h3></div><p>Control the enhanced map, minimap, markers, and generated floor information.</p>
+          <div class="command-list">
+            <div class="command-row"><code>/boussole</code><span>Toggle the Boussole interface.</span></div>
+            <div class="command-row"><code>/boussole show</code><span>Show the interface.</span></div>
+            <div class="command-row"><code>/boussole hide</code><span>Hide the interface.</span></div>
+            <div class="command-row"><code>/boussole minimap</code><span>Toggle minimap mode.</span></div>
+            <div class="command-row"><code>/boussole genfloors</code><span>Regenerate the zone-floor data file.</span></div>
+          </div>
+        </article>
+
+        <article class="addon-card" data-addon="xipivot pivot remapster dat overlay maps mods query dump">
+          <div class="addon-card-head"><i>⇄</i><h3>XIPivot and Remapster</h3></div><p>Inspect and manage non-destructive DAT overlays. Remapster is the default Current Reality map overlay.</p>
+          <div class="command-list">
+            <div class="command-row"><code>/pivot</code><span>Open the XIPivot configuration interface.</span></div>
+            <div class="command-row"><code>/pivot dump</code><span>Write the current overlay list and cache settings to the Pivot log.</span></div>
+            <div class="command-row"><code>/pivot query &lt;DAT path&gt;</code><span>Identify which overlay supplies a particular file.</span></div>
+            <div class="command-row"><code>/pivot query all</code><span>Write a report containing all active redirects.</span></div>
+            <div class="command-row"><code>/pivot help</code><span>Show Pivot command help.</span></div>
+          </div>
+        </article>
+
+        <article class="addon-card" data-addon="fps framerate frame rate limit display">
+          <div class="addon-card-head"><i>▥</i><h3>FPS</h3></div><p>Current Reality loads the FPS addon automatically and binds the standard FPS control.</p>
+          <div class="command-list">
+            <div class="command-row"><code>/fps</code><span>Use the addon’s FPS command interface.</span></div>
+            <div class="command-row"><code>F12</code><span>Current Reality startup binding for the FPS command.</span></div>
+            <div class="command-row"><code>/addon reload fps</code><span>Reload FPS after changing its saved configuration.</span></div>
+          </div>
+        </article>
+
+        <article class="addon-card" data-addon="screenshot image capture hide interface sysrq print screen">
+          <div class="addon-card-head"><i>▣</i><h3>Screenshot</h3></div><p>Capture screenshots with optional interface hiding.</p>
+          <div class="command-list">
+            <div class="command-row"><code>/screenshot hide</code><span>Capture while hiding supported interface elements.</span></div>
+            <div class="command-row"><code>Print Screen</code><span>Current Reality startup binding for <code>/screenshot hide</code>.</span></div>
+            <div class="command-row"><code>/load screenshot</code><span>Load the Screenshot plugin.</span></div>
+          </div>
+        </article>
+
+        <article class="addon-card" data-addon="toon shading graphics plugin">
+          <div class="addon-card-head"><i>◈</i><h3>Toon</h3></div><p>Toggle the bundled Toon shader plugin for the current session.</p><div class="command-list"><div class="command-row"><code>/load toon</code><span>Enable Toon shading.</span></div><div class="command-row"><code>/unload toon</code><span>Disable Toon shading.</span></div></div>
+        </article>
+        <article class="addon-card" data-addon="minimap classic map plugin">
+          <div class="addon-card-head"><i>▦</i><h3>Minimap</h3></div><p>Control the classic Minimap plugin when Boussole is not preferred.</p><div class="command-list"><div class="command-row"><code>/load minimap</code><span>Enable the classic Minimap.</span></div><div class="command-row"><code>/unload minimap</code><span>Remove it for this session.</span></div></div>
+        </article>
+        <article class="addon-card" data-addon="distance target range addon">
+          <div class="addon-card-head"><i>↔</i><h3>Distance</h3></div><p>Show range information for the selected target.</p><div class="command-list"><div class="command-row"><code>/addon load distance</code><span>Enable target-distance information.</span></div><div class="command-row"><code>/addon unload distance</code><span>Disable it for this session.</span></div><div class="command-row"><code>/addon reload distance</code><span>Reload its saved configuration.</span></div></div>
+        </article>
+        <article class="addon-card" data-addon="move interface window addon">
+          <div class="addon-card-head"><i>✥</i><h3>Move</h3></div><p>Reposition supported interface elements and addon windows.</p><div class="command-list"><div class="command-row"><code>/addon load move</code><span>Enable Move.</span></div><div class="command-row"><code>/addon unload move</code><span>Disable Move for this session.</span></div><div class="command-row"><code>/addon reload move</code><span>Reload after configuration changes.</span></div></div>
+        </article>
+        <article class="addon-card" data-addon="timestamp chat time addon">
+          <div class="addon-card-head"><i>◷</i><h3>Timestamp</h3></div><p>Add time markers to chat-log messages.</p><div class="command-list"><div class="command-row"><code>/addon load timestamp</code><span>Enable chat timestamps.</span></div><div class="command-row"><code>/addon unload timestamp</code><span>Hide timestamps for this session.</span></div><div class="command-row"><code>/addon reload timestamp</code><span>Reload its saved settings.</span></div></div>
+        </article>
+        <article class="addon-card" data-addon="tparty party alliance tp mp addon">
+          <div class="addon-card-head"><i>♟</i><h3>TParty</h3></div><p>Display enhanced party and alliance status information.</p><div class="command-list"><div class="command-row"><code>/addon load tparty</code><span>Enable the enhanced party display.</span></div><div class="command-row"><code>/addon unload tparty</code><span>Return to the normal party display.</span></div><div class="command-row"><code>/addon reload tparty</code><span>Reload its saved settings.</span></div></div>
+        </article>
+
+        <article class="addon-card" data-addon="keybind paste ambient target alliance controls">
+          <div class="addon-card-head"><i>⌨</i><h3>Current Reality keybinds</h3></div><p>Useful bindings installed by the bundled Ashita startup script.</p>
+          <div class="command-list">
+            <div class="command-row"><code>Insert</code><span>Open the Ashita interface.</span></div>
+            <div class="command-row"><code>Ctrl + V</code><span>Paste clipboard text into FFXI.</span></div>
+            <div class="command-row"><code>F11</code><span>Run the ambient-light command.</span></div>
+            <div class="command-row"><code>Ctrl + F1…F6</code><span>Target alliance slots 10–15.</span></div>
+            <div class="command-row"><code>Alt + F1…F6</code><span>Target alliance slots 20–25.</span></div>
+          </div>
+        </article>
+      </div>
+      <p class="callout command-note"><strong>Persistent changes:</strong> Use Current Reality Launcher Settings when you want a feature choice saved for future launches. Direct load and unload commands affect only the active game session unless the addon saves its own settings.</p>
+      <p class="addon-empty" id="addon-empty">No bundled addon commands match that search.</p>
+    </section></main></div><footer><div>✦ FFXI VR: Current Reality</div><p>Player Compendium · Client Addons</p><a href="../admin/index.html">Administration</a></footer></body></html>
