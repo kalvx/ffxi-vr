@@ -6,12 +6,25 @@
         <article><span>03</span><h3>Read the hook message</h3><p>Small fish, large fish, items, and monsters announce themselves differently. Empty the catch’s stamina before attempting to reel it in.</p></article>
         <article><span>04</span><h3>Watch Vana’diel’s moon</h3><p>Full and new moons shorten bite time; quarter moons are slower. Use <code>/clock on</code> in game to check the current phase.</p></article>
       </div>
-      <div class="fish-route">
-        <div><b>Skill 0–11</b><strong>Moat Carp</strong><span>Halcyon Rod · Insect Ball</span></div>
-        <i></i><div><b>Skill 11–27</b><strong>Nebimonite</strong><span>Halcyon Rod · Shrimp Lure</span></div>
-        <i></i><div><b>Skill 27–53</b><strong>Istridye</strong><span>Nashmau · Lu Shang’s Rod · Rogue Rig</span></div>
-        <i></i><div><b>Skill 53–90</b><strong>Mercanbaligi / Ahtapot</strong><span>Nashmau · Lu Shang’s Rod · Shrimp Lure</span></div>
-        <i></i><div><b>Skill 86–99</b><strong>Pterygotus</strong><span>Lugworm or Sinking Minnow</span></div>
+      <div class="fish-planner">
+        <label for="fishing-skill-range">Choose your fishing skill range</label>
+        <select id="fishing-skill-range">
+          <option value="0-11">Skill 0–11</option>
+          <option value="11-27">Skill 11–27</option>
+          <option value="28-53">Skill 28–53</option>
+          <option value="53-90">Skill 53–90</option>
+          <option value="90-plus">Skill 90+</option>
+        </select>
+        <div class="fish-result" aria-live="polite">
+          <div class="fish-result-head"><b id="fish-range">Skill 0–11</b><strong id="fish-name">Moat Carp</strong><span id="fish-water">Fresh water · Skill cap 11</span></div>
+          <dl>
+            <div><dt>Location</dt><dd id="fish-location">Mog Garden — pond</dd></div>
+            <div><dt>Recommended rod</dt><dd id="fish-rod">Halcyon Rod or Lu Shang’s Fishing Rod</dd></div>
+            <div><dt>Use this bait</dt><dd id="fish-bait">Insect Ball</dd></div>
+          </dl>
+          <p id="fish-note">A peaceful starting pool with easy Mog House access and no item catches.</p>
+        </div>
       </div>
+      <script src="../assets/fishing.js"></script>
       <p class="source-note">Fishing route references: <a href="https://www.bluegartr.com/threads/84574-Fishing-Guide-1-100" target="_blank" rel="noopener">BlueGartr Fishing Guide 1–100</a> · <a href="https://www.bg-wiki.com/ffxi/Community_Fishing_Guide" target="_blank" rel="noopener">BG-Wiki Community Fishing Guide</a>. Server-specific pools and bite behavior can differ.</p>
     </section></main></div><footer><div>✦ FFXI VR: Current Reality</div><p>Player Compendium · Fishing</p><a href="../admin/index.html">Administration</a></footer></body></html>
