@@ -37,6 +37,18 @@ foreach ($relativePath in $required) {
     }
 }
 
+$gitCommand = Get-Command 'git.exe' -ErrorAction SilentlyContinue
+$isGitCheckout = Test-Path -LiteralPath (Join-Path $target '.git') -PathType Container
+if ($isGitCheckout -and $gitCommand) {
+    $localChanges = & $gitCommand.Source -C $target status --porcelain
+    if ($LASTEXITCODE -ne 0) {
+        throw "Git could not inspect the existing Compendium checkout."
+    }
+    if ($localChanges) {
+        throw "The Compendium contains uncommitted local changes. Commit or back them up before installing so they are not overwritten."
+    }
+}
+
 New-Item -ItemType Directory -Path $backupRoot -Force | Out-Null
 
 if (Test-Path -LiteralPath $target -PathType Container) {
@@ -52,8 +64,16 @@ else {
     New-Item -ItemType Directory -Path $target -Force | Out-Null
 }
 
-Get-ChildItem -LiteralPath $payload -Force | ForEach-Object {
-    Copy-Item -LiteralPath $_.FullName -Destination $target -Recurse -Force
+if ($isGitCheckout -and $gitCommand) {
+    & $gitCommand.Source -C $target pull --ff-only origin main
+    if ($LASTEXITCODE -ne 0) {
+        throw "Git could not fast-forward the Compendium. The untouched backup is available at: $backup"
+    }
+}
+else {
+    Get-ChildItem -LiteralPath $payload -Force | ForEach-Object {
+        Copy-Item -LiteralPath $_.FullName -Destination $target -Recurse -Force
+    }
 }
 
 Write-Host ''
