@@ -94,23 +94,19 @@ def script_vendors(zone_root, name_to_id, npc_lookup, zone_ids):
     return vendors, guild_npcs
 
 
-def quest_rewards(quest_root, name_to_id):
-    rewards = defaultdict(list)
-    patterns = [
-        re.compile(r"(?:item|itemId)\s*=\s*xi\.item\.([A-Z0-9_]+)"),
-        re.compile(r"(?:addItem|giveItem)\s*\([^\n]*?xi\.item\.([A-Z0-9_]+)"),
-    ]
+def quest_references(quest_root, name_to_id):
+    references = defaultdict(list)
+    pattern = re.compile(r"xi\.item\.([A-Z0-9_]+)")
     for path in quest_root.rglob("*.lua"):
         text = path.read_text(encoding="utf-8", errors="replace")
         quest = clean_name(path.stem)
         area = clean_name(path.parent.name)
-        for pattern in patterns:
-            for constant in pattern.findall(text):
-                iid = name_to_id.get(constant)
-                source = {"quest": quest, "area": area}
-                if iid and source not in rewards[iid]:
-                    rewards[iid].append(source)
-    return rewards
+        for constant in pattern.findall(text):
+            iid = name_to_id.get(constant)
+            source = {"quest": quest, "area": area}
+            if iid and source not in references[iid]:
+                references[iid].append(source)
+    return references
 
 
 def main():
@@ -120,6 +116,7 @@ def main():
     parser.add_argument("output")
     parser.add_argument("--builder", default="tools/build_compendium_data.py")
     parser.add_argument("--shard-dir")
+    parser.add_argument("--index")
     args = parser.parse_args()
     game_path = Path(args.game_data)
     root = Path(args.source_root)
@@ -170,7 +167,7 @@ def main():
             if all((x["monster"], x["zone"], x["rate"]) != key for x in drops[iid]):
                 drops[iid].append(entry)
 
-    rewards = quest_rewards(root / "quests", name_to_id)
+    quest_items = quest_references(root / "quests", name_to_id)
     made_by = defaultdict(list)
     used_in = defaultdict(list)
     for recipe in data.get("recipes", []):
@@ -188,7 +185,7 @@ def main():
         item["sources"] = {
             "vendors": vendors.get(iid, []),
             "drops": sorted(drops.get(iid, []), key=lambda x: (x["zone"], x["monster"])),
-            "quests": rewards.get(iid, []),
+            "quests": quest_items.get(iid, []),
             "craftedBy": made_by.get(iid, []),
             "usedIn": used_in.get(iid, []),
         }
@@ -209,12 +206,26 @@ def main():
         shards = defaultdict(dict)
         for item in data["items"]:
             shards[item["id"] // SHARD_SIZE][str(item["id"])] = {
+                "item": {
+                    key: item[key]
+                    for key in ("id", "name", "kind", "stack", "sell", "equip", "weapon", "usable")
+                    if key in item
+                },
                 "ah": item["ah"], "sources": item["sources"],
                 "flags": item["flags"], "noSale": item["noSale"],
             }
         for shard, records in shards.items():
             (shard_dir / f"{shard}.json").write_text(json.dumps(records, separators=(",", ":"), ensure_ascii=False), encoding="utf-8")
         (shard_dir / "meta.json").write_text(json.dumps(data["meta"]["itemSources"], separators=(",", ":")), encoding="utf-8")
+    if args.index:
+        index = {
+            str(item["id"]): {
+                "group": item["ah"]["path"][0] if item["ah"]["listed"] else item.get("kind", "Item"),
+                "type": item["ah"]["path"][-1] if item["ah"]["listed"] else item.get("kind", "Item"),
+            }
+            for item in data["items"]
+        }
+        Path(args.index).write_text(json.dumps(index, separators=(",", ":"), ensure_ascii=False), encoding="utf-8")
     print(json.dumps(data["meta"]["itemSources"], indent=2))
 
 

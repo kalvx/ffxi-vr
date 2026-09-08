@@ -1,1 +1,1 @@
-{"65535":{"ah":{"id":0,"listed":false,"path":["Not sold through the Auction House"]},"sources":{"vendors":[],"drops":[],"quests":[],"craftedBy":[],"usedIn":[]},"flags":0,"noSale":false}}
+{"65535":{"item":{"id":65535,"name":"Gil","kind":"Item","stack":0,"sell":0},"ah":{"id":0,"listed":false,"path":["Not sold through the Auction House"]},"sources":{"vendors":[],"drops":[],"quests":[],"craftedBy":[],"usedIn":[],"guideUses":[]},"flags":0,"noSale":false}}

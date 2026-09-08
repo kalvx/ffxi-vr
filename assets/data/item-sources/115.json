@@ -1,1 +1,1 @@
-{"29695":{"ah":{"id":0,"listed":false,"path":["Not sold through the Auction House"]},"sources":{"vendors":[],"drops":[],"quests":[],"craftedBy":[],"usedIn":[]},"flags":12352,"noSale":false}}
+{"29695":{"item":{"id":29695,"name":"Mangled Mess","kind":"Item","stack":1,"sell":0},"ah":{"id":0,"listed":false,"path":["Not sold through the Auction House"]},"sources":{"vendors":[],"drops":[],"quests":[],"craftedBy":[],"usedIn":[],"guideUses":[]},"flags":12352,"noSale":false}}

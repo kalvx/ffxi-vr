@@ -21,7 +21,8 @@ function ensureReferenceCategory() {
   if (!select) {
     select = document.createElement('select');
     select.id = 'reference-category';
-    select.innerHTML = '<option value="all">All item categories</option><option>Weapons</option><option>Armor</option><option>Accessories</option><option>Furnishings</option><option>Consumables</option><option>Automaton & special</option><option>Materials & miscellaneous</option>';
+    const groups = [...new Set(referenceData.items.map(row => row[4]))].sort();
+    select.innerHTML = '<option value="all">All item categories</option>' + groups.map(group => `<option>${group}</option>`).join('');
     document.querySelector('#reference-count').before(select);
     select.addEventListener('change', renderReference);
   }

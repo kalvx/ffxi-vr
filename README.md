@@ -25,7 +25,17 @@ GitHub Pages has no server-side authentication. Never commit GM commands, privat
 After generating `assets/data/game-data.json` with `build_compendium_data.py`, enrich it from a matching LandSandBoat source tree:
 
 ```text
-python tools/enrich_item_sources.py assets/data/game-data.json PATH_TO_ITEM_WIKI_SOURCE assets/data/game-data.enriched.json --shard-dir assets/data/item-sources
+python tools/enrich_item_sources.py assets/data/game-data.json PATH_TO_ITEM_WIKI_SOURCE assets/data/game-data.enriched.json --shard-dir assets/data/item-sources --index assets/data/item-index.json
 ```
 
 The source tree must contain `sql`, `zones`, and `quests`. The enrichment pass adds the exact Auction House hierarchy from `item_basic.aH`, NPC and guild shops, monster drops, quest-script involvement, recipes that produce each item, and recipes that consume it. The published database loads the generated item-source shards on demand; the full enriched output is retained for review and does not replace the compact base database.
+
+## Rebuilding starter-nation guides
+
+The generated guide set contains 66 nation missions and 264 city quests for San d’Oria, Bastok, and Windurst. Rebuild it from the structured Chronicle export with:
+
+```text
+python tools/build_starter_guides.py PATH_TO_FFXI_CHRONICLE .
+```
+
+Guide facts are adapted from BG Wiki under its CC BY-NC-SA 3.0 license. Every generated page carries source and license attribution. Current Reality adds its own organization, internal navigation, permanent item links, hover/focus item cards, and acquisition detail integration.
