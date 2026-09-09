@@ -34,36 +34,6 @@
     return {raw,target,coords,maps};
   }
 
-  function reciprocalArrival(fromZone,target){
-    const list=getExits(target)||[];
-    const match=list.find(e=>norm(parseExit(e).target)===norm(fromZone));
-    if(!match)return '';
-    const p=parseExit(match);
-    return p.coords.length?p.coords.map(c=>c.raw).join(' / '):'';
-  }
-
-  function coordPos(c){
-    if(!c)return {x:50,y:50};
-    const first=c.x.split('/')[0].charCodeAt(0)-65;
-    return {x:Math.max(8,Math.min(92,8+(first/13)*84)),y:Math.max(8,Math.min(92,7+((c.y-1)/13)*86))};
-  }
-
-  function connectionMap(zone){
-    const list=getExits(zone);
-    if(list===null)return `<div class="zone-map zone-map-missing"><div class="zone-center"><strong>${esc(zone)}</strong><span>Connection data not yet matched</span></div></div>`;
-    if(!list.length)return `<div class="zone-map zone-map-battle"><div class="zone-center"><strong>${esc(zone)}</strong><span>Battlefield / instance</span></div><div class="zone-noexit">No conventional walkable zone exits</div></div>`;
-    const parsed=list.map(parseExit); const nodes=[]; const lines=[];
-    parsed.forEach((p,idx)=>{
-      const cs=p.coords.length?p.coords:[null];
-      cs.forEach((c,j)=>{
-        const pos=coordPos(c); const arrival=reciprocalArrival(zone,p.target); const id=`z${idx}_${j}`;
-        nodes.push(`<div class="zone-exit" style="left:${pos.x}%;top:${pos.y}%" data-exit="${esc(id)}"><strong>${esc(p.target)}</strong><span>${c?`Exit ${esc(c.raw)}`:'Connection'}${arrival?` → Arrive ${esc(arrival)}`:''}</span>${p.maps.length?`<em>${esc(p.maps.join(' / '))}</em>`:''}</div>`);
-        lines.push(`<line x1="50" y1="50" x2="${pos.x}" y2="${pos.y}" marker-end="url(#arrow)"/>`);
-      });
-    });
-    return `<div class="zone-map"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>${lines.join('')}</svg><div class="zone-center"><strong>${esc(zone)}</strong><span>Connections</span></div>${nodes.join('')}</div>`;
-  }
-
   let currentZone=''; let currentMap=0; let scale=1; let panX=0; let panY=0; let dragging=false; let startX=0; let startY=0;
   function applyTransform(){ if(viewerImg)viewerImg.style.transform=`translate(${panX}px,${panY}px) scale(${scale})`; }
   function resetTransform(){scale=1;panX=0;panY=0;applyTransform();}
@@ -115,17 +85,38 @@
     return `<button type="button" class="real-map-preview" data-open-map="${esc(zone)}" aria-label="Open large map for ${esc(zone)}"><img src="${esc(m.maps[0])}" alt="${esc(zone)} map preview" loading="lazy"><span><strong>Open full map</strong><small>Zoom • pan${m.maps.length>1?` • ${m.maps.length} floors`:''}</small></span></button>`;
   };
 
+  const exitList=zone=>{
+    const list=getExits(zone);
+    if(list===null)return `<p class="route-empty">Exit data is still being matched for this area.</p>`;
+    if(!list.length)return `<p class="route-empty">No conventional walkable exits.</p>`;
+    return `<div class="exit-list">${list.map(raw=>{const p=parseExit(raw);const coords=p.coords.map(c=>c.raw).join(' / ')||'Connection';return `<button type="button" class="exit-row" data-open-zone="${esc(p.target)}"><span class="exit-dest">${esc(p.target)}</span><span class="exit-coord">${esc(coords)}</span></button>`;}).join('')}</div>`;
+  };
+
   const routeCard=zone=>{
     const d=details[zone];
     const routes=d?.routes?.length?(d.routes||[]).map((r,i)=>`<details class="route-detail"><summary>${esc(r.name||`Route ${String.fromCharCode(65+i)}`)}</summary>${routeDiagram(r,i)}<ol class="guide-steps">${(r.steps||[]).map(s=>`<li>${esc(s)}</li>`).join('')}</ol></details>`).join(''):'';
     const unlocks=d?.unlocks?.length?`<p><strong>Unlock on the way:</strong> ${d.unlocks.map(esc).join(' • ')}</p>`:'';
     const hazards=d?.hazards?`<p><strong>Hazards:</strong> ${esc(d.hazards)}</p>`:'';
     const list=getExits(zone);
-    const exitSummary=list?.length?`<details class="route-detail"><summary>Connection schematic & exits</summary>${connectionMap(zone)}<ul class="connection-list">${list.map(e=>`<li>${esc(e)}</li>`).join('')}</ul></details>`:`<details class="route-detail"><summary>Connection schematic</summary>${connectionMap(zone)}</details>`;
-    return `<article class="trust-card route-card" data-zone="${esc(zone.toLowerCase())}"><small>ZONE FIELD GUIDE</small><h3>${esc(zone)}</h3>${mapPreview(zone)}${exitSummary}${d?.access?`<p><strong>Access:</strong> ${esc(d.access)}</p>`:''}${d?.protection?`<p><strong>Sneak / Invisible:</strong> ${esc(d.protection)}</p>`:''}${hazards}${routes}${fieldGuide(zone)}${unlocks}</article>`;
+    const summaryBits=[];
+    if(list?.length)summaryBits.push(`${list.length} exit${list.length===1?'':'s'}`);
+    const g=field[zone]||field[keyFor(zone)]||null;
+    if(g?.npcs?.length)summaryBits.push(`${g.npcs.length} NPC${g.npcs.length===1?'':'s'}`);
+    if(g?.mobs?.length)summaryBits.push(`${g.mobs.length} mob group${g.mobs.length===1?'':'s'}`);
+    const quick=summaryBits.length?`<div class="zone-quick">${summaryBits.map(esc).join(' • ')}</div>`:'';
+    const exitsPanel=`<details class="route-detail exits-panel"><summary>Exits & connections</summary>${exitList(zone)}</details>`;
+    return `<article class="trust-card route-card" data-zone="${esc(zone.toLowerCase())}"><small>ZONE FIELD GUIDE</small><h3>${esc(zone)}</h3>${mapPreview(zone)}${quick}${exitsPanel}${d?.access?`<p><strong>Access:</strong> ${esc(d.access)}</p>`:''}${d?.protection?`<p><strong>Sneak / Invisible:</strong> ${esc(d.protection)}</p>`:''}${hazards}${routes}${fieldGuide(zone)}${unlocks}</article>`;
   };
 
-  root.addEventListener('click',e=>{const b=e.target.closest('[data-open-map]');if(b)openMap(b.dataset.openMap);});
+  root.addEventListener('click',e=>{
+    const mapButton=e.target.closest('[data-open-map]');
+    if(mapButton){openMap(mapButton.dataset.openMap);return;}
+    const exitButton=e.target.closest('[data-open-zone]');
+    if(exitButton){
+      const zone=exitButton.dataset.openZone;
+      if(mapFor(zone))openMap(zone);
+    }
+  });
 
   function render(){
     const q=(search?.value||'').trim().toLowerCase(); const exp=type?.value||'all'; let html='';
@@ -135,9 +126,9 @@
       group.regions.forEach(region=>{
         const zones=region.zones.filter(z=>!q||z.toLowerCase().includes(q)||region.name.toLowerCase().includes(q)||group.name.toLowerCase().includes(q));
         if(!zones.length)return;
-        regions.push(`<details class="route-region"><summary><strong>${esc(region.name)}</strong> <span>${zones.length} areas</span></summary><div class="trust-grid">${zones.map(routeCard).join('')}</div></details>`);
+        regions.push(`<details class="route-region" open><summary><strong>${esc(region.name)}</strong> <span>${zones.length} areas</span></summary><div class="trust-grid">${zones.map(routeCard).join('')}</div></details>`);
       });
-      if(regions.length)html+=`<details class="route-expansion"><summary><h2>${esc(group.name)}</h2></summary>${regions.join('')}</details>`;
+      if(regions.length)html+=`<details class="route-expansion" open><summary><h2>${esc(group.name)}</h2></summary>${regions.join('')}</details>`;
     });
     root.innerHTML=html||'<p class="notice">No matching areas.</p>';
   }
