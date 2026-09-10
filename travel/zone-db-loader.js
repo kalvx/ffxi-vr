@@ -1,7 +1,7 @@
 // Current Reality per-zone field-guide loader.
 // Loads the actual LandSandBoat YAML for one zone at a time instead of downloading the huge global SQL tables.
 (function(){
-  const ROOT='https://raw.githubusercontent.com/LandSandBoat/server/base/data/zones/';
+  const ROOT='https://cdn.jsdelivr.net/gh/LandSandBoat/server@base/data/zones/';
   const hnmNames=new Set(['Absolute Virtue','Adamantoise','Aspidochelone','Behemoth','King Behemoth','Fafnir','Nidhogg','Roc','Simurgh','Serket','King Arthro','Capricious Cassie','Lord of Onzozo','Charybdis','Tiamat','Jormungand','Vrtra','Khimaira','Cerberus','Hydra','Sandworm','Dark Ixion']);
   const clean=s=>String(s||'').replace(/_/g,' ').replace(/\s+/g,' ').trim();
   const title=s=>clean(s).replace(/\b\w/g,c=>c.toUpperCase()).replace(/\bOf\b/g,'of').replace(/\bThe\b/g,'The');
@@ -71,10 +71,12 @@
   async function loadZone(zoneId,onStatus,zoneName){
     const status=typeof onStatus==='function'?onStatus:()=>{},zone=zoneName||Object.keys(window.CR_ZONE_MAPS||{}).find(k=>Number(window.CR_ZONE_MAPS[k].zoneId)===Number(zoneId));if(!zone)throw new Error('No zone name for '+zoneId);if(cache.has(zone))return cache.get(zone);
     status('Loading actual mobs, NPCs, NMs, HNMs and coordinates for '+zone+'…');
-    const mobFile=await fetchZoneFile(zone,'mobs.yaml');let npcText='',regionText='';
+    let mobText='',npcText='',regionText='';
+    try{mobText=(await fetchZoneFile(zone,'mobs.yaml')).text}catch(e){}
     try{npcText=(await fetchZoneFile(zone,'npcs.yaml')).text}catch(e){}
     try{regionText=(await fetchZoneFile(zone,'regions.yaml')).text}catch(e){}
-    const templates=templateData(mobFile.text),regions=regionCenters(regionText),all=spawnData(mobFile.text,templates,regions).map(mobRow),mobs=all.filter(m=>!m.nm&&!m.hnm),nms=all.filter(m=>m.nm&&!m.hnm),hnms=all.filter(m=>m.hnm),npcs=npcData(npcText);
+    if(!mobText&&!npcText)throw new Error('No per-zone data source found for '+zone);
+    const templates=templateData(mobText),regions=regionCenters(regionText),all=spawnData(mobText,templates,regions).map(mobRow),mobs=all.filter(m=>!m.nm&&!m.hnm),nms=all.filter(m=>m.nm&&!m.hnm),hnms=all.filter(m=>m.hnm),npcs=npcData(npcText);
     const result={mobs,nms,hnms,npcs,sourceNote:'Actual per-zone LandSandBoat YAML: mob names, level ranges, NM flags, loot, spawn records/coordinates and NPC coordinates. Region-based spawns show the approximate center of the server spawn region.'};cache.set(zone,result);status(`Loaded ${mobs.length} mobs, ${nms.length} NMs, ${hnms.length} HNMs and ${npcs.length} NPCs.`);return result;
   }
   window.CR_ZONE_DB={loadZone};
