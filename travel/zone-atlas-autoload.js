@@ -1,5 +1,5 @@
-// Automatically enrich visible World Route Finder cards with the real zone database.
-// Keeps the existing card layout/order; it only fills the missing field-guide data.
+// Automatically enrich World Route Finder cards without flooding the browser.
+// Only one zone database merge runs at a time; existing route/card content stays in place.
 (function(){
   const root=document.querySelector('#world-route-root');
   if(!root)return;
@@ -7,12 +7,14 @@
   const field=window.CR_ZONE_FIELD_GUIDES||{};
   const fieldFor=zone=>field[zone]||field[Object.keys(field).find(k=>norm(k)===norm(zone))]||null;
   const zoneName=card=>card.querySelector('h3')?.textContent?.trim()||'';
+  let busy=false;
+  const pending=[];
+  const queued=new Set();
 
   function avoidance(detect){
-    const s=String(detect||'').toLowerCase();
-    const tips=[];
+    const s=String(detect||'').toLowerCase(),tips=[];
     if(s.includes('true detection'))tips.push('True detection: standard Sneak/Invisible will not make this safe; give it a wide berth.');
-    else {
+    else{
       if(s.includes('sight'))tips.push('Sight aggro: Invisible / Prism Powder is the relevant protection.');
       if(s.includes('sound'))tips.push('Sound aggro: Sneak / Silent Oil is the relevant protection.');
       if(s.includes('aggressive')&&!s.includes('sight')&&!s.includes('sound'))tips.push('Aggressive: keep Sneak/Invisible ready and avoid its aggro radius.');
@@ -27,39 +29,49 @@
     const all=[...(g.mobs||[]),...(g.nms||[]),...(g.hnms||[])];
     const dangerous=all.filter(m=>/aggressive|true detection|links|sight|sound/i.test(String(m.detect||''))).slice(0,18);
     if(!dangerous.length)return;
-    const details=document.createElement('details');
-    details.className='route-detail route-hazard-auto';details.open=true;
+    const details=document.createElement('details');details.className='route-detail route-hazard-auto';details.open=true;
     details.innerHTML=`<summary><strong>Route hazards & how to avoid them</strong> <span>${dangerous.length}</span></summary><div class="route-hazard-list">${dangerous.map(m=>`<div class="route-hazard-row"><strong>${m.hnm?'HNM • ':m.nm?'NM • ':''}${m.name||'Monster'}</strong><span>${m.level?`Lv. ${m.level} • `:''}${m.pos||'spawn coordinates in zone database'}</span><small>${m.detect||''}${avoidance(m.detect)?` — ${avoidance(m.detect)}`:''}</small></div>`).join('')}</div>`;
-    const exits=card.querySelector('.exits-panel');
-    if(exits)exits.insertAdjacentElement('afterend',details);else card.querySelector('h3')?.insertAdjacentElement('afterend',details);
+    const exits=card.querySelector('.exits-panel');if(exits)exits.insertAdjacentElement('afterend',details);else card.querySelector('h3')?.insertAdjacentElement('afterend',details);
   }
 
   function finishCard(card){
-    card.querySelectorAll('.field-panel').forEach(p=>p.open=true);
-    const status=card.querySelector('.zone-db-status');
-    if(status&&/loaded/i.test(status.textContent||''))status.textContent='Mobs, NPCs, NMs, HNMs, coordinates and drops loaded for this zone.';
-    addHazards(card);
+    const zone=zoneName(card),g=fieldFor(zone);
+    if(g?.dbLoaded){
+      card.querySelectorAll('.field-panel').forEach(p=>p.open=true);
+      const status=card.querySelector('.zone-db-status');if(status)status.textContent='Mobs, NPCs, NMs, HNMs, coordinates and drops loaded for this zone.';
+      addHazards(card);
+    }
   }
 
-  function startCard(card){
-    if(!card||card.dataset.atlasAuto==='1'){finishCard(card);return;}
-    const button=card.querySelector('[data-load-zone-db]');
-    if(!button){finishCard(card);return;}
-    if(button.disabled){card.dataset.atlasAuto='1';finishCard(card);return;}
-    card.dataset.atlasAuto='1';
-    const status=card.querySelector('.zone-db-status');
-    if(status)status.textContent='Loading mobs, NPCs, NMs, HNMs, coordinates and drops…';
-    button.click();
+  function queueCard(card){
+    if(!card)return;const zone=zoneName(card);if(!zone||fieldFor(zone)?.dbLoaded){finishCard(card);return;}
+    if(queued.has(zone))return;const button=card.querySelector('[data-load-zone-db]');if(!button)return;
+    queued.add(zone);pending.push(zone);pump();
   }
 
-  const io='IntersectionObserver'in window?new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){startCard(e.target);io.unobserve(e.target)}}),{rootMargin:'900px 0px'}):null;
+  function pump(){
+    if(busy||!pending.length)return;
+    const zone=pending.shift(),card=[...root.querySelectorAll('.route-card')].find(c=>zoneName(c)===zone);
+    if(!card){queued.delete(zone);pump();return;}
+    if(fieldFor(zone)?.dbLoaded){queued.delete(zone);finishCard(card);pump();return;}
+    const button=card.querySelector('[data-load-zone-db]');if(!button||button.disabled){queued.delete(zone);pump();return;}
+    busy=true;const status=card.querySelector('.zone-db-status');if(status)status.textContent='Loading mobs, NPCs, NMs, HNMs, coordinates and drops…';button.click();
+    const started=Date.now();
+    const wait=()=>{
+      if(fieldFor(zone)?.dbLoaded){busy=false;queued.delete(zone);scan();pump();return;}
+      if(Date.now()-started>30000){busy=false;queued.delete(zone);if(status)status.textContent='Zone data timed out; scroll away and back to retry.';pump();return;}
+      setTimeout(wait,250);
+    };setTimeout(wait,250);
+  }
+
+  const io='IntersectionObserver'in window?new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){queueCard(e.target);io.unobserve(e.target)}}),{rootMargin:'250px 0px'}):null;
   function scan(){
     root.querySelectorAll('.route-card').forEach(card=>{
       finishCard(card);
       if(io&&!card.dataset.atlasObserved){card.dataset.atlasObserved='1';io.observe(card)}
-      else if(!io)startCard(card);
+      else if(!io)queueCard(card);
     });
   }
-  new MutationObserver(scan).observe(root,{childList:true,subtree:true});
-  scan();
+  let scanTimer=0;new MutationObserver(()=>{clearTimeout(scanTimer);scanTimer=setTimeout(scan,60)}).observe(root,{childList:true,subtree:true});
+  setTimeout(scan,250);
 })();
