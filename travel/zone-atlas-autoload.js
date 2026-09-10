@@ -29,17 +29,60 @@
     const all=[...(g.mobs||[]),...(g.nms||[]),...(g.hnms||[])];
     const dangerous=all.filter(m=>/aggressive|true detection|links|sight|sound/i.test(String(m.detect||''))).slice(0,18);
     if(!dangerous.length)return;
-    const details=document.createElement('details');details.className='route-detail route-hazard-auto';details.open=true;
+    const details=document.createElement('details');details.className='route-detail route-hazard-auto';details.open=false;
     details.innerHTML=`<summary><strong>Route hazards & how to avoid them</strong> <span>${dangerous.length}</span></summary><div class="route-hazard-list">${dangerous.map(m=>`<div class="route-hazard-row"><strong>${m.hnm?'HNM • ':m.nm?'NM • ':''}${m.name||'Monster'}</strong><span>${m.level?`Lv. ${m.level} • `:''}${m.pos||'spawn coordinates in zone database'}</span><small>${m.detect||''}${avoidance(m.detect)?` — ${avoidance(m.detect)}`:''}</small></div>`).join('')}</div>`;
     const exits=card.querySelector('.exits-panel');if(exits)exits.insertAdjacentElement('afterend',details);else card.querySelector('h3')?.insertAdjacentElement('afterend',details);
+  }
+
+  const gearWords=/\b(ring|earring|earrings|necklace|torque|gorget|pendant|mantle|cape|belt|sash|helm|helmet|mask|hat|cap|crown|circlet|mail|armor|armour|harness|robe|coat|tunic|jerkin|gloves|mitts|gauntlets|cuffs|trousers|hose|brais|subligar|boots|greaves|leggings|sword|dagger|knife|axe|scythe|spear|lance|katana|bow|staff|club|shield)\b/i;
+  function emphasizeDrops(card){
+    card.querySelectorAll('.field-grid>div').forEach(entry=>{
+      if(entry.dataset.dropEmphasis==='1')return;
+      const dropLine=[...entry.querySelectorAll('small')].find(s=>/^\s*Drops:/i.test(s.textContent||''));
+      if(!dropLine)return;
+      const raw=(dropLine.textContent||'').replace(/^\s*Drops:\s*/i,'');
+      const items=raw.split(/\s*[•|]\s*/).filter(Boolean);
+      if(!items.length)return;
+      const notable=entry.classList.contains('nm-entry')||entry.classList.contains('hnm-entry');
+      dropLine.textContent='';
+      const label=document.createElement('b');label.textContent=notable?'★ Notable drops: ':'Drops: ';dropLine.appendChild(label);
+      items.forEach((item,i)=>{
+        if(i)dropLine.appendChild(document.createTextNode(' • '));
+        const important=notable||gearWords.test(item);
+        const node=document.createElement(important?'strong':'span');
+        node.textContent=item;
+        if(important){node.style.fontWeight='800';node.style.fontStyle=notable?'italic':'normal'}
+        dropLine.appendChild(node);
+      });
+      if(notable)entry.style.boxShadow='inset 3px 0 0 rgba(255,255,255,.28)';
+      entry.dataset.dropEmphasis='1';
+    });
+  }
+
+  function addSpawnBadges(card){
+    card.querySelectorAll('.nm-entry,.hnm-entry').forEach(entry=>{
+      if(entry.dataset.spawnBadge==='1')return;
+      const text=(entry.textContent||'').toLowerCase();
+      let label='';
+      if(/forced spawn|force spawn|trade .* to|trade .*item|pop item|spawn item/.test(text))label='★ FORCED SPAWN';
+      else if(/lottery/.test(text))label='★ LOTTERY';
+      else if(/timed spawn|timed repop|respawn/.test(text))label='★ TIMED SPAWN';
+      if(label){
+        const badge=document.createElement('small');badge.textContent=label;badge.style.fontWeight='900';badge.style.letterSpacing='.05em';entry.appendChild(badge);
+      }
+      entry.dataset.spawnBadge='1';
+    });
   }
 
   function finishCard(card){
     const zone=zoneName(card),g=fieldFor(zone);
     if(g?.dbLoaded){
-      card.querySelectorAll('.field-panel').forEach(p=>p.open=true);
+      // Keep the dense field guide compact. The player opens only the section needed.
+      card.querySelectorAll('.field-panel').forEach(p=>p.open=false);
       const status=card.querySelector('.zone-db-status');if(status)status.textContent='Mobs, NPCs, NMs, HNMs, coordinates and drops loaded for this zone.';
       addHazards(card);
+      emphasizeDrops(card);
+      addSpawnBadges(card);
     }
   }
 
