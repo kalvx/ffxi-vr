@@ -1,129 +1,81 @@
-// Lazy LandSandBoat zone database reader for the Current Reality World Route Finder.
-// This intentionally loads only when a visitor asks for the full zone database.
+// Current Reality per-zone field-guide loader.
+// Loads the actual LandSandBoat YAML for one zone at a time instead of downloading the huge global SQL tables.
 (function(){
-  const ROOT='https://raw.githubusercontent.com/LandSandBoat/server/base/sql/';
-  const urls={
-    spawns:ROOT+'mob_spawn_points.sql',
-    groups:ROOT+'mob_groups.sql',
-    pools:ROOT+'mob_pools.sql',
-    drops:ROOT+'mob_droplist.sql',
-    npcs:ROOT+'npc_list.sql'
-  };
-  const state={promise:null,db:null};
-  const hnmNames=new Set([
-    'Absolute Virtue','Adamantoise','Aspidochelone','Behemoth','King Behemoth','Fafnir','Nidhogg',
-    'Roc','Simurgh','Serket','King Arthro','Capricious Cassie','Lord of Onzozo','Charybdis',
-    'Tiamat','Jormungand','Vrtra','Khimaira','Cerberus','Hydra','Sandworm','Dark Ixion',
-    'Lambton Worm','Kukulkan','Briareus','Glavoid','Sobek','Apademak','Alfard','Orthrus',
-    'Isgebind','Amphitrite','Hadhayosh','Dragua','Pantokrator','Rani','Shinryu'
-  ]);
-  const clean=s=>String(s??'').replace(/^['"]|['"]$/g,'').replace(/\\'/g,"'").replace(/_/g,' ').trim();
-  function csv(s){
-    const out=[];let cur='',q=false;
-    for(let i=0;i<s.length;i++){
-      const c=s[i];
-      if(c==="'"&&s[i-1]!=='\\'){q=!q;cur+=c;continue}
-      if(c===','&&!q){out.push(cur.trim());cur='';continue}
-      cur+=c;
+  const ROOT='https://raw.githubusercontent.com/LandSandBoat/server/base/data/zones/';
+  const hnmNames=new Set(['Absolute Virtue','Adamantoise','Aspidochelone','Behemoth','King Behemoth','Fafnir','Nidhogg','Roc','Simurgh','Serket','King Arthro','Capricious Cassie','Lord of Onzozo','Charybdis','Tiamat','Jormungand','Vrtra','Khimaira','Cerberus','Hydra','Sandworm','Dark Ixion']);
+  const clean=s=>String(s||'').replace(/_/g,' ').replace(/\s+/g,' ').trim();
+  const title=s=>clean(s).replace(/\b\w/g,c=>c.toUpperCase()).replace(/\bOf\b/g,'of').replace(/\bThe\b/g,'The');
+  const cache=new Map();
+
+  function slugCandidates(zone){
+    let s=String(zone||'').normalize('NFKD').replace(/[’‘']/g,'').replace(/\[s\]/ig,' s ').replace(/\(s\)/ig,' s ').replace(/[^a-zA-Z0-9]+/g,'_').replace(/^_+|_+$/g,'').toLowerCase();
+    const a=[s,s.replace(/^the_/,''),s.replace(/_the_/g,'_'),s.replace(/ru_lude/,'rulude'),s.replace(/pso_xja/,'psoxja'),s.replace(/qu_bia/,'qubia'),s.replace(/zi_tah/,'zitah'),s.replace(/hu_xzoi/,'huxzoi'),s.replace(/ru_hmet/,'ruhmet')];
+    return [...new Set(a.filter(Boolean))];
+  }
+  async function getText(url){
+    const r=await fetch(url,{cache:'force-cache'});if(!r.ok)throw new Error('HTTP '+r.status);return r.text();
+  }
+  async function fetchZoneFile(zone,file){
+    let last=null;
+    for(const slug of slugCandidates(zone)){
+      try{return {slug,text:await getText(`${ROOT}${slug}/${file}`)}}catch(e){last=e}
     }
-    out.push(cur.trim());return out;
+    throw last||new Error('zone file not found');
   }
-  function insertRows(text,table,fn){
-    const re=new RegExp('INSERT INTO `'+table.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'` VALUES \\((.*?)\\);(?:\\s*--\\s*(.*))?$','gm');
-    let m;while((m=re.exec(text)))fn(csv(m[1]),m[2]||'');
+  function blocks(text,section,headerRe){
+    const start=text.indexOf(section+'\n');if(start<0)return[];const part=text.slice(start+section.length+1);const end=part.search(/^\S/m);const body=end>=0?part.slice(0,end):part;const hits=[];let m;
+    headerRe.lastIndex=0;while((m=headerRe.exec(body)))hits.push({name:m[1],at:m.index,after:headerRe.lastIndex});
+    return hits.map((h,i)=>({name:h.name,body:body.slice(h.after,i+1<hits.length?hits[i+1].at:body.length)}));
   }
-  const num=v=>{const n=Number(v);return Number.isFinite(n)?n:0};
-  const zoneFromEntity=id=>Math.floor((num(id)-0x01000000)/0x1000);
-  function detection(pool){
-    if(!pool)return'';const bits=[];
-    if(pool.aggro)bits.push('Aggressive');
-    if(pool.trueDetection)bits.push('True detection');
-    if(pool.links)bits.push('Links');
-    return bits.join(' • ')||'Normally non-aggressive / special';
+  function listItems(block){
+    const out=[];for(const m of block.matchAll(/^\s+item:\s+([^#\n]+)/gm))out.push(title(m[1]));
+    for(const m of block.matchAll(/^\s{12,}([a-zA-Z0-9_'-]+):\s*\d+\s*$/gm)){const k=m[1];if(!['chance','rate','weight'].includes(k))out.push(title(k))}
+    return [...new Set(out)].slice(0,20);
   }
-  function dropLabel(comment,itemId,itemRate){
-    let label=String(comment||'').trim();
-    if(label){
-      label=label.replace(/\s*\([^)]*\)\s*$/,'').trim();
-      if(label)return label;
+  function templateData(text){
+    const map=new Map();
+    for(const b of blocks(text,'templates:',/^  ([^\n:]+):\s*$/gm)){
+      const display=(b.body.match(/^\s+display_name:\s+([^#\n]+)/m)||[])[1]||b.name;
+      map.set(b.name,{name:title(display),nm:/^\s+type:\s*\[[^\]]*notorious/i.test(b.body),aggressive:/^\s+aggressive:\s*true/m.test(b.body),trueDetection:/^\s+true_detection:\s*true/m.test(b.body),links:/^\s+links:\s*true/m.test(b.body),respawn:Number((b.body.match(/^\s+respawn:\s*(\d+)/m)||[])[1]||0),drops:listItems(b.body)});
     }
-    const rate=String(itemRate||'').replace(/^@/,'');
-    return `Item ${itemId}${rate?` (${rate})`:''}`;
+    return map;
   }
-  async function fetchText(url){
-    const r=await fetch(url,{cache:'force-cache'});if(!r.ok)throw new Error(`Database source returned ${r.status}`);return r.text();
+  function regionCenters(text){
+    const map=new Map();
+    for(const b of blocks(text,'regions:',/^  ([^\n:]+):\s*$/gm)){
+      const pts=[...b.body.matchAll(/\[\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)/g)].map(m=>[Number(m[1]),Number(m[3])]);
+      if(!pts.length)continue;const x=pts.reduce((s,p)=>s+p[0],0)/pts.length,z=pts.reduce((s,p)=>s+p[1],0)/pts.length;map.set(b.name,[x,z]);
+    }
+    return map;
   }
-  async function build(){
-    const [spawnText,groupText,poolText,npcText]=await Promise.all([fetchText(urls.spawns),fetchText(urls.groups),fetchText(urls.pools),fetchText(urls.npcs)]);
-    const pools=new Map(),groupsByZone=new Map(),spawnsByZone=new Map(),npcsByZone=new Map();
-    insertRows(poolText,'mob_pools',(v)=>{
-      const poolid=num(v[0]);if(!poolid)return;
-      pools.set(poolid,{name:clean(v[2]||v[1]),aggro:num(v[11])!==0,trueDetection:num(v[12])!==0,links:num(v[13])!==0,mobType:num(v[14])});
-    });
-    insertRows(groupText,'mob_groups',(v)=>{
-      const zoneid=num(v[2]),groupid=num(v[0]);if(!groupsByZone.has(zoneid))groupsByZone.set(zoneid,new Map());
-      groupsByZone.get(zoneid).set(groupid,{groupid,poolid:num(v[1]),name:clean(v[3]),respawn:num(v[4]),dropid:num(v[6])});
-    });
-    insertRows(spawnText,'mob_spawn_points',(v)=>{
-      const zoneid=zoneFromEntity(v[0]);if(zoneid<0||zoneid>999)return;
-      const row={mobid:num(v[0]),name:clean(v[3]||v[2]),groupid:num(v[4]),min:num(v[5]),max:num(v[6]),x:num(v[7]),y:num(v[8]),z:num(v[9]),spawnHour:v[11]==='NULL'?null:num(v[11]),despawnHour:v[12]==='NULL'?null:num(v[12])};
-      if(!spawnsByZone.has(zoneid))spawnsByZone.set(zoneid,[]);spawnsByZone.get(zoneid).push(row);
-    });
-    insertRows(npcText,'npc_list',(v)=>{
-      const zoneid=zoneFromEntity(v[0]);if(zoneid<0||zoneid>999)return;
-      const name=clean(v[2]||v[1]);if(!name)return;
-      const row={name,x:num(v[4]),y:num(v[5]),z:num(v[6]),flag:num(v[7]),status:num(v[13]),widescan:num(v[18])};
-      if(!npcsByZone.has(zoneid))npcsByZone.set(zoneid,[]);npcsByZone.get(zoneid).push(row);
-    });
-    return {pools,groupsByZone,spawnsByZone,npcsByZone,drops:null};
-  }
-  async function ensureDrops(db){
-    if(db.drops)return db.drops;const text=await fetchText(urls.drops),drops=new Map();
-    insertRows(text,'mob_droplist',(v,comment)=>{
-      const id=num(v[0]);if(!id)return;const row={type:num(v[1]),itemId:num(v[4]),rate:v[5],label:dropLabel(comment,v[4],v[5])};
-      if(!drops.has(id))drops.set(id,[]);drops.get(id).push(row);
-    });db.drops=drops;return drops;
-  }
-  function usefulNpc(n){
-    const s=n.name.toLowerCase();
-    if(!s||s==='npc'||/^door($| )/.test(s)||/^blank$/.test(s)||/^none$/.test(s))return false;
-    return true;
-  }
-  function npcService(name){
-    const s=name.toLowerCase();
-    if(/home point/.test(s))return'Home Point';if(/survival guide/.test(s))return'Survival Guide';if(/unity/.test(s))return'Unity travel';if(/waypoint/.test(s))return'Waypoint';if(/outpost/.test(s))return'Outpost / regional travel';if(/nomad moogle|moogle/.test(s))return'Moogle service';if(/auction/.test(s))return'Auction House';if(/chocobo/.test(s))return'Chocobo service';if(/shop|merchant|vendor/.test(s))return'Vendor';return'';
-  }
-  function worldPos(x,z){if(!x&&!z)return'';return `World X ${Math.round(x)} / Z ${Math.round(z)}`}
-  async function loadZone(zoneId,onStatus){
-    const status=typeof onStatus==='function'?onStatus:()=>{};
-    status('Loading LandSandBoat mob and NPC tables…');
-    if(!state.promise)state.promise=build().then(db=>(state.db=db,db)).catch(e=>{state.promise=null;throw e});
-    const db=await state.promise,groups=db.groupsByZone.get(Number(zoneId))||new Map(),spawns=db.spawnsByZone.get(Number(zoneId))||[];
-    status('Matching mobs, levels, NM flags and drop tables…');
-    const neededDrops=new Set();groups.forEach(g=>{if(g.dropid)neededDrops.add(g.dropid)});
-    if(neededDrops.size)await ensureDrops(db);
+  function spawnData(text,templates,regions){
     const merged=new Map();
-    for(const s of spawns){
-      const g=groups.get(s.groupid),p=g?db.pools.get(g.poolid):null,key=`${s.groupid}:${s.name}`,existing=merged.get(key)||{name:s.name,min:s.min,max:s.max,count:0,group:g,pool:p,positions:[]};
-      existing.min=Math.min(existing.min||s.min,s.min||existing.min);existing.max=Math.max(existing.max||s.max,s.max||existing.max);existing.count++;if(existing.positions.length<3&&Number.isFinite(s.x)&&Number.isFinite(s.z))existing.positions.push(worldPos(s.x,s.z));merged.set(key,existing);
+    for(const b of blocks(text,'spawns:',/^  (\d+):\s*$/gm)){
+      const tkey=(b.body.match(/^\s+template:\s+([^#\n]+)/m)||[])[1]?.trim();if(!tkey||!templates.has(tkey))continue;
+      const t=templates.get(tkey),lev=b.body.match(/^\s+level:\s*\[\s*(\d+)\s*,\s*(\d+)\s*\]/m),at=b.body.match(/^\s+at:\s*\[\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)/m),reg=(b.body.match(/^\s+region:\s+([^#\n]+)/m)||[])[1]?.trim();
+      let pos='';if(at)pos=`X ${Math.round(Number(at[1]))}, Z ${Math.round(Number(at[3]))}`;else if(reg&&regions.has(reg)){const p=regions.get(reg);pos=`${reg} area — approx. X ${Math.round(p[0])}, Z ${Math.round(p[1])}`}
+      const k=tkey,cur=merged.get(k)||{...t,min:999,max:0,count:0,positions:[]};cur.count++;if(lev){cur.min=Math.min(cur.min,Number(lev[1]));cur.max=Math.max(cur.max,Number(lev[2]))}if(pos&&!cur.positions.includes(pos)&&cur.positions.length<5)cur.positions.push(pos);merged.set(k,cur);
     }
-    const mobs=[],nms=[],hnms=[];
-    for(const m of merged.values()){
-      const isNm=!!(m.pool&&(m.pool.mobType&0x02)),isHnm=hnmNames.has(m.name),drops=m.group&&m.group.dropid&&db.drops?((db.drops.get(m.group.dropid)||[]).filter(d=>d.type===0).map(d=>d.label)):[];
-      const level=m.min||m.max?(m.min===m.max?String(m.min):`${m.min}-${m.max}`):'';
-      const spawn=[];if(m.count>1)spawn.push(`${m.count} spawn points`);if(m.group?.respawn)spawn.push(`Respawn ${Math.round(m.group.respawn/60)}m`);
-      const row={name:m.name,level,detect:detection(m.pool),pos:m.positions[0]||'',spawn:spawn.join(' • '),drops:[...new Set(drops)].slice(0,18),nm:isNm,hnm:isHnm,note:m.positions.length>1?`Additional spawns: ${m.positions.slice(1).join(' • ')}`:''};
-      (isHnm?hnms:isNm?nms:mobs).push(row);
+    return [...merged.values()];
+  }
+  function detection(m){const a=[];if(m.aggressive)a.push('Aggressive');if(m.trueDetection)a.push('True detection');if(m.links)a.push('Links');return a.join(' • ')||'Normally non-aggressive / special'}
+  function mobRow(m){const level=m.max?(m.min===m.max?String(m.max):`${m.min}-${m.max}`):'';return {name:m.name,level,detect:detection(m),pos:m.positions[0]||'',spawn:[m.count>1?`${m.count} spawn records`:'',m.respawn?`Respawn ${Math.round(m.respawn/60)}m`:''].filter(Boolean).join(' • '),drops:m.drops,nm:m.nm,hnm:hnmNames.has(m.name),note:m.positions.length>1?`Other locations: ${m.positions.slice(1).join(' • ')}`:''}}
+  function npcService(name){const s=name.toLowerCase();if(s.includes('home point'))return'Home Point';if(s.includes('survival guide'))return'Survival Guide';if(s.includes('unity'))return'Unity';if(s.includes('waypoint'))return'Waypoint';if(s.includes('moogle'))return'Moogle service';if(s.includes('chocobo'))return'Chocobo service';if(s.includes('auction'))return'Auction House';return''}
+  function npcData(text){
+    const out=new Map();for(const b of blocks(text,'npcs:',/^  (\d+):\s*$/gm)){
+      if(/^\s+status:\s*cutscene_only/m.test(b.body))continue;const raw=(b.body.match(/^\s+display_name:\s+([^#\n]+)/m)||[])[1]||(b.body.match(/^\s+script:\s+([^#\n]+)/m)||[])[1];if(!raw)continue;const name=title(raw);if(/^NPC\[/i.test(name)||/^(Treasure Casket|Treasure Coffer|Door|Blank)$/i.test(name))continue;
+      const at=b.body.match(/^\s+at:\s*\[\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)/m);const pos=at?`X ${Math.round(Number(at[1]))}, Z ${Math.round(Number(at[3]))}`:'';const k=name.toLowerCase(),cur=out.get(k)||{name,pos,service:npcService(name),note:'',count:0};cur.count++;if(!cur.pos&&pos)cur.pos=pos;out.set(k,cur)
     }
-    const npcMerged=new Map();
-    for(const n of (db.npcsByZone.get(Number(zoneId))||[]).filter(usefulNpc)){
-      const key=n.name.toLowerCase(),cur=npcMerged.get(key);if(cur){cur.count++;continue}
-      npcMerged.set(key,{name:n.name,pos:worldPos(n.x,n.z),service:npcService(n.name),note:'' ,count:1});
-    }
-    const npcs=[...npcMerged.values()].map(n=>{if(n.count>1)n.note=`${n.count} entries in zone database`;delete n.count;return n}).sort((a,b)=>a.name.localeCompare(b.name));
-    mobs.sort((a,b)=>(Number.parseInt(a.level)||0)-(Number.parseInt(b.level)||0)||a.name.localeCompare(b.name));nms.sort((a,b)=>a.name.localeCompare(b.name));hnms.sort((a,b)=>a.name.localeCompare(b.name));
-    status(`Loaded ${mobs.length+nms.length+hnms.length} mob groups and ${npcs.length} NPC names.`);
-    return {mobs,nms,hnms,npcs,sourceNote:'Live reference loaded from LandSandBoat base SQL. Levels, NM flags, spawn records and drop lists reflect that upstream reference; Current Reality custom database changes can differ.'};
+    return [...out.values()].map(n=>{if(n.count>1)n.note=`${n.count} entries in zone data`;delete n.count;return n}).sort((a,b)=>a.name.localeCompare(b.name));
+  }
+  async function loadZone(zoneId,onStatus,zoneName){
+    const status=typeof onStatus==='function'?onStatus:()=>{},zone=zoneName||Object.keys(window.CR_ZONE_MAPS||{}).find(k=>Number(window.CR_ZONE_MAPS[k].zoneId)===Number(zoneId));if(!zone)throw new Error('No zone name for '+zoneId);if(cache.has(zone))return cache.get(zone);
+    status('Loading actual mobs, NPCs, NMs, HNMs and coordinates for '+zone+'…');
+    const mobFile=await fetchZoneFile(zone,'mobs.yaml');let npcText='',regionText='';
+    try{npcText=(await fetchZoneFile(zone,'npcs.yaml')).text}catch(e){}
+    try{regionText=(await fetchZoneFile(zone,'regions.yaml')).text}catch(e){}
+    const templates=templateData(mobFile.text),regions=regionCenters(regionText),all=spawnData(mobFile.text,templates,regions).map(mobRow),mobs=all.filter(m=>!m.nm&&!m.hnm),nms=all.filter(m=>m.nm&&!m.hnm),hnms=all.filter(m=>m.hnm),npcs=npcData(npcText);
+    const result={mobs,nms,hnms,npcs,sourceNote:'Actual per-zone LandSandBoat YAML: mob names, level ranges, NM flags, loot, spawn records/coordinates and NPC coordinates. Region-based spawns show the approximate center of the server spawn region.'};cache.set(zone,result);status(`Loaded ${mobs.length} mobs, ${nms.length} NMs, ${hnms.length} HNMs and ${npcs.length} NPCs.`);return result;
   }
   window.CR_ZONE_DB={loadZone};
 })();
