@@ -10,6 +10,15 @@
   let busy=false;
   const pending=[];
   const queued=new Set();
+  const failed=new Set();
+  const expansion=document.querySelector('#route-expansion');
+  let generation=0;
+
+  function emitProgress(current='',status='loading'){
+    const zones=[...root.querySelectorAll('.route-card')].map(zoneName).filter(Boolean);
+    const complete=zones.filter(zone=>fieldFor(zone)?.dbLoaded||failed.has(zone)).length;
+    window.dispatchEvent(new CustomEvent('cr:atlas-progress',{detail:{expansion:expansion?.value||'',total:zones.length,complete,current,status,done:zones.length>0&&complete>=zones.length}}));
+  }
 
   function avoidance(detect){
     const s=String(detect||'').toLowerCase(),tips=[];
@@ -60,26 +69,29 @@
     // Only establish the compact default once. Never re-collapse a section the player opened.
     if(card.dataset.compactInitialized!=='1'){card.querySelectorAll('.field-panel').forEach(p=>p.open=false);card.dataset.compactInitialized='1'}
     const status=card.querySelector('.zone-db-status');if(status)status.textContent='Mobs, NPCs, NMs, HNMs, coordinates and drops loaded for this zone.';
-    addHazards(card);emphasizeDrops(card);addSpawnBadges(card);
+    addHazards(card);emphasizeDrops(card);addSpawnBadges(card);emitProgress(zone,'loaded');
   }
 
   function queueCard(card){
     if(!card)return;const zone=zoneName(card);if(!zone||fieldFor(zone)?.dbLoaded){finishCard(card);return}
-    if(queued.has(zone))return;const button=card.querySelector('[data-load-zone-db]');if(!button)return;
+    if(queued.has(zone))return;const button=card.querySelector('[data-load-zone-db]');if(!button){failed.add(zone);emitProgress(zone,'failed');return}
     queued.add(zone);pending.push(zone);pump();
   }
 
   function pump(){
     if(busy||!pending.length)return;
-    const zone=pending.shift(),card=[...root.querySelectorAll('.route-card')].find(c=>zoneName(c)===zone);
+    const run=generation,zone=pending.shift(),card=[...root.querySelectorAll('.route-card')].find(c=>zoneName(c)===zone);
     if(!card){queued.delete(zone);pump();return}
     if(fieldFor(zone)?.dbLoaded){queued.delete(zone);finishCard(card);pump();return}
-    const button=card.querySelector('[data-load-zone-db]');if(!button||button.disabled){queued.delete(zone);pump();return}
+    const button=card.querySelector('[data-load-zone-db]');if(!button||button.disabled){queued.delete(zone);if(!fieldFor(zone)?.dbLoaded)failed.add(zone);emitProgress(zone,fieldFor(zone)?.dbLoaded?'loaded':'failed');pump();return}
     busy=true;const status=card.querySelector('.zone-db-status');if(status)status.textContent='Loading mobs, NPCs, NMs, HNMs, coordinates and drops…';button.click();
+    emitProgress(zone,'loading');
     const started=Date.now();
     const wait=()=>{
-      if(fieldFor(zone)?.dbLoaded){busy=false;queued.delete(zone);scan();pump();return}
-      if(Date.now()-started>30000){busy=false;queued.delete(zone);if(status)status.textContent='No field-guide data returned for this zone; continuing with the rest of the expansion.';pump();return}
+      if(run!==generation){busy=false;queued.delete(zone);pump();return}
+      if(fieldFor(zone)?.dbLoaded){busy=false;queued.delete(zone);emitProgress(zone,'loaded');scan();pump();return}
+      if(!button.disabled&&/^Retry/.test(button.textContent||'')){busy=false;queued.delete(zone);failed.add(zone);emitProgress(zone,'failed');pump();return}
+      if(Date.now()-started>30000){busy=false;queued.delete(zone);failed.add(zone);if(status)status.textContent='No field-guide data returned for this zone; continuing with the rest of the expansion.';emitProgress(zone,'failed');pump();return}
       setTimeout(wait,250);
     };setTimeout(wait,250);
   }
@@ -87,8 +99,9 @@
   function scan(){
     // The expansion selector already limits the page, so fill every displayed zone rather than
     // only zones that happen to intersect the viewport. Cities with no mob data simply keep NPCs/exits.
-    root.querySelectorAll('.route-card').forEach(card=>{finishCard(card);queueCard(card)});
+    root.querySelectorAll('.route-card').forEach(card=>{finishCard(card);queueCard(card)});emitProgress();
   }
+  expansion?.addEventListener('change',()=>{generation++;pending.length=0;queued.clear();failed.clear();setTimeout(()=>{scan();emitProgress()},0)});
   let scanTimer=0;new MutationObserver(()=>{clearTimeout(scanTimer);scanTimer=setTimeout(scan,80)}).observe(root,{childList:true,subtree:true});
   setTimeout(scan,250);
 })();
