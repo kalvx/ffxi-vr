@@ -35,6 +35,12 @@ const gearFocusTerms={
   defense:['defense','cuirass','plate','shield','phalanx','gallant','koenig','protector','ritter','sentinel'],
   magic:['magic','mage','wizard','seer','morion','electrum','astral','oracle','elemental','errant','evoker','summoner','healer','warlock','sorcerer']
 };
+const gearJobWeapons={
+  WAR:{main:['Great Axe','Axe','Great Sword'],range:['Archery','Marksmanship','Throwing']},MNK:{main:['Hand-to-Hand'],range:['Throwing']},WHM:{main:['Club','Staff'],range:['Throwing']},BLM:{main:['Staff','Club'],range:['Throwing']},RDM:{main:['Sword','Dagger'],range:['Archery','Throwing']},THF:{main:['Dagger'],range:['Marksmanship','Archery','Throwing']},
+  PLD:{main:['Sword'],range:[]},DRK:{main:['Scythe'],range:['Marksmanship']},BST:{main:['Axe'],range:[]},BRD:{main:['Dagger','Sword'],range:['Skill 41','Skill 42']},RNG:{main:['Axe','Dagger'],range:['Archery','Marksmanship','Throwing']},
+  SAM:{main:['Great Katana'],range:['Archery','Throwing']},NIN:{main:['Katana'],range:['Throwing','Marksmanship','Archery']},DRG:{main:['Polearm'],range:[]},SMN:{main:['Staff','Club'],range:[]},BLU:{main:['Sword'],range:['Throwing']},COR:{main:['Dagger','Sword'],range:['Marksmanship','Throwing']},
+  PUP:{main:['Hand-to-Hand'],range:['Throwing']},DNC:{main:['Dagger'],range:['Throwing']},SCH:{main:['Staff','Club'],range:['Throwing']},GEO:{main:['Club','Staff'],range:['Skill 45']},RUN:{main:['Great Sword','Sword'],range:[]}
+};
 function gearItemScore(item,level,focus){
   const name=item.name.toLowerCase(),weapon=item.weapon||{},terms=gearFocusTerms[focus]||[];
   const combatWeapon=(item.equip.slot&7)&&weapon.skill&&weapon.skill!=='Skill 0';
@@ -51,14 +57,16 @@ function renderGear(){
   const data=window.gameData;if(!data){root.innerHTML='<p class="gear-loading">Loading the server equipment catalog…</p>';return;}
   const job=document.querySelector('#gear-job').value||'WAR',level=Math.max(1,Math.min(99,Number(document.querySelector('#gear-level').value)||1)),focus=document.querySelector('#gear-focus').value,dualWield=document.querySelector('#gear-dual-wield')?.checked||false,record=data.jobs.find(x=>x.code===job),mask=1<<(record.id-1);
   const eligible=data.items.filter(item=>item.equip&&(item.equip.jobs&mask)&&item.equip.level>=1&&item.equip.level<=level&&!/^judges?\b/i.test(item.name));
+  const dualWeaponAvailable=dualWield&&eligible.some(item=>(item.equip.slot&3)===3&&gearJobWeapons[job]?.main.includes(item.weapon?.skill));
   const cards=gearSlots.map(slot=>{
-    const matches=eligible.filter(item=>(item.equip.slot&slot.bit)&&!(slot.bit===4&&item.weapon?.skill==='Skill 0')&&!(slot.key==='sub'&&!dualWield&&(item.equip.slot&1))).sort((a,b)=>gearItemScore(b,level,focus)-gearItemScore(a,level,focus)||b.equip.level-a.equip.level||a.name.localeCompare(b.name));
+    const preferred=slot.key==='range'?(gearJobWeapons[job]?.range||[]):(slot.key==='main'||(slot.key==='sub'&&dualWield))?gearJobWeapons[job]?.main:null;
+    const matches=eligible.filter(item=>(item.equip.slot&slot.bit)&&!(slot.bit===4&&item.weapon?.skill==='Skill 0')&&!(slot.key==='sub'&&!dualWield&&(item.equip.slot&1))&&(preferred===null||preferred.includes(item.weapon?.skill))&&!(dualWeaponAvailable&&slot.key==='main'&&!(item.equip.slot&2))).sort((a,b)=>gearItemScore(b,level,focus)-gearItemScore(a,level,focus)||b.equip.level-a.equip.level||a.name.localeCompare(b.name));
     const offset=slot.pair&&matches.length>1?1:0,candidates=matches.slice(offset,offset+4),recommended=candidates[0];
     const label=slot.key==='sub'&&dualWield?'Sub · /NIN Dual Wield':slot.label;
     if(!recommended)return `<article class="gear-slot gear-slot-${slot.group} empty"><header><span>${label}</span><small>0 matches</small></header><p>No ${slot.label.toLowerCase()} item is recorded for ${job} by level ${level}.</p></article>`;
     return `<article class="gear-slot gear-slot-${slot.group}"><header><span>${label}</span><small>${matches.length.toLocaleString()} eligible</small></header><a class="gear-choice" href="../reference/index.html?item=${recommended.id}"><strong>${recommended.name}</strong><small>${gearItemMeta(recommended)}</small></a><div class="gear-alternatives">${candidates.slice(1).map(item=>`<a href="../reference/index.html?item=${item.id}">${item.name}<small>${gearItemMeta(item)}</small></a>`).join('')}</div></article>`;
   });
-  root.innerHTML=`<div class="gear-summary"><div><span>Complete equipment layout</span><strong>${record.name} · Level ${level}</strong></div><div><p>${eligible.length.toLocaleString()} server-valid equippable records checked · ${dualWield?'Dual Wield with /NIN enabled':'Single-handed setup'}. Each slot shows the leading ${focus} candidate plus alternatives; open any item for its encyclopedia and acquisition records.</p><div class="gear-legend"><span class="weapon">Weapons</span><span class="armor">Armor</span><span class="accessory">Accessories</span></div></div></div><div class="gear-slot-grid">${cards.join('')}</div><p class="gear-caveat"><strong>Priority note:</strong> level, job eligibility, slot, item level, and weapon damage come directly from the server export. The export does not contain every armor stat modifier, so priority ranking is guidance—compare the linked item details before finalizing a set.</p>`;
+  root.innerHTML=`<div class="gear-summary"><div><span>Complete equipment layout</span><strong>${record.name} · Level ${level}</strong></div><div><p>${eligible.length.toLocaleString()} server-valid equippable records checked · ${dualWeaponAvailable?'Dual Wield with /NIN enabled':dualWield?'Dual Wield unavailable for this two-handed weapon family':'Single-handed setup'}. Main and ranged choices follow ${job}'s native weapon strengths; Dual Wield uses the same one-handed weapon family in both hands.</p><div class="gear-legend"><span class="weapon">Weapons</span><span class="armor">Armor</span><span class="accessory">Accessories</span></div></div></div><div class="gear-slot-grid">${cards.join('')}</div><p class="gear-caveat"><strong>Priority note:</strong> level, job eligibility, slot, item level, and weapon damage come directly from the server export. The export does not contain every armor stat modifier, so priority ranking is guidance—compare the linked item details before finalizing a set.</p>`;
 }
 
 const weatherKey='vrcr-weather-log';
