@@ -24,10 +24,10 @@ function renderCrafts(){
 
 const gearPlannerStyles=document.createElement('link');gearPlannerStyles.rel='stylesheet';gearPlannerStyles.href=new URL('v4-gear.css',document.currentScript.src);document.head.append(gearPlannerStyles);
 const gearSlots=[
-  {key:'main',label:'Main',bit:1},{key:'sub',label:'Sub',bit:2},{key:'range',label:'Ranged',bit:4},{key:'ammo',label:'Ammo',bit:8},
-  {key:'head',label:'Head',bit:16},{key:'neck',label:'Neck',bit:512},{key:'ear1',label:'Left Ear',bit:2048,pair:0},{key:'ear2',label:'Right Ear',bit:4096,pair:1},
-  {key:'body',label:'Body',bit:32},{key:'hands',label:'Hands',bit:64},{key:'ring1',label:'Left Ring',bit:8192,pair:0},{key:'ring2',label:'Right Ring',bit:16384,pair:1},
-  {key:'back',label:'Back',bit:32768},{key:'waist',label:'Waist',bit:1024},{key:'legs',label:'Legs',bit:128},{key:'feet',label:'Feet',bit:256}
+  {key:'main',label:'Main',bit:1,group:'weapon'},{key:'sub',label:'Sub',bit:2,group:'weapon'},{key:'range',label:'Ranged',bit:4,group:'weapon'},{key:'ammo',label:'Ammo',bit:8,group:'weapon'},
+  {key:'head',label:'Head',bit:16,group:'armor'},{key:'neck',label:'Neck',bit:512,group:'accessory'},{key:'ear1',label:'Left Ear',bit:2048,pair:0,group:'accessory'},{key:'ear2',label:'Right Ear',bit:4096,pair:1,group:'accessory'},
+  {key:'body',label:'Body',bit:32,group:'armor'},{key:'hands',label:'Hands',bit:64,group:'armor'},{key:'ring1',label:'Left Ring',bit:8192,pair:0,group:'accessory'},{key:'ring2',label:'Right Ring',bit:16384,pair:1,group:'accessory'},
+  {key:'back',label:'Back',bit:32768,group:'accessory'},{key:'waist',label:'Waist',bit:1024,group:'accessory'},{key:'legs',label:'Legs',bit:128,group:'armor'},{key:'feet',label:'Feet',bit:256,group:'armor'}
 ];
 const gearFocusTerms={
   accuracy:['accuracy','sniper','archer','peacock','spectacles','emperor','ochimusha','life belt','battle gloves','leaping','bounding','madrigal'],
@@ -55,10 +55,10 @@ function renderGear(){
     const matches=eligible.filter(item=>(item.equip.slot&slot.bit)&&!(slot.bit===4&&item.weapon?.skill==='Skill 0')&&!(slot.key==='sub'&&!dualWield&&(item.equip.slot&1))).sort((a,b)=>gearItemScore(b,level,focus)-gearItemScore(a,level,focus)||b.equip.level-a.equip.level||a.name.localeCompare(b.name));
     const offset=slot.pair&&matches.length>1?1:0,candidates=matches.slice(offset,offset+4),recommended=candidates[0];
     const label=slot.key==='sub'&&dualWield?'Sub · /NIN Dual Wield':slot.label;
-    if(!recommended)return `<article class="gear-slot empty"><header><span>${label}</span><small>0 matches</small></header><p>No ${slot.label.toLowerCase()} item is recorded for ${job} by level ${level}.</p></article>`;
-    return `<article class="gear-slot"><header><span>${label}</span><small>${matches.length.toLocaleString()} eligible</small></header><a class="gear-choice" href="../reference/index.html?item=${recommended.id}"><strong>${recommended.name}</strong><small>${gearItemMeta(recommended)}</small></a><div class="gear-alternatives">${candidates.slice(1).map(item=>`<a href="../reference/index.html?item=${item.id}">${item.name}<small>${gearItemMeta(item)}</small></a>`).join('')}</div></article>`;
+    if(!recommended)return `<article class="gear-slot gear-slot-${slot.group} empty"><header><span>${label}</span><small>0 matches</small></header><p>No ${slot.label.toLowerCase()} item is recorded for ${job} by level ${level}.</p></article>`;
+    return `<article class="gear-slot gear-slot-${slot.group}"><header><span>${label}</span><small>${matches.length.toLocaleString()} eligible</small></header><a class="gear-choice" href="../reference/index.html?item=${recommended.id}"><strong>${recommended.name}</strong><small>${gearItemMeta(recommended)}</small></a><div class="gear-alternatives">${candidates.slice(1).map(item=>`<a href="../reference/index.html?item=${item.id}">${item.name}<small>${gearItemMeta(item)}</small></a>`).join('')}</div></article>`;
   });
-  root.innerHTML=`<div class="gear-summary"><div><span>Complete equipment layout</span><strong>${record.name} · Level ${level}</strong></div><p>${eligible.length.toLocaleString()} server-valid equippable records checked · ${dualWield?'Dual Wield with /NIN enabled':'Single-handed setup'}. Each slot shows the leading ${focus} candidate plus alternatives; open any item for its encyclopedia and acquisition records.</p></div><div class="gear-slot-grid">${cards.join('')}</div><p class="gear-caveat"><strong>Priority note:</strong> level, job eligibility, slot, item level, and weapon damage come directly from the server export. The export does not contain every armor stat modifier, so priority ranking is guidance—compare the linked item details before finalizing a set.</p>`;
+  root.innerHTML=`<div class="gear-summary"><div><span>Complete equipment layout</span><strong>${record.name} · Level ${level}</strong></div><div><p>${eligible.length.toLocaleString()} server-valid equippable records checked · ${dualWield?'Dual Wield with /NIN enabled':'Single-handed setup'}. Each slot shows the leading ${focus} candidate plus alternatives; open any item for its encyclopedia and acquisition records.</p><div class="gear-legend"><span class="weapon">Weapons</span><span class="armor">Armor</span><span class="accessory">Accessories</span></div></div></div><div class="gear-slot-grid">${cards.join('')}</div><p class="gear-caveat"><strong>Priority note:</strong> level, job eligibility, slot, item level, and weapon damage come directly from the server export. The export does not contain every armor stat modifier, so priority ranking is guidance—compare the linked item details before finalizing a set.</p>`;
 }
 
 const weatherKey='vrcr-weather-log';
