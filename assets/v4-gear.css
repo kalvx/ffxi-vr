@@ -1,0 +1,24 @@
+.gear-result{display:block}
+.gear-loading{padding:28px;border:1px solid var(--line);background:#09171c;color:var(--muted);font:12px/1.6 Arial}
+.gear-summary{display:grid;grid-template-columns:minmax(210px,.7fr) 1.3fr;gap:24px;align-items:center;margin-bottom:10px;padding:18px 20px;border:1px solid var(--gold2);background:linear-gradient(135deg,rgba(213,177,93,.1),rgba(9,23,28,.96))}
+.gear-summary span,.gear-slot header span{display:block;color:var(--aqua);font:700 8px/1.4 Arial;letter-spacing:.1em;text-transform:uppercase}
+.gear-summary strong{display:block;margin-top:7px;color:var(--gold);font:24px/1.2 Georgia;font-weight:400}
+.gear-summary p{margin:0;color:var(--muted);font:11px/1.65 Arial}
+.gear-slot-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.gear-result .gear-slot{min-width:0;padding:0;border:1px solid var(--line);background:#09171c}
+.gear-slot header{display:flex;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line);background:#0d2026}
+.gear-slot header small{color:var(--muted);font:8px Arial;text-transform:uppercase}
+.gear-choice{display:block;min-height:82px;padding:13px 12px;text-decoration:none}
+.gear-choice strong{display:block;min-height:0;margin:0 0 7px;color:var(--ink);font:16px/1.25 Georgia;font-weight:400}
+.gear-choice small,.gear-alternatives small{display:block;color:var(--muted);font:8px/1.45 Arial}
+.gear-choice:hover strong,.gear-choice:focus-visible strong,.gear-alternatives a:hover,.gear-alternatives a:focus-visible{color:var(--gold)}
+.gear-alternatives{border-top:1px solid var(--line)}
+.gear-alternatives a{display:block;padding:9px 12px;color:var(--aqua);border-bottom:1px solid rgba(87,130,139,.18);font:10px/1.35 Arial;text-decoration:none}
+.gear-alternatives a:last-child{border-bottom:0}
+.gear-alternatives small{margin-top:3px}
+.gear-slot.empty p{min-height:82px;margin:0;padding:13px 12px;color:var(--muted);font:10px/1.5 Arial}
+.gear-caveat{margin:10px 0 0;padding:12px 14px;border-left:2px solid var(--aqua);background:rgba(94,207,222,.06);color:var(--muted);font:10px/1.6 Arial}
+.gear-caveat strong{color:var(--ink)}
+@media(max-width:1050px){.gear-slot-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:800px){.gear-summary{grid-template-columns:1fr}.gear-slot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.gear-slot-grid{grid-template-columns:1fr}}

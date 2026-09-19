@@ -22,14 +22,43 @@ function renderCrafts(){
   document.querySelectorAll('[data-craft]').forEach(b=>b.onclick=()=>{activeCraft=b.dataset.craft;renderCrafts();});
 }
 
-const gearMilestones={
-  melee:[['1–10','Nation weapon · starter armor','Weapon damage and skill'],['10–20','Leaping Boots · Balance Rings','DEX, accuracy, attack'],['20–30','Beetle/Chain armor · Spike Necklace','Accuracy and attack'],['30–40','Emperor Hairpin · Rajas-style stats','Accuracy, haste, STR/DEX'],['40–50','Sniper’s Rings · Life Belt','Accuracy before raw attack'],['50–60','Artifact armor · Swift Belt','Job traits, haste, accuracy'],['60–75','Haubergeon family · Assault Earring','Accuracy, attack, haste'],['75–99','Content-specific sets','Cap haste, then multi-attack and WS stats']],
-  mage:[['1–10','Ash/Willow wand · robes','MP and primary casting stat'],['10–20','Friar’s Rope · Saintly Rings','MND/INT and MP'],['20–30','Seer’s set · Morion Earrings','Casting stat and MP'],['30–40','Electrum Rings · Black/White Cape','MP, INT/MND, enmity control'],['40–50','Moldavite-style magic bonus','Magic accuracy and potency'],['50–60','Artifact armor','Job-specific casting bonuses'],['60–75','Elemental/Healing torque sets','Skill, magic accuracy, fast cast'],['75–99','Dedicated precast/midcast sets','Fast cast first, then spell-specific potency']],
-  tank:[['1–10','Scale armor · shield','Defense and shield skill'],['10–20','Eisen/Chain armor','Defense, VIT, HP'],['20–30','Kite Shield · Warrior’s Belt','Defense and enmity tools'],['30–40','Centurion/Plate armor','Defense, HP, accuracy'],['40–50','Phalanx/IM armor','Damage reduction and enmity'],['50–60','Artifact armor','Job-specific mitigation'],['60–75','Gallant/Koenig-style pieces','HP, defense, enmity'],['75–99','DT and enmity sets','Cap damage taken, then threat and refresh']],
-  ranged:[['1–10','Shortbow/Crossbow · cheap ammo','Ranged skill and ammunition supply'],['10–20','Power Bow · Ranger’s Necklace','Ranged accuracy'],['20–30','Noct set · Archer’s Knives','Ranged accuracy and agility'],['30–40','Hawker’s Knives · Martial Slacks','Ranged accuracy and attack'],['40–50','Scorpion/Hunter pieces','AGI, ranged accuracy'],['50–60','Artifact armor','Job-specific ranged bonuses'],['60–75','Scout/Corsair milestone gear','Snapshot, ranged accuracy, attack'],['75–99','Snapshot and TP/WS sets','Pre-shot snapshot; mid-shot accuracy and damage']]
+const gearPlannerStyles=document.createElement('link');gearPlannerStyles.rel='stylesheet';gearPlannerStyles.href=new URL('v4-gear.css',document.currentScript.src);document.head.append(gearPlannerStyles);
+const gearSlots=[
+  {key:'main',label:'Main',bit:1},{key:'sub',label:'Sub',bit:2},{key:'range',label:'Ranged',bit:4},{key:'ammo',label:'Ammo',bit:8},
+  {key:'head',label:'Head',bit:16},{key:'neck',label:'Neck',bit:512},{key:'ear1',label:'Left Ear',bit:2048,pair:0},{key:'ear2',label:'Right Ear',bit:4096,pair:1},
+  {key:'body',label:'Body',bit:32},{key:'hands',label:'Hands',bit:64},{key:'ring1',label:'Left Ring',bit:8192,pair:0},{key:'ring2',label:'Right Ring',bit:16384,pair:1},
+  {key:'back',label:'Back',bit:32768},{key:'waist',label:'Waist',bit:1024},{key:'legs',label:'Legs',bit:128},{key:'feet',label:'Feet',bit:256}
+];
+const gearFocusTerms={
+  accuracy:['accuracy','sniper','archer','peacock','spectacles','emperor','ochimusha','life belt','battle gloves','leaping','bounding','madrigal'],
+  attack:['attack','spike','tiger','assault','haubergeon','ochimusha','brave','amemet','victory','warrior'],
+  defense:['defense','cuirass','plate','shield','phalanx','gallant','koenig','protector','ritter','sentinel'],
+  magic:['magic','mage','wizard','seer','morion','electrum','astral','oracle','elemental','errant','evoker','summoner','healer','warlock','sorcerer']
 };
-function gearFamily(job){if(['WHM','BLM','RDM','BRD','SMN','SCH','GEO'].includes(job))return'mage';if(['PLD','RUN'].includes(job))return'tank';if(['RNG','COR'].includes(job))return'ranged';return'melee';}
-function renderGear(){const job=document.querySelector('#gear-job').value||'WAR',level=Number(document.querySelector('#gear-level').value)||1,focus=document.querySelector('#gear-focus').value; const rows=gearMilestones[gearFamily(job)]; document.querySelector('#gear-result').innerHTML=rows.map(([range,set,note])=>{const [lo,hi]=range.split('–').map(Number);return `<article class="${level>=lo&&level<=hi?'current':''}"><span>Lv. ${range}</span><strong>${set}</strong><p>${note}${focus!=='balanced'?` · Favor ${focus}`:''}</p></article>`}).join('');}
+function gearItemScore(item,level,focus){
+  const name=item.name.toLowerCase(),weapon=item.weapon||{},terms=gearFocusTerms[focus]||[];
+  const combatWeapon=(item.equip.slot&7)&&weapon.skill&&weapon.skill!=='Skill 0';
+  let score=(item.equip.ilevel||item.equip.level)*100+(item.equip.level*5)+(combatWeapon?(weapon.damage||0)*3:0);
+  if(terms.some(term=>name.includes(term)))score+=100000;
+  if(focus==='attack'&&combatWeapon)score+=(weapon.damage||0)*12;
+  if(focus==='balanced'&&level-item.equip.level<=5)score+=250;
+  return score;
+}
+function gearItemMeta(item){return `Lv. ${item.equip.level}${item.equip.ilevel?` · iLvl ${item.equip.ilevel}`:''}${item.weapon?` · ${item.weapon.damage} DMG · ${item.weapon.delay} delay`:''}`;}
+function renderGear(){
+  const root=document.querySelector('#gear-result');if(!root)return;
+  const kicker=document.querySelector('#gear .chapter-head p'),title=document.querySelector('#gear .chapter-head h2'),sourceNote=document.querySelector('#gear .source-note');if(kicker)kicker.textContent='Complete server-matched equipment planner';if(title)title.textContent='Fill every slot for the level you are.';if(sourceNote)sourceNote.textContent='Candidates come from the Current Reality server item export and are limited by the selected job, required level, and equipment slot.';
+  const data=window.gameData;if(!data){root.innerHTML='<p class="gear-loading">Loading the server equipment catalog…</p>';return;}
+  const job=document.querySelector('#gear-job').value||'WAR',level=Math.max(1,Math.min(99,Number(document.querySelector('#gear-level').value)||1)),focus=document.querySelector('#gear-focus').value,record=data.jobs.find(x=>x.code===job),mask=1<<(record.id-1);
+  const eligible=data.items.filter(item=>item.equip&&(item.equip.jobs&mask)&&item.equip.level>=1&&item.equip.level<=level&&!/^judges?\b/i.test(item.name));
+  const cards=gearSlots.map(slot=>{
+    const matches=eligible.filter(item=>(item.equip.slot&slot.bit)&&!(slot.bit===4&&item.weapon?.skill==='Skill 0')).sort((a,b)=>gearItemScore(b,level,focus)-gearItemScore(a,level,focus)||b.equip.level-a.equip.level||a.name.localeCompare(b.name));
+    const offset=slot.pair&&matches.length>1?1:0,candidates=matches.slice(offset,offset+4),recommended=candidates[0];
+    if(!recommended)return `<article class="gear-slot empty"><header><span>${slot.label}</span><small>0 matches</small></header><p>No ${slot.label.toLowerCase()} item is recorded for ${job} by level ${level}.</p></article>`;
+    return `<article class="gear-slot"><header><span>${slot.label}</span><small>${matches.length.toLocaleString()} eligible</small></header><a class="gear-choice" href="../reference/index.html?item=${recommended.id}"><strong>${recommended.name}</strong><small>${gearItemMeta(recommended)}</small></a><div class="gear-alternatives">${candidates.slice(1).map(item=>`<a href="../reference/index.html?item=${item.id}">${item.name}<small>${gearItemMeta(item)}</small></a>`).join('')}</div></article>`;
+  });
+  root.innerHTML=`<div class="gear-summary"><div><span>Complete equipment layout</span><strong>${record.name} · Level ${level}</strong></div><p>${eligible.length.toLocaleString()} server-valid equippable records checked. Each slot shows the leading ${focus} candidate plus alternatives; open any item for its encyclopedia and acquisition records.</p></div><div class="gear-slot-grid">${cards.join('')}</div><p class="gear-caveat"><strong>Priority note:</strong> level, job eligibility, slot, item level, and weapon damage come directly from the server export. The export does not contain every armor stat modifier, so priority ranking is guidance—compare the linked item details before finalizing a set.</p>`;
+}
 
 const weatherKey='vrcr-weather-log';
 function renderWeather(){const now=document.querySelector('#weather-now');if(!now)return;const log=JSON.parse(localStorage.getItem(weatherKey)||'[]');now.innerHTML=log[0]?`<small>Last live observation</small><strong>${log[0].type}</strong><span>${log[0].region} · ${log[0].vana}</span>`:'<small>Live observation</small><strong>No report yet</strong><span>Choose the current region and weather</span>';document.querySelector('#weather-history').innerHTML=log.length?log.slice(0,6).map(x=>`<div><b>${x.type}</b><span>${x.region}</span><small>${x.vana}</small></div>`).join(''):'<p>No locally recorded weather.</p>';}
