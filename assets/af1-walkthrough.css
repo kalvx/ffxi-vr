@@ -1,0 +1,9 @@
+.af1-piece{padding:.9rem;border:1px solid rgba(114,183,207,.25);border-top:3px solid #d7bb69;border-radius:9px;background:linear-gradient(145deg,rgba(10,24,34,.92),rgba(4,13,20,.72))}
+.af1-piece header{display:grid;grid-template-columns:65px 1fr;gap:.5rem;padding-bottom:.65rem;border-bottom:1px solid rgba(114,183,207,.17)}
+.af1-piece header span{color:#9fcbd7;font:700 .72rem Arial;text-transform:uppercase}
+.af1-piece header strong{color:#f3e6bd;font-size:1.02rem}
+.af1-piece h3{margin:.8rem 0 .45rem;color:#e8c878;font-size:.9rem}
+.af1-piece ol{margin:.3rem 0 0;padding-left:1.3rem}
+.af1-piece li{margin:.48rem 0;color:#d6e3e7;font-size:.87rem;line-height:1.55}
+.af1-piece li::marker{color:#d7bb69;font-weight:700}
+@media(max-width:700px){.af1-piece header{grid-template-columns:1fr}}
