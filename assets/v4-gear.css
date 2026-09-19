@@ -1,5 +1,8 @@
 .gear-result{display:block}
 .gear-loading{padding:28px;border:1px solid var(--line);background:#09171c;color:var(--muted);font:12px/1.6 Arial}
+.gear-controls .gear-dual-toggle{display:grid;gap:7px;flex:1;color:var(--aqua);font:700 8px Arial;letter-spacing:.1em;text-transform:uppercase}
+.gear-dual-switch{display:flex;align-items:center;gap:9px;min-height:42px;padding:0 12px;border:1px solid var(--line);background:#09171c;color:var(--ink);font:700 10px Arial;letter-spacing:0;text-transform:none;cursor:pointer}
+.gear-dual-switch input{width:16px;height:16px;min-height:0;margin:0;accent-color:var(--gold)}
 .gear-summary{display:grid;grid-template-columns:minmax(210px,.7fr) 1.3fr;gap:24px;align-items:center;margin-bottom:10px;padding:18px 20px;border:1px solid var(--gold2);background:linear-gradient(135deg,rgba(213,177,93,.1),rgba(9,23,28,.96))}
 .gear-summary span,.gear-slot header span{display:block;color:var(--aqua);font:700 8px/1.4 Arial;letter-spacing:.1em;text-transform:uppercase}
 .gear-summary strong{display:block;margin-top:7px;color:var(--gold);font:24px/1.2 Georgia;font-weight:400}
