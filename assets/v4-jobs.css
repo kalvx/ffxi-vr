@@ -1,3 +1,5 @@
 .dossier-list .info-card{min-height:125px}
 .dossier-list .info-card p{min-height:0;margin:10px 0 7px;color:var(--ink);font-size:11px}
 .dossier-list .info-card small{display:block;color:var(--muted);font:9px/1.55 Arial}
+.job-armor-guide-link{display:inline-flex;margin-top:10px;padding:7px 11px;border:1px solid rgba(94,207,222,.42);border-radius:4px;background:rgba(94,207,222,.08);color:var(--cyan);font:700 10px/1.25 Arial;letter-spacing:.04em;text-decoration:none}
+.job-armor-guide-link:hover,.job-armor-guide-link:focus-visible{border-color:var(--cyan);background:rgba(94,207,222,.15);color:#d9fbff}
