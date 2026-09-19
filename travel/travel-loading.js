@@ -1,28 +1,24 @@
 (function(){
   const overlay=document.querySelector('#atlas-loading');
   const select=document.querySelector('#route-expansion');
+  const root=document.querySelector('#world-route-root');
   const title=document.querySelector('#atlas-loading-title');
   const current=document.querySelector('#atlas-loading-current');
   const bar=document.querySelector('#atlas-loading-bar');
   const count=document.querySelector('#atlas-loading-count');
-  if(!overlay||!select)return;
-  let hideTimer=0;
+  if(!overlay||!select||!root)return;
+  let batch=0,hideTimer=0;
+  const paint=(percent,message,status)=>{bar.style.width=`${percent}%`;current.textContent=message;count.textContent=status};
   const show=()=>{clearTimeout(hideTimer);overlay.hidden=false;document.body.classList.add('atlas-is-loading')};
-  const hide=()=>{hideTimer=setTimeout(()=>{overlay.hidden=true;document.body.classList.remove('atlas-is-loading')},360)};
+  const hide=()=>{hideTimer=setTimeout(()=>{overlay.hidden=true;document.body.classList.remove('atlas-is-loading')},420)};
   select.addEventListener('change',()=>{
     if(!select.value)return;
-    const label=select.options[select.selectedIndex]?.textContent||'selected expansion';
-    title.textContent=`Loading ${label}`;
-    current.textContent='Building zone panels in the background…';
-    bar.style.width='0%';count.textContent='Preparing zone queue…';show();
-  });
-  window.addEventListener('cr:atlas-progress',event=>{
-    const d=event.detail||{};if(d.expansion!==select.value)return;show();
-    const total=Math.max(0,Number(d.total)||0),complete=Math.min(total,Math.max(0,Number(d.complete)||0));
-    const percent=total?Math.round(complete/total*100):0;
-    bar.style.width=`${percent}%`;
-    count.textContent=total?`${complete} of ${total} zones ready • ${percent}%`:'Preparing zone queue…';
-    current.textContent=d.current?`${d.status==='failed'?'Continuing past':'Loading'} ${d.current}…`:'Finalizing maps and panels…';
-    if(d.done){bar.style.width='100%';count.textContent=`${total} of ${total} zones ready • 100%`;current.textContent='Travel guide ready.';hide()}
+    const run=++batch,label=select.options[select.selectedIndex]?.textContent||'selected expansion';
+    title.textContent=`Loading ${label}`;show();paint(12,'Preparing expansion layout…','Building zone panels…');
+    requestAnimationFrame(()=>{if(run!==batch)return;paint(42,'Building maps and route panels…','Preparing world atlas…');
+      requestAnimationFrame(()=>{if(run!==batch)return;const zones=root.querySelectorAll('.route-card').length;paint(76,'Finalizing maps and panels…',zones?`${zones} zone panels prepared`:'Finalizing selected expansion…');
+        setTimeout(()=>{if(run!==batch)return;const ready=root.querySelectorAll('.route-card').length;paint(100,'Travel guide ready. Mob, NPC and drop details will continue loading inside each panel.',`${ready} zone panels ready • 100%`);hide()},260);
+      });
+    });
   });
 })();
