@@ -1,24 +1,28 @@
 (function(){
   const overlay=document.querySelector('#atlas-loading');
   const select=document.querySelector('#route-expansion');
-  const root=document.querySelector('#world-route-root');
   const title=document.querySelector('#atlas-loading-title');
   const current=document.querySelector('#atlas-loading-current');
   const bar=document.querySelector('#atlas-loading-bar');
   const count=document.querySelector('#atlas-loading-count');
-  if(!overlay||!select||!root)return;
-  let batch=0,hideTimer=0;
+  if(!overlay||!select)return;
+  let active=false,hideTimer=0;
   const paint=(percent,message,status)=>{bar.style.width=`${percent}%`;current.textContent=message;count.textContent=status};
   const show=()=>{clearTimeout(hideTimer);overlay.hidden=false;document.body.classList.add('atlas-is-loading')};
-  const hide=()=>{hideTimer=setTimeout(()=>{overlay.hidden=true;document.body.classList.remove('atlas-is-loading')},420)};
+  const hide=()=>{hideTimer=setTimeout(()=>{overlay.hidden=true;document.body.classList.remove('atlas-is-loading')},700)};
   select.addEventListener('change',()=>{
     if(!select.value)return;
-    const run=++batch,label=select.options[select.selectedIndex]?.textContent||'selected expansion';
-    title.textContent=`Loading ${label}`;show();paint(12,'Preparing expansion layout…','Building zone panels…');
-    requestAnimationFrame(()=>{if(run!==batch)return;paint(42,'Building maps and route panels…','Preparing world atlas…');
-      requestAnimationFrame(()=>{if(run!==batch)return;const zones=root.querySelectorAll('.route-card').length;paint(76,'Finalizing maps and panels…',zones?`${zones} zone panels prepared`:'Finalizing selected expansion…');
-        setTimeout(()=>{if(run!==batch)return;const ready=root.querySelectorAll('.route-card').length;paint(100,'Travel guide ready. Mob, NPC and drop details will continue loading inside each panel.',`${ready} zone panels ready • 100%`);hide()},260);
-      });
-    });
+    active=true;const label=select.options[select.selectedIndex]?.textContent||'selected expansion';
+    title.textContent=`Loading ${label}`;show();paint(3,'The page is rendering behind this overlay…','Preparing zone database queue…');
+  });
+  window.addEventListener('cr:atlas-progress',event=>{
+    const d=event.detail||{};if(!active||d.expansion!==select.value)return;
+    const total=Math.max(0,Number(d.total)||0),complete=Math.min(total,Math.max(0,Number(d.complete)||0));
+    const working=d.status==='loading'?0.45:0;
+    const percent=d.done?100:total?Math.min(98,Math.max(4,Math.round((complete+working)/total*100))):3;
+    const message=d.current?`${d.status==='failed'?'Skipped unavailable data for':d.status==='loaded'?'Finished':'Loading'} ${d.current}…`:'Building zone panels and preparing the loading queue…';
+    const status=total?`${complete} of ${total} zones complete • ${percent}%`:'Preparing zone database queue…';
+    paint(percent,message,status);
+    if(d.done){active=false;paint(100,'Every available map and data panel is ready.','Travel guide fully loaded • 100%');hide()}
   });
 })();
