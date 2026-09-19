@@ -11,6 +11,10 @@
   const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (character) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
   })[character]);
+  const slotNames = { 1:'Main',2:'Sub',4:'Ranged',8:'Ammo',16:'Head',32:'Body',64:'Hands',128:'Legs',256:'Feet',512:'Neck',1024:'Waist',2048:'Left Ear',4096:'Right Ear',8192:'Left Ring',16384:'Right Ring',32768:'Back' };
+  const jobCodes = ['WAR','MNK','WHM','BLM','RDM','THF','PLD','DRK','BST','BRD','RNG','SAM','NIN','DRG','SMN','BLU','COR','PUP','DNC','SCH','GEO','RUN'];
+  const equipSlots = (mask = 0) => Object.entries(slotNames).filter(([bit]) => mask & Number(bit)).map(([, name]) => name).join(' / ') || '—';
+  const equipJobs = (mask = 0) => jobCodes.filter((job, index) => mask & (1 << index)).join(' · ') || '—';
 
   async function recordFor(id) {
     const shard = Math.floor(Number(id) / 256);
@@ -32,6 +36,30 @@
     if (sources.craftedBy?.length) return 'Produced by crafting; open the full entry for its recipe.';
     if (sources.quests?.length) return `Involved in ${sources.quests[0].quest}.`;
     return 'No direct vendor, monster, craft, or quest source is recorded in the current dataset.';
+  }
+
+  function statusBadges(record = {}) {
+    const flags = Number(record.flags || 0), sources = record.sources || {}, badges = [];
+    if (flags & 0x8000) badges.push(['rare', 'Rare']);
+    if (flags & 0x4000) badges.push(['exclusive', 'Exclusive']);
+    if (record.ah?.listed) badges.push(['buy', 'Auction House']);
+    if (sources.vendors?.length) badges.push(['buy', 'NPC Vendor']);
+    if (sources.drops?.length) badges.push(['find', 'Monster Drop']);
+    if (sources.craftedBy?.length) badges.push(['craft', 'Crafted']);
+    if (sources.quests?.length || sources.guideUses?.length) badges.push(['quest', 'Quest']);
+    if (!badges.length) badges.push(['unknown', 'Source Unrecorded']);
+    return badges.map(([kind, label]) => `<span class="item-badge ${kind}">${label}</span>`).join('');
+  }
+
+  function sourceDetails(record = {}) {
+    const sources = record.sources || {}, details = [];
+    if (record.ah?.listed) details.push(`Purchasable: Auction House · ${record.ah.path.join(' → ')}`);
+    sources.vendors?.slice(0, 2).forEach((vendor) => details.push(`Vendor: ${vendor.name} · ${vendor.zone}${vendor.price != null ? ` · ${Number(vendor.price).toLocaleString()} gil` : ''}`));
+    sources.drops?.slice(0, 2).forEach((drop) => details.push(`Drop: ${drop.monster} · ${drop.zone}${drop.rate != null ? ` · ${drop.rate}%` : ''}`));
+    if (sources.craftedBy?.length) details.push(`Craftable: ${sources.craftedBy.length} recorded recipe${sources.craftedBy.length === 1 ? '' : 's'}`);
+    sources.quests?.slice(0, 2).forEach((quest) => details.push(`Quest: ${quest.quest} · ${quest.area}`));
+    sources.guideUses?.slice(0, 1).forEach((guide) => details.push(`Guide: ${guide.title}`));
+    return details.length ? details.map(escapeHtml).join('<br>') : escapeHtml(obtainSummary(sources));
   }
 
   function ensureCard() {
@@ -70,7 +98,9 @@
       const item = record.item || {};
       const ah = record.ah?.listed ? record.ah.path.join(' → ') : 'Not sold through the Auction House';
       const type = record.ah?.listed ? record.ah.path.at(-1) : (item.weapon?.skill || item.kind || 'Item');
-      panel.innerHTML = `<p class="item-popover-kicker">${escapeHtml(type)} · Item ${escapeHtml(item.id)}</p><h3>${escapeHtml(item.name || link.textContent)}</h3><p>Stack ${escapeHtml(item.stack ?? '—')} · Base vendor value ${Number(item.sell || 0).toLocaleString()} gil</p><dl><dt>Auction House</dt><dd>${escapeHtml(ah)}</dd><dt>Obtain</dt><dd>${escapeHtml(obtainSummary(record.sources))}</dd></dl><a href="${new URL(`reference/index.html?item=${item.id}`, siteBase)}">View full item entry</a>`;
+      const equipRows = item.equip ? `<dt>Equip</dt><dd>${escapeHtml(equipSlots(item.equip.slot))} · Level ${escapeHtml(item.equip.level)}${item.equip.ilevel ? ` · iLvl ${escapeHtml(item.equip.ilevel)}` : ''}</dd><dt>Jobs</dt><dd class="item-popover-jobs">${escapeHtml(equipJobs(item.equip.jobs))}</dd>` : '';
+      const weaponRows = item.weapon ? `<dt>Weapon</dt><dd>${escapeHtml(item.weapon.skill)} · ${escapeHtml(item.weapon.damage)} DMG · ${escapeHtml(item.weapon.delay)} delay${item.weapon.hits > 1 ? ` · ${escapeHtml(item.weapon.hits)} hits` : ''}</dd>` : '';
+      panel.innerHTML = `<p class="item-popover-kicker">${escapeHtml(type)} · Item ${escapeHtml(item.id)}</p><h3>${escapeHtml(item.name || link.textContent)}</h3><div class="item-popover-badges">${statusBadges(record)}</div><p>${escapeHtml(item.kind || 'Item')} · Stack ${escapeHtml(item.stack ?? '—')} · Base vendor value ${Number(item.sell || 0).toLocaleString()} gil</p><dl><dt>Type</dt><dd>${escapeHtml(type)}</dd>${equipRows}${weaponRows}<dt>Auction House</dt><dd>${escapeHtml(ah)}</dd><dt>Find it</dt><dd>${sourceDetails(record)}</dd></dl><a href="${new URL(`reference/index.html?item=${item.id}`, siteBase)}">View full item entry</a>`;
       positionCard(link);
     } catch (error) {
       panel.innerHTML = `<p>Item details could not be loaded.</p>`;
