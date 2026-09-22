@@ -3,7 +3,15 @@
       <div class="reference-tabs" id="reference-tabs">
         <button class="active" data-dataset="items">Items</button><button data-dataset="spells">Spells</button><button data-dataset="weaponSkills">Weapon skills</button><button data-dataset="jobAbilities">Job abilities</button>
       </div>
-      <div class="reference-toolbar"><div class="search"><span>⌕</span><input id="reference-search" type="search" placeholder="Search name, job, type, or effect…"></div><span id="reference-count"></span></div>
+      <div class="item-view-switch" id="item-view-switch" aria-label="Item encyclopedia view">
+        <button class="active" type="button" data-item-view="search">Search all items</button>
+        <button type="button" data-item-view="categories">Browse categories</button>
+      </div>
+      <div class="item-category-browser" id="item-category-browser" hidden>
+        <nav class="item-category-path" id="item-category-path" aria-label="Item category path"></nav>
+        <div class="item-category-grid" id="item-category-grid"></div>
+      </div>
+      <div class="reference-toolbar" id="item-search-toolbar"><div class="search"><span>⌕</span><input id="reference-search" type="search" placeholder="Search name, job, type, or effect…"></div><span id="reference-count"></span></div>
       <div class="reference-grid" id="reference-grid" aria-live="polite"></div>
       <p class="callout" id="database-summary"><strong>Loading:</strong> preparing the complete server-matched reference.</p>
     </section></main></div><div hidden aria-hidden="true"><div id="vana-time"></div><div id="vana-date"></div><div id="vana-element-icon"></div><div id="vana-element"></div><div id="vana-next-day"></div><div id="vana-moon"></div><section class="chapter" id="macros">
