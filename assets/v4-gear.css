@@ -15,12 +15,12 @@
 .gear-slot header{display:flex;justify-content:space-between;gap:8px;padding:11px 12px;border-bottom:1px solid var(--line);background:#0d2026}
 .gear-slot-weapon header{background:linear-gradient(90deg,rgba(213,177,93,.14),#0d2026)}.gear-slot-armor header{background:linear-gradient(90deg,rgba(94,207,222,.13),#0d2026)}.gear-slot-accessory header{background:linear-gradient(90deg,rgba(167,131,215,.14),#0d2026)}
 .gear-slot header small{color:#a9bbc1;font:700 8px Arial;text-transform:uppercase}
-.gear-choice{display:block;min-height:82px;padding:13px 12px;text-decoration:none}
+.gear-choice{display:flex;min-height:82px;padding:13px 12px;text-decoration:none}
 .gear-choice strong{display:block;min-height:0;margin:0 0 7px;color:#f2eee1;font:17px/1.25 Georgia;font-weight:400}
 .gear-choice small,.gear-alternatives small{display:block;color:#9eb0b6;font:9px/1.45 Arial}
 .gear-choice:hover strong,.gear-choice:focus-visible strong,.gear-alternatives a:hover,.gear-alternatives a:focus-visible{color:var(--gold)}
 .gear-alternatives{border-top:1px solid var(--line)}
-.gear-alternatives a{display:block;padding:10px 12px;color:#d7e8eb;border-bottom:1px solid rgba(87,130,139,.22);font:11px/1.4 Arial;text-decoration:none}
+.gear-alternatives a{display:flex;padding:10px 12px;color:#d7e8eb;border-bottom:1px solid rgba(87,130,139,.22);font:11px/1.4 Arial;text-decoration:none}
 .gear-slot-weapon .gear-alternatives a{color:#ead59f}.gear-slot-armor .gear-alternatives a{color:#bcebf1}.gear-slot-accessory .gear-alternatives a{color:#dac8f1}
 .gear-alternatives a:last-child{border-bottom:0}
 .gear-alternatives small{margin-top:3px}

@@ -121,13 +121,15 @@
     const regular=(g.mobs||[]).filter(m=>!m.nm&&!m.hnm);
     const nms=[...(g.nms||[]),...(g.mobs||[]).filter(m=>m.nm&&!m.hnm)];
     const hnms=[...(g.hnms||[]),...(g.mobs||[]).filter(m=>m.hnm)];
+    const mobTotal=regular.length+nms.length+hnms.length;
+    const mobTools=mobTotal?`<div class="mob-view-tools"><button type="button" class="mob-grid-open" data-open-mob-grid="${esc(zone)}"><span aria-hidden="true">▦</span> Open monster card grid <small>${mobTotal}</small></button><span>The compact list stays available below.</span></div>`:'';
     const mobs=regular.length?`<details class="field-panel"><summary>Mobs, levels, detection & drops <span>${regular.length}</span></summary><div class="field-grid mob-grid">${regular.map(mobCard).join('')}</div></details>`:'';
     const notorious=(nms.length||hnms.length)?`<details class="field-panel notorious-panel" open><summary>Notorious Monsters & HNMs <span>${nms.length+hnms.length}</span></summary>${hnms.length?`<h4>HNMs</h4><div class="field-grid hnm-grid">${hnms.map(mobCard).join('')}</div>`:''}${nms.length?`<h4>Notorious Monsters</h4><div class="field-grid nm-grid">${nms.map(mobCard).join('')}</div>`:''}</details>`:'';
     const npcs=g.npcs?.length?`<details class="field-panel"><summary>Notable NPCs <span>${g.npcs.length}</span></summary><div class="field-grid">${g.npcs.map(npcCard).join('')}</div></details>`:'';
     const dig=g.dig?.length?`<details class="field-panel"><summary>Chocobo digging / gathering</summary><p>${g.dig.map(esc).join(' • ')}</p></details>`:'';
     const items=g.items?.length?`<details class="field-panel"><summary>Zone items, chests & gathering</summary><p>${g.items.map(esc).join(' • ')}</p></details>`:'';
     const note=g.sourceNote?`<p class="field-source">${esc(g.sourceNote)}</p>`:'';
-    return mobs+notorious+npcs+dig+items+note;
+    return mobTools+mobs+notorious+npcs+dig+items+note;
   }
 
   const mapPreview=zone=>{
