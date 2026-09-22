@@ -1,0 +1,21 @@
+.item-view-switch{display:flex;gap:7px;margin:0 0 16px;padding:6px;border:1px solid var(--line);background:rgba(5,17,22,.82)}
+.item-view-switch button{flex:1;min-height:44px;padding:10px 16px;color:var(--muted);border:1px solid transparent;background:transparent;font:700 9px Arial;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.item-view-switch button:hover{color:var(--ink);border-color:var(--line)}
+.item-view-switch button.active{color:#071116;border-color:var(--gold);background:var(--gold)}
+.item-category-browser{margin-bottom:14px}
+.item-category-path{min-height:42px;display:flex;align-items:center;gap:10px;margin-bottom:10px;color:var(--muted);font:10px Arial;letter-spacing:.08em;text-transform:uppercase}
+.item-category-path button{padding:0;color:var(--aqua);border:0;background:none;font:inherit;text-transform:inherit;cursor:pointer}
+.item-category-path strong{color:var(--gold);font-weight:700}
+.item-category-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.item-category-grid button{position:relative;min-height:122px;padding:19px;overflow:hidden;color:var(--ink);border:1px solid var(--line);background:linear-gradient(145deg,rgba(18,36,43,.96),rgba(7,19,24,.96));text-align:left;cursor:pointer}
+.item-category-grid button:after{content:"→";position:absolute;right:17px;bottom:16px;color:var(--gold);font-size:18px;transition:transform .18s ease}
+.item-category-grid button:hover{border-color:var(--gold2);background:linear-gradient(145deg,rgba(26,49,55,.98),rgba(9,24,29,.98))}
+.item-category-grid button:hover:after{transform:translateX(4px)}
+.item-category-grid span,.item-category-grid strong,.item-category-grid small{display:block}
+.item-category-grid span{padding-right:26px;color:var(--aqua);font:400 19px/1.15 Georgia}
+.item-category-grid strong{margin:15px 0 4px;color:var(--gold);font:400 25px Georgia}
+.item-category-grid small{color:var(--muted);font:8px Arial;letter-spacing:.08em;text-transform:uppercase}
+.item-category-grid .item-category-all{border-color:var(--gold2);background:linear-gradient(145deg,rgba(74,60,29,.28),rgba(7,19,24,.96))}
+@media(max-width:1050px){.item-category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:720px){.item-category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:460px){.item-view-switch{display:grid}.item-category-grid{grid-template-columns:1fr}.item-category-grid button{min-height:105px}}
