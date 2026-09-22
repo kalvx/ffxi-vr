@@ -7,6 +7,7 @@
   <title>FFXI VR: Current Reality Compendium</title>
   <link rel="stylesheet" href="assets/site.css">
   <link rel="stylesheet" href="assets/wiki.css">
+  <link rel="stylesheet" href="assets/home.css">
   <script src="assets/home.js" defer></script>
 <script src="assets/wiki.js" defer></script></head>
 <body>
@@ -70,13 +71,23 @@
         </article>
       </section>
 
-      <section class="home-strip">
-        <div><p class="eyebrow">Current Reality resources</p><h2>Built for this server.</h2></div>
-        <nav><a href="addons/index.html">Client Addons</a><a href="reference/index.html">Search Records</a><a href="admin/index.html">Administration</a></nav>
-      </section>
     </main>
   </div>
 
-  <footer><div>✦ FFXI VR: Current Reality</div><p>Player Compendium</p><a href="admin/index.html">Administration</a></footer>
+  <footer class="home-footer">
+    <section class="home-resources" aria-labelledby="resource-heading">
+      <div>
+        <p class="eyebrow">Current Reality resources</p>
+        <h2 id="resource-heading">Server tools</h2>
+        <p>Quick access to client downloads, searchable records, and staff tools.</p>
+      </div>
+      <nav aria-label="Current Reality server resources">
+        <a href="addons/index.html"><span>Client setup</span><strong>Client Addons</strong></a>
+        <a href="reference/index.html"><span>Compendium data</span><strong>Search Records</strong></a>
+        <a href="admin/index.html"><span>Staff access</span><strong>Administration</strong></a>
+      </nav>
+    </section>
+    <div class="home-footer-bar"><div>✦ FFXI VR: Current Reality</div><p>Player Compendium</p><a href="admin/index.html">Administration</a></div>
+  </footer>
 </body>
 </html>
