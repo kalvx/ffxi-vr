@@ -1,5 +1,5 @@
-const itemDetailStyles=document.createElement('link');itemDetailStyles.rel='stylesheet';itemDetailStyles.href=new URL('item-details.css',document.currentScript.src);document.head.append(itemDetailStyles);
-let gameData=null,dossierJob='WAR',dossierView='overview',dossierLevel='1-10';
+const itemDetailStyles=document.createElement('link');itemDetailStyles.rel='stylesheet';itemDetailStyles.href=new URL('item-details.css',document.currentScript.src);document.head.append(itemDetailStyles);const itemBrowserStyles=document.createElement('link');itemBrowserStyles.rel='stylesheet';itemBrowserStyles.href=new URL('item-browser.css',document.currentScript.src);document.head.append(itemBrowserStyles);
+let gameData=null,dossierJob='WAR',dossierView='overview',dossierLevel='1-10',itemBrowseGroup=null,itemBrowseType=null;
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const seconds=value=>value?value>=60?`${Math.round(value/60)} min`:`${value} sec`:'—';
 const utilityMacros=[
@@ -15,6 +15,39 @@ function jobProfile(code){return jobs.find(j=>j.code===code)||{name:jobRecord(co
 const slotNames={1:'Main',2:'Sub',4:'Ranged',8:'Ammo',16:'Head',32:'Body',64:'Hands',128:'Legs',256:'Feet',512:'Neck',1024:'Waist',2048:'Ear',4096:'Ear',8192:'Ring',16384:'Ring',32768:'Back'};
 function equipSlot(slot){return Object.entries(slotNames).filter(([bit])=>slot&Number(bit)).map(([,name])=>name).join(' / ')||'Equipment';}
 function itemGroup(x){if(x.catalog)return[x.catalog.group,x.catalog.type];if(x.kind==='Weapon')return['Weapons',x.weapon?.skill||'Weapon'];if(x.kind==='Equipment'){const slot=equipSlot(x.equip?.slot||0);return[/^(Head|Body|Hands|Legs|Feet)$/.test(slot)?'Armor':'Accessories',slot]};if(x.kind==='Usable')return['Consumables','Consumable'];if(x.id>=8192&&x.id<=10239)return['Automaton & special','Automaton / special item'];return['Items','General item']}
+
+function itemCardMarkup(row){return `<article><div><span>${esc(row[3])}</span><h3><a href="?item=${row[5]}" data-item-id="${row[5]}">${esc(row[0])}</a></h3></div><b>${esc(row[1])}</b><p>${esc(row[2])}</p></article>`;}
+function bindItemCards(){document.querySelectorAll('#reference-grid [data-item-id]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();openItemDetail(link.dataset.itemId);}));}
+function categoryLabel(name){return String(name).replace(/^H2h$/,'Hand-to-Hand').replace(/^Greatsword$/,'Great Sword').replace(/^Greataxe$/,'Great Axe').replace(/^Greatkatana$/,'Great Katana');}
+function categoryMap(){
+  const map=new Map();
+  referenceData.items.forEach(row=>{const group=row[4]||'Items',type=row[1]||'General';if(!map.has(group))map.set(group,new Map());const types=map.get(group);if(!types.has(type))types.set(type,[]);types.get(type).push(row);});
+  return map;
+}
+function categoryButton(name,count,kind){return `<button type="button" data-category-${kind}="${esc(name)}"><span>${esc(categoryLabel(name))}</span><strong>${count.toLocaleString()}</strong><small>${kind==='group'?'items across this section':'matching items'}</small></button>`;}
+function renderCategoryItems(rows,label){
+  const root=document.querySelector('#reference-grid'),visible=rows.slice(0,180);root.hidden=false;root.innerHTML=visible.map(itemCardMarkup).join('')||'<p class="empty">No matching records.</p>';bindItemCards();
+  document.querySelector('#reference-count').textContent=`${rows.length.toLocaleString()} ${label.toLowerCase()}`;
+  if(rows.length>visible.length)root.insertAdjacentHTML('beforeend',`<p class="empty result-limit">Showing the first ${visible.length}. Use Search All Items to search all ${rows.length.toLocaleString()} records in this category.</p>`);
+}
+function renderItemCategories(){
+  const map=categoryMap(),browser=document.querySelector('#item-category-browser'),path=document.querySelector('#item-category-path'),grid=document.querySelector('#item-category-grid'),results=document.querySelector('#reference-grid');
+  browser.hidden=false;document.querySelector('#item-search-toolbar').hidden=true;results.hidden=true;
+  if(!itemBrowseGroup){
+    path.innerHTML='<strong>All item categories</strong>';grid.innerHTML=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([group,types])=>categoryButton(group,[...types.values()].reduce((n,rows)=>n+rows.length,0),'group')).join('');
+  }else{
+    const types=map.get(itemBrowseGroup)||new Map(),all=[...types.values()].flat();path.innerHTML=`<button type="button" data-category-home>All categories</button><span>›</span><strong>${esc(categoryLabel(itemBrowseGroup))}</strong>`;
+    grid.innerHTML=`<button class="item-category-all" type="button" data-category-type=""><span>All ${esc(categoryLabel(itemBrowseGroup))}</span><strong>${all.length.toLocaleString()}</strong><small>items in this section</small></button>`+[...types.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([type,rows])=>categoryButton(type,rows.length,'type')).join('');
+    if(itemBrowseType!==null){const rows=itemBrowseType===''?all:(types.get(itemBrowseType)||[]);renderCategoryItems(rows,itemBrowseType||itemBrowseGroup);}
+  }
+  grid.querySelectorAll('[data-category-group]').forEach(button=>button.onclick=()=>{itemBrowseGroup=button.dataset.categoryGroup;itemBrowseType=null;renderItemCategories();});
+  grid.querySelectorAll('[data-category-type]').forEach(button=>button.onclick=()=>{itemBrowseType=button.dataset.categoryType;renderItemCategories();});
+  path.querySelector('[data-category-home]')?.addEventListener('click',()=>{itemBrowseGroup=null;itemBrowseType=null;renderItemCategories();});
+}
+function initializeItemBrowser(){
+  const select=document.querySelector('#reference-category'),groups=[...new Set(referenceData.items.map(row=>row[4]))].sort();if(select){select.innerHTML='<option value="all">All item categories</option>'+groups.map(group=>`<option>${esc(group)}</option>`).join('');select.value='all';}
+  document.querySelectorAll('[data-item-view]').forEach(button=>button.onclick=()=>{const browse=button.dataset.itemView==='categories';document.querySelectorAll('[data-item-view]').forEach(x=>x.classList.toggle('active',x===button));document.querySelector('#item-category-browser').hidden=!browse;document.querySelector('#item-search-toolbar').hidden=browse;document.querySelector('#reference-grid').hidden=browse;document.querySelector('#reference-count').hidden=browse;if(browse){itemBrowseGroup=null;itemBrowseType=null;renderItemCategories();}else{document.querySelector('#reference-count').hidden=false;renderReference();}});
+}
 
 function itemLink(id){return `${location.pathname}?item=${id}`;}
 function itemHref(id){const source=document.querySelector('script[src$="v4-data.js"]')?.src||location.href;return new URL(`../reference/index.html?item=${id}`,source).href;}
@@ -56,7 +89,7 @@ function loadReferenceData(){
   referenceData.weaponSkills=gameData.weaponSkills.map(x=>[x.name,x.weapon,`Skill ${x.skill}${x.sc.length?` · ${x.sc.join(' / ')}`:''} · ${x.jobs.join(' · ')||'Special'}`,'Weapon skill']);
   referenceData.jobAbilities=gameData.abilities.map(x=>[x.name,`${x.job}${x.level?` Lv.${x.level}`:''}`,`Recast ${seconds(x.recast)}${x.aoe?' · Area':''}${x.content?` · ${x.content}`:''}`,'Ability']);
   document.querySelector('#database-summary').innerHTML=`<strong>Complete server reference:</strong> ${gameData.meta.items.toLocaleString()} items · ${gameData.meta.spells.toLocaleString()} spells · ${gameData.meta.weaponSkills.toLocaleString()} weapon skills · ${gameData.meta.abilities.toLocaleString()} abilities · ${gameData.meta.recipes.toLocaleString()} recipes.`;
-  renderReference();const requested=new URLSearchParams(location.search).get('item');if(requested)openItemDetail(requested,false);
+  initializeItemBrowser();renderReference();const requested=new URLSearchParams(location.search).get('item');if(requested)openItemDetail(requested,false);
 }
 
 function actionCard(type,name,detail,command){return `<article><span>${esc(type)}</span><strong>${esc(name)}</strong><p>${esc(detail)}</p><code>${esc(command)}</code><button data-copy="${esc(command)}">Copy</button></article>`;}
