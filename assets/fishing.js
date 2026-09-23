@@ -1,22 +1,29 @@
-const fishingRoutes = {
-  "0-11": { range: "Skill 0–11", fish: "Moat Carp", water: "Fresh water · Skill cap 11", location: "Mog Garden — pond", rod: "Halcyon Rod or Lu Shang’s Fishing Rod", bait: "Insect Ball", note: "A peaceful starting pool with easy Mog House access and no item catches." },
-  "11-27": { range: "Skill 11–27", fish: "Nebimonite", water: "Salt water · Skill cap 27", location: "Sea Serpent Grotto — lake at J-12", rod: "Lu Shang’s Fishing Rod; Halcyon Rod also works", bait: "Crayfish Ball", note: "Try to reach fishing skill 15 before this step if bites are too infrequent." },
-  "28-53": { range: "Skill 28–53", fish: "Istiridye", water: "Salt water · Skill cap 53", location: "Nashmau", rod: "Lu Shang’s Fishing Rod; Halcyon Rod also works", bait: "Robber Rig", note: "Nashmau keeps this stage convenient and safely inside town." },
-  "53-90": { range: "Skill 53–90", fish: "Mercanbaligi / Ahtapot", water: "Salt water · Skill caps 86 and 90", location: "Nashmau or Talacca Cove", rod: "Lu Shang’s Fishing Rod; Halcyon may snap or break", bait: "Shrimp Lure", note: "Talacca Cove also provides chances at Dil while working through this range." },
-  "90-plus": { range: "Skill 90+", fish: "Pterygotus", water: "Salt water · Skill cap 99", location: "Nashmau or Sih Gates — map 2", rod: "Lu Shang’s Fishing Rod; Halcyon may snap", bait: "Lugworm", note: "Nashmau remains the simplest option, though the bite rate is not especially high." }
-};
-
-const rangeSelect = document.querySelector("#fishing-skill-range");
-
-function showFishingRoute() {
-  const route = fishingRoutes[rangeSelect.value];
-  document.querySelector("#fish-range").textContent = route.range;
-  document.querySelector("#fish-name").textContent = route.fish;
-  document.querySelector("#fish-water").textContent = route.water;
-  document.querySelector("#fish-location").textContent = route.location;
-  document.querySelector("#fish-rod").textContent = route.rod;
-  document.querySelector("#fish-bait").textContent = route.bait;
-  document.querySelector("#fish-note").textContent = route.note;
-}
-
-rangeSelect?.addEventListener("change", showFishingRoute);
+const fishingRoutes={
+"0-11":{range:"Skill 0–11",intro:"Start with forgiving freshwater catches. The Mog Garden route is safe and immediately accessible on Current Reality.",routes:[
+{type:"Safest",fish:"Moat Carp",item:4401,cap:11,water:"Freshwater",location:"Mog Garden — pond",rod:"Halcyon Rod or Lu Shang’s",bait:"Ball of Insect Paste",danger:"No dangerous travel",note:"Stay through skill 11. These also count toward Lu Shang’s Fishing Rod."},
+{type:"Early alternative",fish:"Crayfish",item:4472,cap:7,water:"Freshwater",location:"Windurst Waters, Bastok Markets, or San d’Oria waterways",rod:"Hume or Halcyon Rod",bait:"Little Worm",danger:"Safe city fishing",note:"Useful only through skill 7; move to Moat Carp afterward."}]},
+"11-27":{range:"Skill 11–27",intro:"You do not need Sea Serpent Grotto. Use a safe town route, or change targets as your skill rises.",routes:[
+{type:"Safest",fish:"Quus",item:4514,cap:19,water:"Saltwater",location:"Selbina or Port Windurst",rod:"Halcyon Rod",bait:"Lugworm",danger:"Safe town dock",note:"Best bridge from skill 11 to approximately 18–19. Insect Paste does not target this saltwater fish."},
+{type:"Safe continuation",fish:"Tricolored Carp",item:4426,cap:27,water:"Freshwater",location:"Port San d’Oria — town pond",rod:"Halcyon Rod",bait:"Ball of Insect Paste",danger:"Safe city fishing",note:"Slower near the cap, but it can carry you to 27 without hostile-zone travel."},
+{type:"Efficient 19–27",fish:"Nebimonite",item:4361,cap:27,water:"Saltwater",location:"Selbina — town dock",rod:"Halcyon Rod",bait:"Ball of Crayfish Paste or Shrimp Lure",danger:"Safe town dock",note:"Switch around skill 18–19. Sea Serpent Grotto is optional, not required."},
+{type:"Alternative 11–17",fish:"Yellow Globe",item:4403,cap:17,water:"Saltwater",location:"Mhaura — town dock",rod:"Halcyon Rod",bait:"Sabiki Rig",danger:"Safe town dock",note:"A short early bridge. Sabiki may produce multiple small fish; change targets by skill 17."}]},
+"28-53":{range:"Skill 28–53",intro:"Choose a staged mainland route or use Nashmau when you already have Aht Urhgan access.",routes:[
+{type:"Safest single camp",fish:"Istiridye",item:5456,cap:53,water:"Saltwater",location:"Nashmau",rod:"Halcyon or Lu Shang’s",bait:"Robber Rig",danger:"Safe town; requires Nashmau access",note:"Convenient once Aht Urhgan travel is unlocked."},
+{type:"Mainland 28–37",fish:"Shining Trout",item:4354,cap:37,water:"Freshwater",location:"East Ronfaure — river near San d’Oria",rod:"Halcyon Rod",bait:"Fly Lure",danger:"Low-level outdoor zone",note:"A practical bridge that avoids distant expansion areas."},
+{type:"Mainland 37–48",fish:"Zafmlug Bass",item:4385,cap:48,water:"Saltwater",location:"Port Bastok",rod:"Halcyon Rod",bait:"Worm Lure",danger:"Safe city fishing",note:"Town alternative for the middle of this range."},
+{type:"Alternative 48–53",fish:"Bluetail",item:4399,cap:55,water:"Saltwater",location:"Batallia Downs coast or Qufim pond",rod:"Halcyon Rod",bait:"Minnow",danger:"Outdoor monsters nearby",note:"Use Sneak and Invisible if needed; Nashmau remains the safer option."}]},
+"53-90":{range:"Skill 53–90",intro:"This long band benefits from staged targets. The town option is safest; higher-cap alternatives require more travel.",routes:[
+{type:"Safest",fish:"Mercanbaligi / Ahtapot",items:[5454,5455],cap:"86 / 90",water:"Saltwater",location:"Nashmau",rod:"Lu Shang’s recommended",bait:"Shrimp Lure",danger:"Safe town fishing",note:"A long, convenient route with two useful skill caps."},
+{type:"Alternative to 76",fish:"Silver Shark",item:4451,cap:76,water:"Saltwater",location:"Batallia Downs coast",rod:"Lu Shang’s",bait:"Meatball",danger:"Hostile outdoor zone",note:"Useful when Nashmau access is unavailable, but less convenient."},
+{type:"Alternative to 86",fish:"Bastore Bream",item:4461,cap:86,water:"Saltwater",location:"Sea Serpent Grotto",rod:"Lu Shang’s",bait:"Shrimp Lure",danger:"Dangerous dungeon travel",note:"An optional efficiency route—not a required progression path."},
+{type:"Alternative to 90",fish:"Grimmonite",item:4304,cap:90,water:"Saltwater",location:"Sea Serpent Grotto",rod:"Lu Shang’s",bait:"Shrimp Lure",danger:"Dangerous dungeon travel",note:"Pairs with Bastore Bream but should be clearly treated as the risky option."}]},
+"90-plus":{range:"Skill 90+",intro:"Use a convenient cap target first, then move to a fish above 100 when you are ready for the final stretch.",routes:[
+{type:"Safest to 99",fish:"Pterygotus",item:5133,cap:99,water:"Saltwater",location:"Nashmau",rod:"Lu Shang’s",bait:"Lugworm",danger:"Safe town fishing",note:"Simple access, although its bite rate may be modest."},
+{type:"Alternative to 96",fish:"Black Sole",item:4384,cap:96,water:"Saltwater",location:"Batallia Downs coast",rod:"Lu Shang’s",bait:"Sinking Minnow",danger:"Hostile outdoor zone",note:"Useful if already fishing in Batallia, but it caps before 100."},
+{type:"Final stretch",fish:"Armored Pisces",item:4316,cap:108,water:"Freshwater",location:"Oldton Movalpolos",rod:"Lu Shang’s or Ebisu",bait:"Sinking Minnow",danger:"High-level dungeon",note:"A higher-cap target for pushing beyond 99; prepare for difficult catches and travel."}]}}
+;
+const rangeSelect=document.querySelector("#fishing-skill-range"),routeRoot=document.querySelector("#fish-routes");
+const itemLink=(id,name)=>`<a class="item-link" data-item-id="${id}" href="../reference/index.html?item=${id}">${name}</a>`;
+function fishName(route){if(route.items)return route.fish.split(" / ").map((name,index)=>itemLink(route.items[index],name)).join(" / ");return itemLink(route.item,route.fish);}
+function showFishingRoutes(){const band=fishingRoutes[rangeSelect.value];document.querySelector("#fish-range").textContent=band.range;document.querySelector("#fish-route-intro").textContent=band.intro;routeRoot.innerHTML=band.routes.map((route,index)=>`<article class="fish-route-card ${index===0?'recommended':''}"><header><span>${route.type}</span><b>Cap ${route.cap}</b></header><h3>${fishName(route)}</h3><p class="fish-water">${route.water}</p><dl><div><dt>Location</dt><dd>${route.location}</dd></div><div><dt>Rod</dt><dd>${route.rod}</dd></div><div><dt>Bait or lure</dt><dd>${route.bait}</dd></div><div><dt>Travel</dt><dd>${route.danger}</dd></div></dl><p>${route.note}</p></article>`).join("");window.CR_ITEM_POPOVERS?.scan?.(routeRoot);}
+rangeSelect?.addEventListener("change",showFishingRoutes);showFishingRoutes();
