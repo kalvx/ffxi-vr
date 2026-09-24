@@ -11,6 +11,26 @@ const craftRoutes = {
 };
 
 const ranks=[['Amateur',0],['Recruit',8],['Initiate',18],['Novice',28],['Apprentice',38],['Journeyman',48],['Craftsman',58],['Artisan',68],['Adept',78],['Veteran',88]];
+const craftRankTests={
+  Cooking:{npc:'Piketo-Puketo',location:'Windurst Waters, North (D-9)',items:['Salmon Sub Sandwich','Pea Soup','Vegetable Gruel','Meat Mithkabob','Apple Pie','Yagudo Drink','Raisin Bread','Whitefish Stew','Seafood Stew','Sprightly Soup']},
+  Woodworking:{npc:'Cheupirudaux',location:'Northern San d’Oria (F-3)',items:['Workbench','Maple Table','Harp','Traversiere','Rose Wand','Kaman','Ebony Wand','Commode','Mythic Pole','Vejovis Wand']},
+  Smithing:{npc:'Ghemp',location:'Metalworks (E-7)',items:['Xiphos','Aspis','Bilbo','War Pick','Mythril Pick','Darksteel Falchion','Bascinet','Bastard Sword','Celata','Gorkhali Kukri']},
+  Goldsmithing:{npc:'Reinberta',location:'Bastok Markets (I-8)',items:['Copper Hairpin','Brass Hairpin','Silver Hairpin','Chain Gorget','Mythril Ring','Mythril Gorget','Mythril Breastplate','Torque','Colichemarde','Evader Earring']},
+  Clothcraft:{npc:'Ponono',location:'Windurst Woods (G-12)',items:['Cape','Cotton Cape','Heko Obi','Feather Collar','Wool Bracers','Red Cape','Wool Doublet','Silk Cloak','Arhat’s Hakama','Swith Cape']},
+  Leathercraft:{npc:'Faulpie',location:'Southern San d’Oria (E-8)',items:['Rabbit Mantle','Lizard Cesti','Dhalmel Mantle','Magic Belt','Cuir Bouilli','Raptor Jerkin','Battle Boots','Tiger Gloves','Coeurl Mask','Urja Trousers']},
+  Bonecraft:{npc:'Peshi Yohnts',location:'Windurst Woods (H-13)',items:['Shell Ring','Bone Ring','Beetle Earring','Horn Ring','Carapace Gorget','Astragalos','Bone Patas','Coral Hairpin','Coral Bangles','Hajduk Ring']},
+  Alchemy:{npc:'Abd-al-Raziq',location:'Bastok Mines (L-7)',items:['Animal Glue','Poison Potion','Blinding Potion','Firesand','Fire Sword','Hi-Potion','Acid Kukri','X-Potion','Bloody Sword','Saida Ring']}
+};
+const craftTestRanks=['Recruit','Initiate','Novice','Apprentice','Journeyman','Craftsman','Artisan','Adept','Veteran','Expert'];
+function renderCraftRankTests(skill,craftName){
+  const guide=craftRankTests[craftName],root=document.querySelector('#rank-strip');if(!guide||!root)return;
+  const tests=guide.items.map((item,i)=>({item,at:8+i*10,cap:10+i*10,unlock:20+i*10,rank:craftTestRanks[i]}));
+  const next=tests.find(test=>skill<=test.cap)||tests[tests.length-1];
+  const expert=next.rank==='Expert';
+  root.className='rank-strip craft-rank-panel';
+  root.innerHTML=`<article class="craft-next-test"><div><small>Next guild test · skill ${next.at}–${next.cap}</small><h3>${next.item}</h3><p>Trade one to <strong>${guide.npc}</strong> at ${guide.location} to become <strong>${next.rank}</strong> and raise the skill cap to <strong>${next.unlock}</strong>.</p>${expert?'<p class="craft-expert-note">Expert test: complete the guild master’s “Way of the…” key-item step and trade a signed test item made with the required HQ crystal.</p>':''}</div><span class="craft-cap-badge">Unlocks<br><b>${next.unlock}</b></span></article><div class="craft-test-grid">${tests.map(test=>`<div class="${test===next?'current-test':skill>test.cap?'passed-test':''}"><b>${test.cap}</b><span>${test.rank}</span><strong>${test.item}</strong></div>`).join('')}</div>`;
+}
+
 let activeCraft='Cooking';
 function renderCrafts(){
   const craft=craftRoutes[activeCraft], skill=Number(document.querySelector('#craft-skill').value)||0, simple=document.querySelector('#craft-simple').checked;
@@ -18,7 +38,7 @@ function renderCrafts(){
   document.querySelector('#craft-overview').innerHTML=`<article><small>Guild</small><strong>${craft.guild}</strong><span>${craft.city}</span></article><article><small>Common crystals</small><strong>${craft.crystal}</strong><span>Carry extras before a long session</span></article><article><small>Current rank</small><strong>${[...ranks].reverse().find(r=>skill>=r[1])[0]}</strong><span>Skill ${skill.toFixed(1)}</span></article>`;
   let rows=craft.routes.filter(r=>r[0]>=Math.max(1,skill-3)); if(simple) rows=rows.filter(r=>r[4]<=2 || r[0]<=skill+12); rows=rows.slice(0,8);
   document.querySelector('#recipe-table').innerHTML=`<div class="recipe-row recipe-head"><span>Cap</span><span>Recipe</span><span>Crystal</span><span>Ingredients</span><span>Route note</span></div>`+rows.map(r=>`<div class="recipe-row ${r[0]>=skill&&r[0]<=skill+7?'recommended':''}"><b>${r[0]}</b><strong>${r[1]}</strong><span>${r[2]}</span><span>${r[3]}</span><em>${r[4]<=2?'Low item count':r[0]<=skill+7?'Good skill-up range':'Next milestone'}</em></div>`).join('');
-  document.querySelector('#rank-strip').innerHTML=ranks.map(([name,at])=>`<div class="${skill>=at?'reached':''}"><b>${at}</b><span>${name}</span></div>`).join('');
+  renderCraftRankTests(skill,activeCraft);
   document.querySelectorAll('[data-craft]').forEach(b=>b.onclick=()=>{activeCraft=b.dataset.craft;renderCrafts();});
 }
 
