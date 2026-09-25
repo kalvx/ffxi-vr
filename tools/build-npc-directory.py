@@ -89,6 +89,9 @@ if args.zones:
                 entry["zones"].append(zone)
 
 if args.scripts:
+    names_by_key = defaultdict(list)
+    for known_name in people:
+        names_by_key[re.sub(r"[^a-z0-9]", "", known_name.lower())].append(known_name)
     for path in sorted(args.scripts.glob("*/npcs/*.lua")):
         source = path.read_text(encoding="utf-8", errors="replace")
         header = source.split("-----------------------------------", 2)[1] if "-----------------------------------" in source else ""
@@ -97,7 +100,10 @@ if args.scripts:
             continue
         name = npc_match.group(1).strip()
         if name not in people:
-            continue
+            candidates = names_by_key.get(re.sub(r"[^a-z0-9]", "", name.lower()), [])
+            if len(candidates) != 1:
+                continue
+            name = candidates[0]
         entry = people[name]
         activities = entry.setdefault("activities", [])
         def add(message):
@@ -126,6 +132,25 @@ if args.scripts:
             add("Moves along a set route in this area.")
         if not activities and "entity.onTrigger" in source:
             add("Speak to this NPC for dialogue or a conditional scene.")
+
+    for path in sorted(args.scripts.glob("*/DefaultActions.lua")):
+        for script_name, action in re.findall(r"\['([^']+)'\]\s*=\s*\{([^}]+)\}", path.read_text(encoding="utf-8", errors="replace")):
+            candidates = names_by_key.get(re.sub(r"[^a-z0-9]", "", script_name.lower()), [])
+            if len(candidates) != 1:
+                continue
+            entry = people[candidates[0]]
+            activities = entry.setdefault("activities", [])
+            if "text =" in action:
+                code = re.search(r"text\s*=\s*ID\.text\.([A-Z0-9_]+)", action)
+                description = "Dialogue: " + code.group(1).replace("_", " ").capitalize() + "." if code else "Speak to this NPC for dialogue."
+            elif "event =" in action:
+                description = "Speak to this NPC for local dialogue or a scene."
+            elif "messageSpecial =" in action or "messageName =" in action:
+                description = "Examine this world object for an area message."
+            else:
+                continue
+            if not activities:
+                activities.append(description)
 
 if args.story_scripts:
     guide_by_title = {re.sub(r"[^a-z0-9]", "", guide["title"].lower()): guide for guide in guides}
