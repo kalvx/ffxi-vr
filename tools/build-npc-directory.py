@@ -24,7 +24,7 @@ def field(source, label):
 
 
 guides = []
-for path in sorted((ROOT / "quests").rglob("*.html")):
+for path in sorted([*(ROOT / "quests").rglob("*.html"), *(ROOT / "missions").rglob("*.html")]):
     if path.name == "index.html":
         continue
     source = path.read_text(encoding="utf-8")
@@ -36,7 +36,7 @@ for path in sorted((ROOT / "quests").rglob("*.html")):
         continue
     section = re.search(r'<ol class="guide-steps">(.*?)</ol>', source, re.S)
     steps = [plain(step) for step in re.findall(r"<li(?:\s[^>]*)?>(.*?)</li>", section.group(1), re.S)] if section else []
-    guides.append(dict(npc=npc, title=plain(title.group(1)), url="../" + path.relative_to(ROOT).as_posix(), zone=field(source, "Starting zone"), coordinates=field(source, "Coordinates"), requirements=plain((re.search(r'<h2>Required items and key items</h2>(.*?)</section>', source, re.S) or ["", ""])[1]), steps=steps))
+    guides.append(dict(npc=npc, title=plain(title.group(1)), url="../" + path.relative_to(ROOT).as_posix(), zone=field(source, "Starting zone"), coordinates=field(source, "Coordinates"), requirements=plain((re.search(r'<h2>Required items and key items</h2>(.*?)</section>', source, re.S) or ["", ""])[1]), steps=steps, kind="Mission" if "missions" in path.parts else "Quest"))
 
 people = defaultdict(lambda: {"locations": [], "zones": [], "quests": []})
 for guide in guides:
@@ -62,10 +62,11 @@ for guide in guides:
                     interactions.append("Next: " + guide["steps"][index + 1])
         if not interactions and guide["steps"]:
             interactions = [guide["steps"][0]]
-        people[name]["quests"].append({k: guide[k] for k in ("title", "url", "requirements")} | {"role": "Starts here" if name == guide["npc"] else "Appears in walkthrough", "interactions": interactions[:5]})
+        people[name]["quests"].append({k: guide[k] for k in ("title", "url", "requirements")} | {"role": guide["kind"] + (" starts here" if name == guide["npc"] else " walkthrough"), "interactions": interactions[:5]})
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--zones", type=Path)
+parser.add_argument("--scripts", type=Path)
 args = parser.parse_args()
 if args.zones:
     ignored = {"???", "DIRECTOR", "PRODUCER", "NPC", "Dummy", "none"}
@@ -85,6 +86,45 @@ if args.zones:
                 entry["locations"].append(zone)
             if zone not in entry["zones"]:
                 entry["zones"].append(zone)
+
+if args.scripts:
+    for path in sorted(args.scripts.glob("*/npcs/*.lua")):
+        source = path.read_text(encoding="utf-8", errors="replace")
+        header = source.split("-----------------------------------", 2)[1] if "-----------------------------------" in source else ""
+        npc_match = re.search(r"^--\s+NPC:\s*(.+)$", header, re.M)
+        if not npc_match:
+            continue
+        name = npc_match.group(1).strip()
+        if name not in people:
+            continue
+        entry = people[name]
+        activities = entry.setdefault("activities", [])
+        def add(message):
+            if message not in activities:
+                activities.append(message)
+
+        for label, comment in re.findall(r"^--\s*(Type|Starts? and Finishes? Quest|Starts? Quest|Involved in quest|Guild Merchant NPC):\s*(.+)$", header, re.M | re.I):
+            comment = comment.strip().rstrip('.')
+            if len(comment) <= 110 and not comment.startswith('!'):
+                add(('Quest connections: ' if 'quest' in label.lower() else '') + comment)
+        if "guildMasterOnTrigger" in source:
+            add("Guild master: handles craft enrollment, rank advancement, and required item trades.")
+        elif "guildShops.onTrigger" in source or "xi.shop.generalGuild" in source:
+            add("Guild shop: speak to this NPC to browse guild stock; availability may change.")
+        elif re.search(r"xi\.shop\.(?:general|nation|standard|generalGuild|sell|bartender)", source):
+            add("Merchant: speak to this NPC to browse their shop stock.")
+        if "advancedSynthesisImageSupport" in source or "advancedSupport" in source:
+            add("Provides advanced synthesis image support for crafting.")
+        elif "synthesisImageSupport" in source:
+            add("Provides synthesis image support for crafting.")
+        if re.search(r"player:setPos\(|xi\.teleport\.", source):
+            add("Travel interaction: can move the player after its conditions are met.")
+        if "entity.onTrade" in source and not any('trade' in a.lower() for a in activities):
+            add("Accepts an item trade; check the related quest or service before trading.")
+        if not activities and "pathNodes" in source:
+            add("Moves along a set route in this area.")
+        if not activities and "entity.onTrigger" in source:
+            add("Speak to this NPC for dialogue or a conditional scene.")
 
 if "Ranpi-Monpi" in people:
     people["Ranpi-Monpi"]["notes"] = [

@@ -2,9 +2,9 @@
 .home-main{display:grid;gap:18px}
 
 .home-banner{position:relative;overflow:hidden;min-height:330px;padding:34px 38px;border:1px solid var(--line);background:radial-gradient(circle at 10% 15%,rgba(101,184,177,.15),transparent 26rem),linear-gradient(135deg,rgba(17,37,44,.98),rgba(6,18,23,.98))}
-.home-banner:after{content:"";position:absolute;right:-90px;bottom:-170px;width:420px;height:420px;border:1px solid rgba(213,177,93,.14);transform:rotate(45deg);pointer-events:none}
+.home-banner:after{display:none}
 .home-banner>div,.home-clock{position:relative;z-index:1}
-.home-banner img{display:block;width:min(100%,360px);height:auto;margin:-22px 0 -32px;filter:drop-shadow(0 16px 24px rgba(0,0,0,.3))}
+.home-banner img{display:block;width:min(100%,360px);height:auto;margin:0 0 16px;filter:drop-shadow(0 16px 24px rgba(0,0,0,.3))}
 .home-banner h1{margin:4px 0 10px;color:var(--ink);font-size:clamp(38px,5vw,68px);font-weight:400;line-height:1}
 .home-banner>div>p:last-child{max-width:680px;margin:0;color:var(--muted);font:14px/1.75 Arial}
 
@@ -47,4 +47,4 @@
 
 @media(max-width:1100px){.home-portal{grid-template-columns:1fr 1fr}.home-portal>article:last-child{grid-column:1/-1}.home-resources{grid-template-columns:1fr;gap:22px}}
 @media(max-width:900px){.home-layout{grid-template-columns:1fr}.home-banner{padding:28px}.home-feature-grid{grid-template-columns:1fr}}
-@media(max-width:650px){.home-layout{padding:15px}.home-banner{padding:22px}.home-banner img{margin:-10px 0 -18px}.home-feature{padding:22px}.home-portal{grid-template-columns:1fr}.home-portal>article:last-child{grid-column:auto}.home-resources{padding:30px 15px}.home-resources nav{grid-template-columns:1fr}.home-footer-bar{padding:20px 15px;display:block}.home-footer-bar p{margin:10px 0}}
+@media(max-width:650px){.home-layout{padding:15px}.home-banner{padding:22px}.home-banner img{margin:0 0 12px}.home-feature{padding:22px}.home-portal{grid-template-columns:1fr}.home-portal>article:last-child{grid-column:auto}.home-resources{padding:30px 15px}.home-resources nav{grid-template-columns:1fr}.home-footer-bar{padding:20px 15px;display:block}.home-footer-bar p{margin:10px 0}}

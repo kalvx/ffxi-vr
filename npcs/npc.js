@@ -15,14 +15,15 @@
     card.append(element('h3', '', person.name));
     card.append(element('p', 'npc-location', `Location: ${person.locations.join(' · ') || 'Not documented'}`));
     if (person.notes) for (const note of person.notes) card.append(element('p', 'npc-note', note));
-    if (!person.quests.length) card.append(element('p', 'npc-note', 'No quest walkthrough for this NPC is documented here yet.'));
+    if (person.activities) for (const activity of person.activities) card.append(element('p', 'npc-activity', activity));
+    if (!person.quests.length && !person.activities?.length) card.append(element('p', 'npc-note', 'The server lists this NPC here; a specific interaction has not yet been verified.'));
     for (const quest of person.quests) {
       const block = element('section', 'npc-quest');
       block.append(element('span', 'npc-role', quest.role));
       const link = element('a', 'npc-quest-link', quest.title + ' →');
       link.href = quest.url;
       block.append(link);
-      if (quest.role === 'Starts here' && quest.requirements && !/no advance item requirement/i.test(quest.requirements)) block.append(element('p', 'npc-requirements', `Quest items: ${quest.requirements}`));
+      if (quest.role.endsWith('starts here') && quest.requirements && !/no advance item requirement/i.test(quest.requirements)) block.append(element('p', 'npc-requirements', `Required items: ${quest.requirements}`));
       for (const step of quest.interactions) block.append(element('p', 'npc-step', step));
       card.append(block);
     }
