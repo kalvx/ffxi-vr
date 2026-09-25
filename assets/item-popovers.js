@@ -62,6 +62,35 @@
     return details.length ? details.map(escapeHtml).join('<br>') : escapeHtml(obtainSummary(sources));
   }
 
+  function durationLabel(seconds) {
+    if (!seconds) return '';
+    if (seconds % 3600 === 0) return `${seconds / 3600} hr`;
+    if (seconds % 60 === 0) return `${seconds / 60} min`;
+    return `${seconds} sec`;
+  }
+
+  function modifierLabel(modifier = {}) {
+    const value = Number(modifier.value || 0);
+    if (modifier.cap) return `${modifier.name} ${Math.abs(value).toLocaleString()}`;
+    return `${modifier.name} ${value >= 0 ? '+' : ''}${value.toLocaleString()}${modifier.percent ? '%' : ''}`;
+  }
+
+  function purposeDetails(record = {}) {
+    const item = record.item || {}, effects = item.effects || {}, sources = record.sources || {};
+    const lines = [];
+    if (effects.food) lines.push(`<strong>Food effect${effects.duration ? ` · ${escapeHtml(durationLabel(effects.duration))}` : ''}</strong>`);
+    if (effects.modifiers?.length) lines.push(`<span class="item-effect-list">${effects.modifiers.map(modifier => `<span>${escapeHtml(modifierLabel(modifier))}</span>`).join('')}</span>`);
+    effects.use?.forEach(effect => lines.push(`${escapeHtml(effect.effect)}${effect.power ? ` (power ${escapeHtml(effect.power)})` : ''}${effect.duration ? ` for ${escapeHtml(durationLabel(effect.duration))}` : ''}`));
+    if (!lines.length && item.weapon) lines.push(`${escapeHtml(item.weapon.damage)} DMG · ${escapeHtml(item.weapon.delay)} delay · ${escapeHtml(item.weapon.skill)}`);
+    if (!lines.length && item.equip) lines.push('Equippable item; no additional stat modifiers are recorded by the server.');
+    if (sources.usedIn?.length) lines.push(`Crafting material in ${sources.usedIn.length.toLocaleString()} recorded recipe${sources.usedIn.length === 1 ? '' : 's'}.`);
+    if (sources.craftedBy?.length) lines.push(`Crafted result from ${sources.craftedBy.length.toLocaleString()} recorded recipe${sources.craftedBy.length === 1 ? '' : 's'}.`);
+    if (item.id >= 4096 && item.id <= 4103) lines.unshift('Synthesis crystal consumed to craft items of its element.');
+    if (!lines.length && item.usable) lines.push('Usable item; no additional implemented effect is recorded in the current server data.');
+    if (!lines.length) lines.push('General item; its recorded purpose is shown under sources and recipe usage.');
+    return lines.join('<br>');
+  }
+
   function ensureCard() {
     if (card) return card;
     card = document.createElement('aside');
@@ -100,7 +129,7 @@
       const type = record.ah?.listed ? record.ah.path.at(-1) : (item.weapon?.skill || item.kind || 'Item');
       const equipRows = item.equip ? `<dt>Equip</dt><dd>${escapeHtml(equipSlots(item.equip.slot))} · Level ${escapeHtml(item.equip.level)}${item.equip.ilevel ? ` · iLvl ${escapeHtml(item.equip.ilevel)}` : ''}</dd><dt>Jobs</dt><dd class="item-popover-jobs">${escapeHtml(equipJobs(item.equip.jobs))}</dd>` : '';
       const weaponRows = item.weapon ? `<dt>Weapon</dt><dd>${escapeHtml(item.weapon.skill)} · ${escapeHtml(item.weapon.damage)} DMG · ${escapeHtml(item.weapon.delay)} delay${item.weapon.hits > 1 ? ` · ${escapeHtml(item.weapon.hits)} hits` : ''}</dd>` : '';
-      panel.innerHTML = `<div class="item-popover-title"><span class="item-icon-frame item-icon-large" data-item-icon="${escapeHtml(item.id)}" aria-hidden="true"></span><div><p class="item-popover-kicker">${escapeHtml(type)} · Item ${escapeHtml(item.id)}</p><h3>${escapeHtml(item.name || link.textContent)}</h3></div></div><div class="item-popover-badges">${statusBadges(record)}</div><p>${escapeHtml(item.kind || 'Item')} · Stack ${escapeHtml(item.stack ?? '—')} · Base vendor value ${Number(item.sell || 0).toLocaleString()} gil</p><dl><dt>Type</dt><dd>${escapeHtml(type)}</dd>${equipRows}${weaponRows}<dt>Auction House</dt><dd>${escapeHtml(ah)}</dd><dt>Find it</dt><dd>${sourceDetails(record)}</dd></dl><a href="${new URL(`reference/index.html?item=${item.id}`, siteBase)}">View full item entry</a>`;
+      panel.innerHTML = `<div class="item-popover-title"><span class="item-icon-frame item-icon-large" data-item-icon="${escapeHtml(item.id)}" aria-hidden="true"></span><div><p class="item-popover-kicker">${escapeHtml(type)} · Item ${escapeHtml(item.id)}</p><h3>${escapeHtml(item.name || link.textContent)}</h3></div></div><div class="item-popover-badges">${statusBadges(record)}</div><p>${escapeHtml(item.kind || 'Item')} · Stack ${escapeHtml(item.stack ?? '—')} · Base vendor value ${Number(item.sell || 0).toLocaleString()} gil</p><dl><dt>Type</dt><dd>${escapeHtml(type)}</dd>${equipRows}${weaponRows}<dt>What it does</dt><dd class="item-popover-effects">${purposeDetails(record)}</dd><dt>Auction House</dt><dd>${escapeHtml(ah)}</dd><dt>Find it</dt><dd>${sourceDetails(record)}</dd></dl><a href="${new URL(`reference/index.html?item=${item.id}`, siteBase)}">View full item entry</a>`;
       positionCard(link);
     } catch (error) {
       panel.innerHTML = `<p>Item details could not be loaded.</p>`;
