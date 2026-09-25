@@ -186,6 +186,13 @@ if reference_roles.exists():
             people[name]["referenceRole"] = description
             people[name]["referenceUrl"] = "https://horizonffxi.wiki/" + name.replace(" ", "_")
 
+bg_facts = ROOT / "npcs" / "bg-facts.json"
+if bg_facts.exists():
+    for name, fact in json.loads(bg_facts.read_text(encoding="utf-8")).items():
+        if name in people:
+            people[name]["bgFact"] = fact
+            people[name]["bgUrl"] = "https://www.bg-wiki.com/ffxi/" + name.replace(" ", "_")
+
 for name, entry in people.items():
     if entry.get("activities") or entry.get("referenceRole") or entry["quests"] or entry.get("connections"):
         continue
@@ -206,6 +213,8 @@ for name, entry in people.items():
         entry["worldRole"] = "Gathering point; use the appropriate gathering tool when this point is active."
     elif re.search(r"(?i)Coffer|Treasure Chest", name):
         entry["worldRole"] = "Treasure container; availability and contents depend on the area or encounter."
+    elif re.fullmatch(r"(?:_[a-zA-Z0-9]+|[A-Z]\d{2}|FX_[A-Za-z0-9_]+|FLOOR_[A-Za-z0-9_]+|TOWER_[A-Za-z0-9_]+|Cam_[A-Za-z0-9_]+|Plant\d+|warp_\w+)", name):
+        entry["technical"] = True
 
 out = [{"name": name, **data} for name, data in sorted(people.items())]
 (ROOT / "npcs").mkdir(exist_ok=True)

@@ -1,6 +1,7 @@
 (() => {
   const input = document.getElementById('npc-query');
   const area = document.getElementById('npc-area');
+  const technical = document.getElementById('npc-technical');
   const results = document.getElementById('npc-results');
   const status = document.getElementById('npc-status');
   let people = [];
@@ -14,11 +15,18 @@
     const card = element('article', 'npc-card');
     card.append(element('h3', '', person.name));
     card.append(element('p', 'npc-location', `Location: ${person.locations.join(' · ') || 'Not documented'}`));
+    if (person.bgFact?.grid) card.append(element('p', 'npc-location', `Reference map grid: ${person.bgFact.grid}`));
     if (person.notes) for (const note of person.notes) card.append(element('p', 'npc-note', note));
     if (person.activities) for (const activity of person.activities) card.append(element('p', 'npc-activity', activity));
     if (person.referenceRole) {
       const reference = element('p', 'npc-activity', `Reference role: ${person.referenceRole} `);
       const source = element('a', '', 'Source ↗'); source.href = person.referenceUrl; source.target = '_blank'; source.rel = 'noopener';
+      reference.append(source); card.append(reference);
+    }
+    if (person.bgFact && (person.bgFact.role || person.bgFact.type)) {
+      const detail = [person.bgFact.role, person.bgFact.type && `Type: ${person.bgFact.type}`].filter(Boolean).join(' ');
+      const reference = element('p', 'npc-activity', `Reference: ${detail} `);
+      const source = element('a', '', 'Source ↗'); source.href = person.bgUrl; source.target = '_blank'; source.rel = 'noopener';
       reference.append(source); card.append(reference);
     }
     if (person.worldRole) {
@@ -29,7 +37,7 @@
     if (person.connections) for (const connection of person.connections) {
       if (!person.quests.some(q => connection.endsWith(q.title))) card.append(element('p', 'npc-activity', `Server story connection · ${connection}`));
     }
-    if (!person.quests.length && !person.activities?.length && !person.connections?.length && !person.referenceRole && !person.worldRole) card.append(element('p', 'npc-note', 'This name has a recorded location, but no specific service, dialogue action, or story connection was found in the indexed references. Current Reality custom behavior may differ.'));
+    if (!person.quests.length && !person.activities?.length && !person.connections?.length && !person.referenceRole && !person.worldRole && !person.bgFact?.role && !person.bgFact?.type) card.append(element('p', 'npc-note', 'This name has a recorded location, but no specific service, dialogue action, or story connection was found in the indexed references. Current Reality custom behavior may differ.'));
     for (const quest of person.quests) {
       const block = element('section', 'npc-quest');
       block.append(element('span', 'npc-role', quest.role));
@@ -45,7 +53,7 @@
   function render() {
     const query = input.value.trim().toLocaleLowerCase();
     const selected = area.value;
-    const matches = people.filter(p => p.name.toLocaleLowerCase().includes(query) && (!selected || p.zones.includes(selected)));
+    const matches = people.filter(p => (technical.checked || !p.technical) && p.name.toLocaleLowerCase().includes(query) && (!selected || p.zones.includes(selected)));
     const groups = new Map();
     for (const p of matches) for (const zone of p.zones.length ? p.zones : ['Location not documented']) {
       if (selected && zone !== selected) continue;
@@ -79,6 +87,7 @@
   }
   input.addEventListener('input', render);
   area.addEventListener('change', render);
+  technical.addEventListener('change', render);
   fetch('quest-index.json').then(response => { if (!response.ok) throw Error('Index unavailable'); return response.json(); }).then(data => {
     people = data;
     for (const zone of [...new Set(data.flatMap(p => p.zones))].sort((a, b) => a.localeCompare(b))) {
