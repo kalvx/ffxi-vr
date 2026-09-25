@@ -179,6 +179,34 @@ if "Ranpi-Monpi" in people:
         "The Dawn of Delectability involves a different Ranpi-Monpi in past Windurst Waters (S); its walkthrough is not yet in this Compendium."
     ]
 
+reference_roles = ROOT / "npcs" / "reference-roles.json"
+if reference_roles.exists():
+    for name, description in json.loads(reference_roles.read_text(encoding="utf-8")).items():
+        if name in people:
+            people[name]["referenceRole"] = description
+            people[name]["referenceUrl"] = "https://horizonffxi.wiki/" + name.replace(" ", "_")
+
+for name, entry in people.items():
+    if entry.get("activities") or entry.get("referenceRole") or entry["quests"] or entry.get("connections"):
+        continue
+    if re.match(r"(?i)^door(?:[:_]|$)", name):
+        entry["worldRole"] = "Door or entrance. The label identifies its destination when one is named."
+    elif re.search(r"(?i)(?:^|\s)Gate(?:way)?(?:\s|$)", name):
+        entry["worldRole"] = "Gate or barrier. Access may depend on the zone or current quest state."
+    elif re.search(r"(?i)Martello$", name):
+        entry["worldRole"] = "Abyssea Martello: a recovery device associated with HP, MP, and status restoration."
+        entry["referenceUrl"] = "https://www.bg-wiki.com/ffxi/June_2010_Version_Update_Changes/Abyssea"
+    elif name.startswith("Veridical Conflux"):
+        entry["worldRole"] = "Travel point: activated Abyssea confluxes allow travel within an area for cruor."
+        entry["referenceUrl"] = "https://www.bg-wiki.com/ffxi/Veridical_Conflux"
+    elif name == "Planar Rift":
+        entry["worldRole"] = "Voidwatch interaction point used to initiate eligible encounters."
+        entry["referenceUrl"] = "https://www.bg-wiki.com/ffxi/Category:Voidwatch"
+    elif re.search(r"(?i)(?:Mining|Logging|Harvesting|Excavation) Point|Mineral Vein|Arboreal Grove", name):
+        entry["worldRole"] = "Gathering point; use the appropriate gathering tool when this point is active."
+    elif re.search(r"(?i)Coffer|Treasure Chest", name):
+        entry["worldRole"] = "Treasure container; availability and contents depend on the area or encounter."
+
 out = [{"name": name, **data} for name, data in sorted(people.items())]
 (ROOT / "npcs").mkdir(exist_ok=True)
 (ROOT / "npcs" / "quest-index.json").write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
