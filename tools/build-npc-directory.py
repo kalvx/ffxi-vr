@@ -67,6 +67,7 @@ for guide in guides:
 parser = argparse.ArgumentParser()
 parser.add_argument("--zones", type=Path)
 parser.add_argument("--scripts", type=Path)
+parser.add_argument("--story-scripts", type=Path, help="LandSandBoat scripts directory containing quests and missions")
 args = parser.parse_args()
 if args.zones:
     ignored = {"???", "DIRECTOR", "PRODUCER", "NPC", "Dummy", "none"}
@@ -125,6 +126,27 @@ if args.scripts:
             add("Moves along a set route in this area.")
         if not activities and "entity.onTrigger" in source:
             add("Speak to this NPC for dialogue or a conditional scene.")
+
+if args.story_scripts:
+    guide_by_title = {re.sub(r"[^a-z0-9]", "", guide["title"].lower()): guide for guide in guides}
+    for kind in ("quests", "missions"):
+        for path in sorted((args.story_scripts / kind).rglob("*.lua")):
+            source = path.read_text(encoding="utf-8", errors="replace")
+            title = path.stem.replace("_", " ")
+            if not re.search(r"(?:Quest:new|Mission:new|xi\.quest|xi\.mission)", source):
+                continue
+            for name in set(re.findall(r"\[\s*['\"]([^'\"]+)['\"]\s*\]\s*=\s*\{", source)):
+                name = name.replace("_", " ")
+                if name not in people:
+                    continue
+                entry = people[name]
+                label = ("Quest: " if kind == "quests" else "Mission: ") + title
+                connections = entry.setdefault("connections", [])
+                if label not in connections:
+                    connections.append(label)
+                guide = guide_by_title.get(re.sub(r"[^a-z0-9]", "", title.lower()))
+                if guide and not any(q["url"] == guide["url"] for q in entry["quests"]):
+                    entry["quests"].append({"title": guide["title"], "url": guide["url"], "requirements": "", "role": "Server " + ("quest" if kind == "quests" else "mission") + " connection", "interactions": []})
 
 if "Ranpi-Monpi" in people:
     people["Ranpi-Monpi"]["notes"] = [

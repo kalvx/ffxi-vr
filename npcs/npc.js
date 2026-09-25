@@ -16,7 +16,10 @@
     card.append(element('p', 'npc-location', `Location: ${person.locations.join(' · ') || 'Not documented'}`));
     if (person.notes) for (const note of person.notes) card.append(element('p', 'npc-note', note));
     if (person.activities) for (const activity of person.activities) card.append(element('p', 'npc-activity', activity));
-    if (!person.quests.length && !person.activities?.length) card.append(element('p', 'npc-note', 'The server lists this NPC here; a specific interaction has not yet been verified.'));
+    if (person.connections) for (const connection of person.connections) {
+      if (!person.quests.some(q => connection.endsWith(q.title))) card.append(element('p', 'npc-activity', `Server story connection · ${connection}`));
+    }
+    if (!person.quests.length && !person.activities?.length && !person.connections?.length) card.append(element('p', 'npc-note', 'The server lists this NPC here; a specific interaction has not yet been verified.'));
     for (const quest of person.quests) {
       const block = element('section', 'npc-quest');
       block.append(element('span', 'npc-role', quest.role));
