@@ -7,12 +7,18 @@ document.addEventListener('DOMContentLoaded',()=>{const button=document.querySel
 document.addEventListener('DOMContentLoaded',()=>{const nav=document.querySelector('.wiki-sidebar nav[aria-label="Compendium directory"]');if(!nav||[...nav.querySelectorAll('a')].some(a=>a.textContent.trim()==='Leveling & Progression'))return;const trusts=[...nav.querySelectorAll('a')].find(a=>a.textContent.trim()==='Trusts');if(!trusts)return;const link=document.createElement('a');link.href=new URL('../leveling/index.html',wikiAssetBase).href;link.textContent='Leveling & Progression';link.dataset.levelingLink='';if(location.pathname.includes('/leveling/'))link.setAttribute('aria-current','page');trusts.insertAdjacentElement('afterend',link)});
 document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('footer').forEach(footer=>{if(footer.querySelector('[data-site-credit]'))return;const credit=document.createElement('p');credit.dataset.siteCredit='';credit.append('Created by ');const creator=document.createElement('a');creator.href='https://github.com/kalvx';creator.target='_blank';creator.rel='noopener';creator.textContent='Kalvx';credit.append(creator,' with OpenAI assistance · ');const discord=document.createElement('a');discord.href='https://discord.gg/e9xPsQTKm';discord.target='_blank';discord.rel='noopener';discord.textContent='Join the Discord';credit.append(discord);footer.append(credit)})});
 
-// Keep the NPC directory in one place across every Compendium sidebar.
+// One directory link, placed with the adventure guides on every page.
 document.addEventListener('DOMContentLoaded',()=>{
+  const destination=new URL('../npcs/index.html',wikiAssetBase).href;
   document.querySelectorAll('.wiki-sidebar nav').forEach(nav=>{
-    if(nav.querySelector('a[href$="npcs/index.html"]'))return;
-    let heading=[...nav.querySelectorAll('h3')].find(node=>/^items\s*&\s*systems$/i.test(node.textContent.trim()));
-    if(!heading){heading=document.createElement('h3');heading.textContent='Items & systems';nav.append(heading)}
-    const link=document.createElement('a');link.href=new URL('../npcs/index.html',wikiAssetBase);link.textContent='NPCs';heading.after(link);
+    const links=[...nav.querySelectorAll('a')].filter(a=>a.href===destination);
+    const link=links.shift()||document.createElement('a');
+    links.forEach(duplicate=>duplicate.remove());
+    link.href=destination;
+    link.textContent='NPCs';
+    const quests=[...nav.querySelectorAll('a')].find(a=>/\/quests\/index\.html$/.test(new URL(a.href).pathname));
+    const adventure=[...nav.querySelectorAll('h3')].find(h=>/^adventure$/i.test(h.textContent.trim()));
+    if(quests)quests.after(link);
+    else if(adventure)adventure.after(link);
   });
 });
