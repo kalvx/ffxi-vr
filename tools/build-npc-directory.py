@@ -193,6 +193,13 @@ if bg_facts.exists():
             people[name]["bgFact"] = fact
             people[name]["bgUrl"] = "https://www.bg-wiki.com/ffxi/" + name.replace(" ", "_")
 
+area_facts = ROOT / "npcs" / "area-facts.json"
+if area_facts.exists():
+    for name, fact in json.loads(area_facts.read_text(encoding="utf-8")).items():
+        if name in people:
+            people[name]["referenceRole"] = fact["role"]
+            people[name]["referenceUrl"] = fact["source"]
+
 for name, entry in people.items():
     if entry.get("activities") or entry.get("referenceRole") or entry["quests"] or entry.get("connections"):
         continue
