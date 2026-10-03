@@ -1,4 +1,4 @@
-// Generated from the BG-Wiki Artifact Armor category; rewritten and rendered by the Current Reality Compendium.
+// Artifact acquisition requirements checked against Square Enix’s acquisition tables and linked quest references, 2026-10-03.
 window.CR_AF1_DATA={
   "war": [
     {
@@ -7,7 +7,13 @@ window.CR_AF1_DATA={
       "route": "The Doorman",
       "items": "Sword grip material",
       "source": "The Doorman",
-      "start": "Phara, Bastok Mines (J-9)"
+      "start": "Phara, Bastok Mines (J-9)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "WAR main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks The Talekeeper's Truth. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Feet",
@@ -15,7 +21,13 @@ window.CR_AF1_DATA={
       "route": "The Talekeeper's Truth",
       "items": "Mottled Qdv. Egg · Parasite Skin",
       "source": "The Talekeeper's Truth",
-      "start": "Phara, Bastok Mines (J-9)"
+      "start": "Deidogg, Bastok Mines (H-6); speak to Phara (J-9) first",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete The Doorman first.  Begin on WAR main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock The Talekeeper's Gift. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order."
     },
     {
       "slot": "Hands",
@@ -23,7 +35,13 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Warring Hands",
       "items": "Eldieme Necropolis Coffer Key",
       "source": "Borghertz's Warring Hands",
-      "start": "Guslam, Upper Jeuno (H-8)"
+      "start": "Guslam, Upper Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start The Talekeeper's Truth first (WAR level 50+ after The Doorman).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time."
     },
     {
       "slot": "Head",
@@ -31,7 +49,13 @@ window.CR_AF1_DATA={
       "route": "Start: The Talekeeper's Truth · Open: Crawler's Nest Treasure Coffer",
       "items": "Crawler's Nest Coffer Key",
       "source": "The Talekeeper's Truth",
-      "start": "Phara, Bastok Mines (J-9)"
+      "start": "Phara, Bastok Mines (J-9)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start The Talekeeper's Truth first (WAR level 50+ after The Doorman).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Warring Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep WAR as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Legs",
@@ -39,7 +63,13 @@ window.CR_AF1_DATA={
       "route": "Start: The Talekeeper's Truth · Open: Castle Zvahl Baileys Treasure Coffer",
       "items": "Castle Zvahl Baileys Coffer Key",
       "source": "The Talekeeper's Truth",
-      "start": "Phara, Bastok Mines (J-9)"
+      "start": "Phara, Bastok Mines (J-9)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start The Talekeeper's Truth first (WAR level 50+ after The Doorman).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Warring Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep WAR as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Body",
@@ -47,7 +77,13 @@ window.CR_AF1_DATA={
       "route": "The Talekeeper's Gift",
       "items": "Ginger Cookie",
       "source": "The Talekeeper's Gift",
-      "start": "Deidogg, Bastok Mines (H-6)"
+      "start": "Deidogg, Bastok Mines (H-6)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete The Talekeeper's Truth first. Wait until the next Vana’diel midnight. Begin on WAR main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "mnk": [
@@ -57,7 +93,13 @@ window.CR_AF1_DATA={
       "route": "Ghosts of the Past",
       "items": "Pickaxe · Miner's Pendant",
       "source": "Ghosts of the Past",
-      "start": "Oggbi - Port Bastok (E-6)"
+      "start": "Oggbi - Port Bastok (E-6)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "MNK main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks The First Meeting. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Feet",
@@ -65,7 +107,13 @@ window.CR_AF1_DATA={
       "route": "The First Meeting",
       "items": "None",
       "source": "The First Meeting",
-      "start": "Oggbi - Port Bastok (E-6)"
+      "start": "Oggbi - Port Bastok (E-6)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete Ghosts of the Past first. Change areas. Begin on MNK main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock True Strength. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order."
     },
     {
       "slot": "Hands",
@@ -73,7 +121,13 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Striking Hands",
       "items": "Crawler's Nest Coffer Key",
       "source": "Borghertz's Striking Hands",
-      "start": "Guslam - Upper Jeuno (H-8)"
+      "start": "Guslam - Upper Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start The First Meeting first (MNK level 50+ after Ghosts of the Past).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time."
     },
     {
       "slot": "Head",
@@ -81,7 +135,13 @@ window.CR_AF1_DATA={
       "route": "Start: The First Meeting · Open: Garlaige Citadel Treasure Coffer",
       "items": "Garlaige Citadel Coffer Key",
       "source": "The First Meeting",
-      "start": "Oggbi - Port Bastok (E-6)"
+      "start": "Oggbi - Port Bastok (E-6)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start The First Meeting first (MNK level 50+ after Ghosts of the Past).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Striking Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep MNK as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Body",
@@ -89,7 +149,13 @@ window.CR_AF1_DATA={
       "route": "Start: The First Meeting · Open: Beadeaux Treasure Coffer",
       "items": "Beadeaux Coffer Key",
       "source": "The First Meeting",
-      "start": "Oggbi - Port Bastok (E-6)"
+      "start": "Oggbi - Port Bastok (E-6)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start The First Meeting first (MNK level 50+ after Ghosts of the Past).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Striking Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep MNK as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Legs",
@@ -97,7 +163,13 @@ window.CR_AF1_DATA={
       "route": "True Strength",
       "items": "Yagudo Drink · Xalmo Feather",
       "source": "True Strength",
-      "start": "Ayame - Metalworks (K-7)"
+      "start": "Ayame - Metalworks (K-7)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete The First Meeting first.  Begin on MNK main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "whm": [
@@ -107,7 +179,13 @@ window.CR_AF1_DATA={
       "route": "Messenger from Beyond",
       "items": "Tavnazia Pass",
       "source": "Messenger from Beyond",
-      "start": "Narcheral, Northern San d'Oria (M-6)"
+      "start": "Narcheral, Northern San d'Oria (M-6)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "WHM main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks Prelude of Black and White. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Feet",
@@ -115,7 +193,13 @@ window.CR_AF1_DATA={
       "route": "Prelude of Black and White",
       "items": "Moccasins · Canteen of Yagudo Holy Water",
       "source": "Prelude of Black and White",
-      "start": "Pieuje, Chateau d'Oraguille (H-8)"
+      "start": "Pieuje, Chateau d'Oraguille (H-8)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete Messenger from Beyond first.  Begin on WHM main job at level 50+. Access to Chateau d’Oraguille is needed for the Prince Regent’s Room event.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock Pieuje's Decision. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order."
     },
     {
       "slot": "Head",
@@ -123,7 +207,13 @@ window.CR_AF1_DATA={
       "route": "Start: Prelude of Black and White · Open: Garlaige Citadel Treasure Coffer",
       "items": "Garlaige Citadel Coffer Key",
       "source": "Prelude of Black and White",
-      "start": "Pieuje, Chateau d'Oraguille (H-8)"
+      "start": "Pieuje, Chateau d'Oraguille (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Prelude of Black and White first (WHM level 50+ after Messenger from Beyond).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Healing Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep WHM as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Legs",
@@ -131,7 +221,13 @@ window.CR_AF1_DATA={
       "route": "Start: Prelude of Black and White · Open: Crawler's Nest Treasure Coffer",
       "items": "Crawler's Nest Coffer Key",
       "source": "Prelude of Black and White",
-      "start": "Pieuje, Chateau d'Oraguille (H-8)"
+      "start": "Pieuje, Chateau d'Oraguille (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Prelude of Black and White first (WHM level 50+ after Messenger from Beyond).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Healing Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep WHM as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Body",
@@ -139,7 +235,13 @@ window.CR_AF1_DATA={
       "route": "Pieuje's Decision",
       "items": "Tavnazia Bell · Tavnazian Mask",
       "source": "Pieuje's Decision",
-      "start": "Pieuje, Chateau d'Oraguille (H-8)"
+      "start": "Pieuje, Chateau d'Oraguille (H-8)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete Prelude of Black and White first.  Begin on WHM main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     },
     {
       "slot": "Hands",
@@ -147,7 +249,13 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Healing Hands",
       "items": "Beadeaux Coffer Key",
       "source": "Borghertz's Healing Hands",
-      "start": "Guslam, Upper Jeuno (H-8)"
+      "start": "Guslam, Upper Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Prelude of Black and White first (WHM level 50+ after Messenger from Beyond).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time."
     }
   ],
   "blm": [
@@ -157,7 +265,13 @@ window.CR_AF1_DATA={
       "route": "The Three Magi",
       "items": "Faded Crystal",
       "source": "The Three Magi",
-      "start": "Chumimi - Heavens Tower (bottom floor)"
+      "start": "Chumimi - Heavens Tower (bottom floor)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "BLM main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks Recollections. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Feet",
@@ -165,7 +279,13 @@ window.CR_AF1_DATA={
       "route": "Recollections",
       "items": "Bag of Seeds · Whine Cellar Key",
       "source": "Recollections",
-      "start": "Chumimi - Heavens Tower"
+      "start": "Chumimi - Heavens Tower",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete The Three Magi first. Leave Heavens Tower and re-enter. Begin on BLM main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock The Root of the Problem. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order."
     },
     {
       "slot": "Hands",
@@ -173,7 +293,13 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Sorcerous Hands",
       "items": "Garlaige Citadel Coffer Key",
       "source": "Borghertz's Sorcerous Hands",
-      "start": "Guslam, Upper Jeuno (H-8)"
+      "start": "Guslam, Upper Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Recollections first (BLM level 50+ after The Three Magi).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time."
     },
     {
       "slot": "Legs",
@@ -181,7 +307,13 @@ window.CR_AF1_DATA={
       "route": "Start: Recollections · Open: Eldieme Necropolis Coffer",
       "items": "Eldieme Necropolis Coffer Key",
       "source": "Recollections",
-      "start": "Chumimi - Heavens Tower"
+      "start": "Chumimi - Heavens Tower",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Recollections first (BLM level 50+ after The Three Magi).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Sorcerous Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep BLM as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Body",
@@ -189,7 +321,13 @@ window.CR_AF1_DATA={
       "route": "Start: Recollections · Open: Monastic Cavern Coffer",
       "items": "Davoi Coffer Key",
       "source": "Recollections",
-      "start": "Chumimi - Heavens Tower"
+      "start": "Chumimi - Heavens Tower",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Recollections first (BLM level 50+ after The Three Magi).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Sorcerous Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep BLM as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Head",
@@ -197,7 +335,13 @@ window.CR_AF1_DATA={
       "route": "The Root of the Problem",
       "items": "Silk Cloth",
       "source": "The Root of the Problem",
-      "start": "Chumimi - Heavens Tower"
+      "start": "Chumimi - Heavens Tower",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete Recollections first. Leave Heavens Tower and re-enter. Begin on BLM main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "rdm": [
@@ -207,7 +351,13 @@ window.CR_AF1_DATA={
       "route": "The Crimson Trial",
       "items": "Davoi Storage Key",
       "source": "The Crimson Trial",
-      "start": "Sharzalion, Southern San d'Oria"
+      "start": "Sharzalion, Southern San d'Oria",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "RDM main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks Enveloped in Darkness. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Feet",
@@ -215,7 +365,13 @@ window.CR_AF1_DATA={
       "route": "Enveloped in Darkness",
       "items": "Crawler's Nest Chest Key · Velvet Cloth",
       "source": "Enveloped in Darkness",
-      "start": "Curilla, Chateau d'Oraguille - (I-9)"
+      "start": "Curilla, Chateau d'Oraguille - (I-9)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete The Crimson Trial first.  Begin on RDM main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock Peace for the Spirit. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order."
     },
     {
       "slot": "Hands",
@@ -223,7 +379,13 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Vermillion Hands",
       "items": "Eldieme Necropolis Coffer Key",
       "source": "Borghertz's Vermillion Hands",
-      "start": "Guslam, Upper Jeuno (H-8)"
+      "start": "Guslam, Upper Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Enveloped in Darkness first (RDM level 50+ after The Crimson Trial).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time."
     },
     {
       "slot": "Legs",
@@ -231,7 +393,13 @@ window.CR_AF1_DATA={
       "route": "Start: Enveloped in Darkness · Open: Garlaige Citadel Treasure Coffer",
       "items": "Garlaige Citadel Coffer Key",
       "source": "Enveloped in Darkness",
-      "start": "Curilla, Chateau d'Oraguille - (I-9)"
+      "start": "Curilla, Chateau d'Oraguille - (I-9)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Enveloped in Darkness first (RDM level 50+ after The Crimson Trial).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Vermillion Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep RDM as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Body",
@@ -239,7 +407,13 @@ window.CR_AF1_DATA={
       "route": "Start: Enveloped in Darkness · Open: Castle Oztroja Treasure Coffer",
       "items": "Castle Oztroja Coffer Key",
       "source": "Enveloped in Darkness",
-      "start": "Curilla, Chateau d'Oraguille - (I-9)"
+      "start": "Curilla, Chateau d'Oraguille - (I-9)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Enveloped in Darkness first (RDM level 50+ after The Crimson Trial).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Vermillion Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep RDM as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Head",
@@ -247,7 +421,13 @@ window.CR_AF1_DATA={
       "route": "Peace for the Spirit",
       "items": "Antique Coin · Nail Puller",
       "source": "Peace for the Spirit",
-      "start": "Curilla, Chateau d'Oraguille (I-9)"
+      "start": "Curilla, Chateau d'Oraguille (I-9)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete Enveloped in Darkness first.  Begin on RDM main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "thf": [
@@ -257,7 +437,13 @@ window.CR_AF1_DATA={
       "route": "The Tenshodo Showdown",
       "items": "Quadav Stew",
       "source": "The Tenshodo Showdown",
-      "start": "Nanaa Mihgo, Windurst Woods (J-3)"
+      "start": "Nanaa Mihgo, Windurst Woods (J-3)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "THF main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks As Thick as Thieves. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Hands",
@@ -265,7 +451,13 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Sneaky Hands",
       "items": "Davoi Coffer Key",
       "source": "Borghertz's Sneaky Hands",
-      "start": "Guslam, Upper Jeuno (H-8)"
+      "start": "Guslam, Upper Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start As Thick as Thieves first (THF level 50+ after The Tenshodo Showdown).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time."
     },
     {
       "slot": "Head",
@@ -273,7 +465,13 @@ window.CR_AF1_DATA={
       "route": "As Thick as Thieves",
       "items": "Gausebit Grass · Rock Salt · Lizard Egg",
       "source": "As Thick as Thieves",
-      "start": "Nanaa Mihgo, Windurst Woods (J-3)"
+      "start": "Nanaa Mihgo, Windurst Woods (J-3)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete The Tenshodo Showdown first.  Begin on THF main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock Hitting the Marquisate. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order."
     },
     {
       "slot": "Legs",
@@ -281,7 +479,13 @@ window.CR_AF1_DATA={
       "route": "Start: As Thick as Thieves · Open: Castle Oztroja Treasure Coffer",
       "items": "Castle Oztroja Coffer Key",
       "source": "As Thick as Thieves",
-      "start": "Nanaa Mihgo, Windurst Woods (J-3)"
+      "start": "Nanaa Mihgo, Windurst Woods (J-3)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start As Thick as Thieves first (THF level 50+ after The Tenshodo Showdown).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Sneaky Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep THF as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Body",
@@ -289,7 +493,13 @@ window.CR_AF1_DATA={
       "route": "Start: As Thick as Thieves · Open: Castle Zvahl Baileys Treasure Coffer",
       "items": "Castle Zvahl Baileys Coffer Key",
       "source": "As Thick as Thieves",
-      "start": "Nanaa Mihgo, Windurst Woods (J-3)"
+      "start": "Nanaa Mihgo, Windurst Woods (J-3)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start As Thick as Thieves first (THF level 50+ after The Tenshodo Showdown).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Sneaky Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep THF as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Feet",
@@ -297,17 +507,29 @@ window.CR_AF1_DATA={
       "route": "Hitting the Marquisate",
       "items": "Quake Grenade x4 · Pickaxe",
       "source": "Hitting the Marquisate",
-      "start": "Nanaa Mihgo, Windurst Woods (J-3)"
+      "start": "Nanaa Mihgo, Windurst Woods (J-3)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete As Thick as Thieves first. Change areas. Begin on THF main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "pld": [
     {
       "slot": "Weapon",
       "piece": "Honor Sword",
-      "route": "Father and Son · Sharpening the Sword",
+      "route": "Sharpening the Sword",
       "items": "Willow Fish. Rod",
       "source": "Father and Son",
-      "start": "Ailbeche - Northern San d'Oria (J-9)"
+      "start": "Ailbeche - Northern San d'Oria (J-9)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "PLD main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward. * Complete Father and Son and give Ailbeche a Broken Willow Fishing Rod before starting Sharpening the Sword.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks A Boy's Dream. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Feet",
@@ -315,7 +537,13 @@ window.CR_AF1_DATA={
       "route": "A Boy's Dream",
       "items": "Giant Shell Bug · Odontotyrannus",
       "source": "A Boy's Dream",
-      "start": "Ailbeche, Northern San d'Oria J-8"
+      "start": "Ailbeche, Northern San d'Oria J-8",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete Sharpening the Sword first.  Begin on PLD main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock Under Oath. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order."
     },
     {
       "slot": "Hands",
@@ -323,7 +551,13 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Stalwart Hands",
       "items": "Eldieme Necropolis Coffer Key",
       "source": "Borghertz's Stalwart Hands",
-      "start": "Guslam - Upper Jeuno (H-8)"
+      "start": "Guslam - Upper Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start A Boy's Dream first (PLD level 50+ after Sharpening the Sword).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time."
     },
     {
       "slot": "Head",
@@ -331,7 +565,13 @@ window.CR_AF1_DATA={
       "route": "Start: A Boy's Dream · Open: Garlaige Citadel Treasure Coffer",
       "items": "Garlaige Citadel Coffer Key",
       "source": "A Boy's Dream",
-      "start": "Ailbeche, Northern San d'Oria J-8"
+      "start": "Ailbeche, Northern San d'Oria J-8",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start A Boy's Dream first (PLD level 50+ after Sharpening the Sword).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Stalwart Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep PLD as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Legs",
@@ -339,7 +579,13 @@ window.CR_AF1_DATA={
       "route": "Start: A Boy's Dream · Open: Beadeaux Treasure Coffer",
       "items": "Beadeaux Coffer Key",
       "source": "A Boy's Dream",
-      "start": "Ailbeche, Northern San d'Oria J-8"
+      "start": "Ailbeche, Northern San d'Oria J-8",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start A Boy's Dream first (PLD level 50+ after Sharpening the Sword).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Stalwart Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep PLD as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Body",
@@ -347,7 +593,13 @@ window.CR_AF1_DATA={
       "route": "Under Oath",
       "items": "Castle Zvahl Baileys Coffer Key · Well Weight",
       "source": "Under Oath",
-      "start": "Prince Trion - Chateau d'Oraguille (H-8)(door to start quest)"
+      "start": "Prince Trion - Chateau d'Oraguille (H-8)(door to start quest)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete A Boy's Dream first. Accept Trion’s request after A Boy’s Dream, or return to him later. Begin on PLD main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "drk": [
@@ -357,7 +609,13 @@ window.CR_AF1_DATA={
       "route": "Dark Legacy",
       "items": "Yagudo Cherry",
       "source": "Dark Legacy",
-      "start": "Raibaht - Metalworks (G-8)"
+      "start": "Raibaht - Metalworks (G-8)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "DRK main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks Dark Puppet. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Feet",
@@ -365,7 +623,13 @@ window.CR_AF1_DATA={
       "route": "Dark Puppet",
       "items": "Darksteel Ingot · Gerwitz's Axe · Gerwitz's Sword",
       "source": "Dark Puppet",
-      "start": "Cid - Metalworks (G-8)"
+      "start": "Cid - Metalworks (G-8)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete Dark Legacy first.  Begin on DRK main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock Blade of Evil. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order."
     },
     {
       "slot": "Hands",
@@ -373,7 +637,13 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Shadowy Hands",
       "items": "Eldieme Necropolis Coffer Key",
       "source": "Borghertz's Shadowy Hands",
-      "start": "Guslam, Upper Jeuno"
+      "start": "Guslam, Upper Jeuno",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Dark Puppet first (DRK level 50+ after Dark Legacy).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time."
     },
     {
       "slot": "Legs",
@@ -381,7 +651,13 @@ window.CR_AF1_DATA={
       "route": "Start: Dark Puppet · Open: Monastic Cavern Treasure Coffer",
       "items": "Davoi Coffer Key",
       "source": "Dark Puppet",
-      "start": "Cid - Metalworks (G-8)"
+      "start": "Cid - Metalworks (G-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Dark Puppet first (DRK level 50+ after Dark Legacy).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Shadowy Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep DRK as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Body",
@@ -389,7 +665,13 @@ window.CR_AF1_DATA={
       "route": "Start: Dark Puppet · Open: Castle Oztroja Treasure Coffer",
       "items": "Castle Oztroja Coffer Key",
       "source": "Dark Puppet",
-      "start": "Cid - Metalworks (G-8)"
+      "start": "Cid - Metalworks (G-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Dark Puppet first (DRK level 50+ after Dark Legacy).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Shadowy Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep DRK as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Head",
@@ -397,7 +679,13 @@ window.CR_AF1_DATA={
       "route": "Blade of Evil",
       "items": "Quadav Mage Blood",
       "source": "Blade of Evil",
-      "start": "Zeid - Beadeaux (G-8)"
+      "start": "Zeid - Beadeaux (G-8)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete Dark Puppet first. Enter Beadeaux from Pashhow Marshlands as Dark Knight. Begin on DRK main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "bst": [
@@ -407,7 +695,13 @@ window.CR_AF1_DATA={
       "route": "Wings of Gold",
       "items": "Delkfutt Chest Key",
       "source": "Wings of Gold",
-      "start": "Brutus, Upper Jeuno (G-7)"
+      "start": "Brutus, Upper Jeuno (G-7)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "BST main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks Scattered Into Shadow. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Feet",
@@ -415,7 +709,13 @@ window.CR_AF1_DATA={
       "route": "Scattered Into Shadow",
       "items": "Aquaflora x3 · Oztroja Chest Key · Beast Collar",
       "source": "Scattered Into Shadow",
-      "start": "Brutus, Upper Jeuno (G-7)"
+      "start": "Brutus, Upper Jeuno (G-7)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete Wings of Gold first.  Begin on BST main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock A New Dawn. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order."
     },
     {
       "slot": "Hands",
@@ -423,7 +723,13 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Wild Hands",
       "items": "Crawler's Nest Coffer Key",
       "source": "Borghertz's Wild Hands",
-      "start": "Guslam, Upper Jeuno"
+      "start": "Guslam, Upper Jeuno",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Scattered Into Shadow first (BST level 50+ after Wings of Gold).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time."
     },
     {
       "slot": "Head",
@@ -431,7 +737,13 @@ window.CR_AF1_DATA={
       "route": "Start: Scattered Into Shadow · Open:Garlaige Citadel Treasure Coffer",
       "items": "Garlaige Citadel Coffer Key",
       "source": "Scattered Into Shadow",
-      "start": "Brutus, Upper Jeuno (G-7)"
+      "start": "Brutus, Upper Jeuno (G-7)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Scattered Into Shadow first (BST level 50+ after Wings of Gold).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Wild Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep BST as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Body",
@@ -439,7 +751,13 @@ window.CR_AF1_DATA={
       "route": "Start: Scattered Into Shadow · Open:Beadeaux Treasure Coffer",
       "items": "Beadeaux Coffer Key",
       "source": "Scattered Into Shadow",
-      "start": "Brutus, Upper Jeuno (G-7)"
+      "start": "Brutus, Upper Jeuno (G-7)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Scattered Into Shadow first (BST level 50+ after Wings of Gold).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Wild Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep BST as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Legs",
@@ -447,7 +765,13 @@ window.CR_AF1_DATA={
       "route": "A New Dawn",
       "items": "Mahogany Lumber",
       "source": "A New Dawn",
-      "start": "Dietmund, Lower Jeuno (G-11)"
+      "start": "Dietmund, Lower Jeuno (G-11)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete Scattered Into Shadow first.  Begin on BST main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "brd": [
@@ -457,7 +781,13 @@ window.CR_AF1_DATA={
       "route": "Painful Memory",
       "items": "None",
       "source": "Painful Memory",
-      "start": "Mertaire - Lower Jeuno (H-8)"
+      "start": "Mertaire, Lower Jeuno (I-8)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "BRD main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks The Requiem. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Feet",
@@ -465,7 +795,13 @@ window.CR_AF1_DATA={
       "route": "The Requiem",
       "items": "Holy Water",
       "source": "The Requiem",
-      "start": "Bki Tbujhja - Lower Jeuno (H-8)"
+      "start": "Bki Tbujhja - Lower Jeuno (H-8)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete Painful Memory first.  Begin on BRD main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock The Circle of Time. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order."
     },
     {
       "slot": "Head",
@@ -473,7 +809,13 @@ window.CR_AF1_DATA={
       "route": "Start: The Requiem · Open:Crawler's Nest Treasure Coffer",
       "items": "Crawler's Nest Coffer Key",
       "source": "The Requiem",
-      "start": "Bki Tbujhja - Lower Jeuno (H-8)"
+      "start": "Bki Tbujhja - Lower Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start The Requiem first (BRD level 50+ after Painful Memory).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Harmonious Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep BRD as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Legs",
@@ -481,7 +823,13 @@ window.CR_AF1_DATA={
       "route": "Start: The Requiem · Open:Castle Oztroja Treasure Coffer",
       "items": "Castle Oztroja Coffer Key",
       "source": "The Requiem",
-      "start": "Bki Tbujhja - Lower Jeuno (H-8)"
+      "start": "Bki Tbujhja - Lower Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start The Requiem first (BRD level 50+ after Painful Memory).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Harmonious Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep BRD as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Body",
@@ -489,7 +837,13 @@ window.CR_AF1_DATA={
       "route": "The Circle of Time",
       "items": "Star ring · Moon ring",
       "source": "The Circle of Time",
-      "start": "Imasuke - Port Jeuno (E-6)"
+      "start": "Mertaire, Lower Jeuno (I-8), then Imasuke, Port Jeuno (E-6)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete The Requiem first.  Begin on BRD main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     },
     {
       "slot": "Hands",
@@ -497,7 +851,13 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Harmonious Hands",
       "items": "Zvahl Coffer Key",
       "source": "Borghertz's Harmonious Hands",
-      "start": "Guslam, Upper Jeuno (H-8)"
+      "start": "Guslam, Upper Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start The Requiem first (BRD level 50+ after Painful Memory).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time."
     }
   ],
   "rng": [
@@ -507,7 +867,13 @@ window.CR_AF1_DATA={
       "route": "Sin Hunting",
       "items": "Glittersand",
       "source": "Sin Hunting",
-      "start": "Perih Vashai, Windurst Woods (K-7)"
+      "start": "Perih Vashai, Windurst Woods (K-7)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "RNG main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks Fire and Brimstone. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Hands",
@@ -515,7 +881,13 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Chasing Hands",
       "items": "Garlaige Citadel Coffer Key",
       "source": "Borghertz's Chasing Hands",
-      "start": "Guslam, Upper Jeuno (H-8)"
+      "start": "Guslam, Upper Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Fire and Brimstone first (RNG level 50+ after Sin Hunting).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time."
     },
     {
       "slot": "Head",
@@ -523,7 +895,13 @@ window.CR_AF1_DATA={
       "route": "Fire and Brimstone",
       "items": "Old Earring",
       "source": "Fire and Brimstone",
-      "start": "Perih Vashai, Windurst Woods (K-7)"
+      "start": "Perih Vashai, Windurst Woods (K-7)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete Sin Hunting first. Change areas. Begin on RNG main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock Unbridled Passion. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order."
     },
     {
       "slot": "Legs",
@@ -531,7 +909,13 @@ window.CR_AF1_DATA={
       "route": "Start: Fire and Brimstone · Open: Crawler's Nest Treasure Coffer",
       "items": "Crawler's Nest Coffer Key",
       "source": "Fire and Brimstone",
-      "start": "Perih Vashai, Windurst Woods (K-7)"
+      "start": "Perih Vashai, Windurst Woods (K-7)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Fire and Brimstone first (RNG level 50+ after Sin Hunting).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Chasing Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep RNG as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Body",
@@ -539,7 +923,13 @@ window.CR_AF1_DATA={
       "route": "Start: Fire and Brimstone · Open: Monastic Cavern Treasure Coffer",
       "items": "Davoi Coffer Key",
       "source": "Fire and Brimstone",
-      "start": "Perih Vashai, Windurst Woods (K-7)"
+      "start": "Perih Vashai, Windurst Woods (K-7)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Fire and Brimstone first (RNG level 50+ after Sin Hunting).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Chasing Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep RNG as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Feet",
@@ -547,7 +937,13 @@ window.CR_AF1_DATA={
       "route": "Unbridled Passion",
       "items": "Gold Earring",
       "source": "Unbridled Passion",
-      "start": "Perih Vashai, Windurst Woods (K-7)"
+      "start": "Perih Vashai, Windurst Woods (K-7)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete Fire and Brimstone first. Change areas. Begin on RNG main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "sam": [
@@ -557,7 +953,13 @@ window.CR_AF1_DATA={
       "route": "The Sacred Katana",
       "items": "Mumeito · Sack of Fish Bait",
       "source": "The Sacred Katana",
-      "start": "Jaucribaix - Norg (K-8)"
+      "start": "Jaucribaix - Norg (K-8)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "SAM main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks Yomi Okuri. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Feet",
@@ -565,7 +967,13 @@ window.CR_AF1_DATA={
       "route": "Yomi Okuri",
       "items": "Bastore Sardine · Frost Turnip · Giant Sheep Meat · Hecteyes Eye",
       "source": "Yomi Okuri",
-      "start": "Gilgamesh, Norg (L-8)"
+      "start": "Gilgamesh, Norg (L-8)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete The Sacred Katana first. Change areas and wait one Earth minute. Begin on SAM main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock A Thief in Norg!?. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order."
     },
     {
       "slot": "Legs",
@@ -573,7 +981,13 @@ window.CR_AF1_DATA={
       "route": "Start: Yomi Okuri · Open: Quicksand Caves Treasure Coffer",
       "items": "Quicksand Caves Coffer Key",
       "source": "Yomi Okuri",
-      "start": "Gilgamesh, Norg (L-8)"
+      "start": "Gilgamesh, Norg (L-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Yomi Okuri first (SAM level 50+ after The Sacred Katana).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Loyal Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep SAM as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Hands",
@@ -581,7 +995,13 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Loyal Hands",
       "items": "Kuftal Tunnel Coffer Key",
       "source": "Borghertz's Loyal Hands",
-      "start": "Guslam, Upper Jeuno (H-8)"
+      "start": "Guslam, Upper Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Yomi Okuri first (SAM level 50+ after The Sacred Katana).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time."
     },
     {
       "slot": "Body",
@@ -589,7 +1009,13 @@ window.CR_AF1_DATA={
       "route": "Start: Yomi Okuri · Open: Temple of Uggalepih Treasure Coffer",
       "items": "Temple of Uggalepih Coffer Key",
       "source": "Yomi Okuri",
-      "start": "Gilgamesh, Norg (L-8)"
+      "start": "Gilgamesh, Norg (L-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Yomi Okuri first (SAM level 50+ after The Sacred Katana).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Loyal Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep SAM as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Head",
@@ -597,7 +1023,13 @@ window.CR_AF1_DATA={
       "route": "A Thief in Norg!?",
       "items": "Banishing Charm · Gold Thread",
       "source": "A Thief in Norg!?",
-      "start": "Jaucribaix / Gilgamesh, Norg (L-8)"
+      "start": "Jaucribaix / Gilgamesh, Norg (L-8)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete Yomi Okuri first. Change areas and wait one Earth minute. Begin on SAM main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "nin": [
@@ -607,7 +1039,13 @@ window.CR_AF1_DATA={
       "route": "20 in Pirate Years",
       "items": "None",
       "source": "20 in Pirate Years",
-      "start": "Ryoma - Norg (H-8)"
+      "start": "Ryoma - Norg (H-8)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "NIN main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks I'll Take the Big Box. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Legs",
@@ -615,7 +1053,13 @@ window.CR_AF1_DATA={
       "route": "I'll Take the Big Box",
       "items": "Oak Pole",
       "source": "I'll Take the Big Box",
-      "start": "Ryoma - Norg (H-8)"
+      "start": "Ryoma - Norg (H-8)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete 20 in Pirate Years first. Change areas. Begin on NIN main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock True Will. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order."
     },
     {
       "slot": "Feet",
@@ -623,7 +1067,13 @@ window.CR_AF1_DATA={
       "route": "Start: I'll Take the Big Box · Open: Sea Serpent Grotto Treasure Coffer",
       "items": "Sea Serpent Grotto Coffer Key",
       "source": "I'll Take the Big Box",
-      "start": "Ryoma - Norg (H-8)"
+      "start": "Ryoma - Norg (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start I'll Take the Big Box first (NIN level 50+ after 20 in Pirate Years).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Lurking Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep NIN as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Head",
@@ -631,7 +1081,13 @@ window.CR_AF1_DATA={
       "route": "Start: I'll Take the Big Box · Open: The Boyahda Tree Treasure Coffer",
       "items": "The Boyahda Tree Coffer Key",
       "source": "I'll Take the Big Box",
-      "start": "Ryoma - Norg (H-8)"
+      "start": "Ryoma - Norg (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start I'll Take the Big Box first (NIN level 50+ after 20 in Pirate Years).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Lurking Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep NIN as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Body",
@@ -639,7 +1095,13 @@ window.CR_AF1_DATA={
       "route": "True Will",
       "items": "Kuftal Tunnel Coffer Key",
       "source": "True Will",
-      "start": "Ryoma - Norg (H-8)"
+      "start": "Ryoma - Norg (H-8)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete I'll Take the Big Box first.  Begin on NIN main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     },
     {
       "slot": "Hands",
@@ -647,7 +1109,13 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Lurking Hands",
       "items": "Ifrit's Cauldron Coffer Key",
       "source": "Borghertz's Lurking Hands",
-      "start": "Guslam - Upper Jeuno (H-8)"
+      "start": "Guslam - Upper Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start I'll Take the Big Box first (NIN level 50+ after 20 in Pirate Years).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time."
     }
   ],
   "drg": [
@@ -657,7 +1125,13 @@ window.CR_AF1_DATA={
       "route": "A Craftsman's Work",
       "items": "None",
       "source": "A Craftsman's Work",
-      "start": "Miaux, Northern San d'Oria - (E-6)"
+      "start": "Miaux, Northern San d'Oria - (E-6)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "DRG main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks Chasing Quotas. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Legs",
@@ -665,7 +1139,13 @@ window.CR_AF1_DATA={
       "route": "Chasing Quotas",
       "items": "Gold Hairpin",
       "source": "Chasing Quotas",
-      "start": "Ceraulian, Port San d'Oria (I-10)"
+      "start": "Ceraulian, Port San d'Oria (I-10)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete A Craftsman's Work first.  Begin on DRG main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock Knight Stalker. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order."
     },
     {
       "slot": "Feet",
@@ -673,7 +1153,13 @@ window.CR_AF1_DATA={
       "route": "Start: Chasing Quotas · Open: Quicksand Caves Treasure Coffer",
       "items": "Quicksand Caves Coffer Key",
       "source": "Chasing Quotas",
-      "start": "Ceraulian, Port San d'Oria (I-10)"
+      "start": "Ceraulian, Port San d'Oria (I-10)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Chasing Quotas first (DRG level 50+ after A Craftsman's Work).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Dragon Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep DRG as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Hands",
@@ -681,7 +1167,13 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Dragon Hands",
       "items": "The Boyahda Tree Coffer Key",
       "source": "Borghertz's Dragon Hands",
-      "start": "Guslam, Upper Jeuno (H-8)"
+      "start": "Guslam, Upper Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Chasing Quotas first (DRG level 50+ after A Craftsman's Work).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time."
     },
     {
       "slot": "Body",
@@ -689,7 +1181,13 @@ window.CR_AF1_DATA={
       "route": "Start: Chasing Quotas · Open: Ifrit's Cauldron Treasure Coffer",
       "items": "Ifrit's Cauldron Coffer Key",
       "source": "Chasing Quotas",
-      "start": "Ceraulian, Port San d'Oria (I-10)"
+      "start": "Ceraulian, Port San d'Oria (I-10)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Chasing Quotas first (DRG level 50+ after A Craftsman's Work).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Dragon Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep DRG as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed."
     },
     {
       "slot": "Head",
@@ -697,7 +1195,13 @@ window.CR_AF1_DATA={
       "route": "Knight Stalker",
       "items": "Kuftal Tunnel Coffer Key",
       "source": "Knight Stalker",
-      "start": "Rahal, Chateau d'Oraguille (H-9)"
+      "start": "Rahal, Chateau d'Oraguille (H-9)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete Chasing Quotas first.  Begin on DRG main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "smn": [
@@ -707,7 +1211,17 @@ window.CR_AF1_DATA={
       "route": "The Puppet Master",
       "items": "None",
       "source": "The Puppet Master",
-      "start": "Carbuncle, Windurst Walls (G-4)"
+      "start": "Carbuncle, Windurst Walls (G-4)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "SMN main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks Class Reunion. Quest completion matters; equipping the reward is not an unlock requirement.",
+      "steps": [
+        "Required even if you do not use a staff: finish The Puppet Master to unlock Class Reunion. You do not need to equip Kukulcan’s Staff.",
+        "On Summoner level 40+, examine the House of the Hero in Windurst Walls (G-4). Speak with Juroro in Port Bastok (I-8) to receive the Earth Pendulum. Enter Quicksand Caves from Eastern Altepa Desert (K-7), reach the Cloister of Tremors, and trade the pendulum to the Earth Protocrystal. Defeat Galgalim, return to Juroro, then speak with Koru-Moru in Windurst Walls (E-7)."
+      ]
     },
     {
       "slot": "Legs",
@@ -715,7 +1229,16 @@ window.CR_AF1_DATA={
       "route": "Class Reunion",
       "items": "Astragalos x4 · Ice Pendulum",
       "source": "Class Reunion",
-      "start": "Carbuncle, Windurst Walls"
+      "start": "Carbuncle, Windurst Walls",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete The Puppet Master first. Change areas. Begin on SMN main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock Carbuncle Debacle. Starting this quest unlocks the coffer and Borghertz hands branches; those pieces can be collected in any order.",
+      "steps": [
+        "Zone after the weapon quest. At Summoner level 50+, examine the House of the Hero for Carbuncle’s Tear, speak with Koru-Moru (E-7), and trade him four Astragalos. Speak with Fuepepe in Windurst Waters North (L-6), Furakku-Norakku in Windurst Waters North (G-8), and Shantotto in Windurst Walls (K-7). Gulmama in Northern San d’Oria (E-7) gives the Ice Pendulum. Trade it at the Cloister of Frost in Fei’Yin, defeat all six Dryads, and return to Koru-Moru."
+      ]
     },
     {
       "slot": "Hands",
@@ -723,7 +1246,16 @@ window.CR_AF1_DATA={
       "route": "Borghertz's Calling Hands",
       "items": "Sea Serpent Grotto Coffer Key",
       "source": "Borghertz's Calling Hands",
-      "start": "Guslam, Upper Jeuno (H-8)"
+      "start": "Guslam, Upper Jeuno (H-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Class Reunion first (SMN level 50+ after The Puppet Master).",
+      "marker": "Parallel armor branch",
+      "unlock": "Finish any other active Borghertz hands quest before accepting this one. Only one job’s hands quest can be active at a time.",
+      "steps": [
+        "After starting Class Reunion, speak with Guslam in Upper Jeuno (H-8) on Summoner. Obtain a Sea Serpent Grotto Coffer Key and open a coffer behind the Mythril Door for Old Gauntlets. Return to Guslam. For your first hands quest, also speak with Deadly Minnow and pay Yin Pocanakhu in Lower Jeuno 1,000 gil. Examine the ??? by the Port Jeuno auction-house crates, defeat Dark Spark at a torch in Castle Zvahl Baileys (F-8), collect Shadow Flames, and examine the Port Jeuno ??? again."
+      ]
     },
     {
       "slot": "Feet",
@@ -731,7 +1263,17 @@ window.CR_AF1_DATA={
       "route": "Start: Class Reunion · Open: Toraimarai Canal Treasure Coffer",
       "items": "Toraimarai Canal Coffer Key",
       "source": "Class Reunion",
-      "start": "Carbuncle, Windurst Walls"
+      "start": "Carbuncle, Windurst Walls",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Class Reunion first (SMN level 50+ after The Puppet Master).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Calling Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep SMN as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed.",
+      "steps": [
+        "Speak to Guslam in Upper Jeuno (H-8) to accept Borghertz’s Calling Hands before the coffer route. These boots do not require finishing the hands quest first.",
+        "After starting Class Reunion, obtain a Toraimarai Coffer Key and open a treasure coffer in Toraimarai Canal while Summoner is your main job."
+      ]
     },
     {
       "slot": "Body",
@@ -739,7 +1281,17 @@ window.CR_AF1_DATA={
       "route": "Start: Class Reunion · Open: Temple of Uggalepih Treasure Coffer",
       "items": "Temple of Uggalepih Coffer Key",
       "source": "Class Reunion",
-      "start": "Carbuncle, Windurst Walls"
+      "start": "Carbuncle, Windurst Walls",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Class Reunion first (SMN level 50+ after The Puppet Master).",
+      "marker": "Parallel armor branch",
+      "unlock": "Before hunting coffers, accept Borghertz's Calling Hands from Guslam, Upper Jeuno (H-8). This covers the additional coffer quest checks documented by the hands guides. Keep SMN as your main job when opening armor coffers. Collect coffer pieces before or after finishing the hands quest; no fixed piece order is needed.",
+      "steps": [
+        "Speak to Guslam in Upper Jeuno (H-8) to accept Borghertz’s Calling Hands before the coffer route. This body piece does not require finishing the hands quest first.",
+        "After starting Class Reunion, obtain an Uggalepih Coffer Key and open a treasure coffer in the Temple of Uggalepih while Summoner is your main job."
+      ]
     },
     {
       "slot": "Head",
@@ -747,7 +1299,16 @@ window.CR_AF1_DATA={
       "route": "Carbuncle Debacle",
       "items": "Lightning Pendulum · Wind Pendulum",
       "source": "Carbuncle Debacle",
-      "start": "Carbuncle, Windurst Walls"
+      "start": "Carbuncle, Windurst Walls",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete Class Reunion first. Change areas. Begin on SMN main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest.",
+      "steps": [
+        "Zone after Class Reunion and examine the House of the Hero on Summoner. Speak with Koru-Moru (E-7), then Ripapa in Mhaura (I-9) for the Lightning Pendulum. Trade it at the Cloister of Storms and defeat Lightning Gremlin and Thunder Gremlin. Return to Koru-Moru for the Daze-breaker Charm, then speak with Agado-Pugado in Rabao (G-9) for the Wind Pendulum. Trade it at the Cloister of Gales, defeat Ogmios, and return to Koru-Moru for the horn."
+      ]
     }
   ],
   "blu": [
@@ -757,7 +1318,13 @@ window.CR_AF1_DATA={
       "route": "Beginnings",
       "items": "None",
       "source": "Beginnings",
-      "start": "Waoud/Raubahn, Aht Urhgan Whitegate - (J-10)"
+      "start": "Waoud/Raubahn, Aht Urhgan Whitegate - (J-10)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "BLU main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward. * Complete Immortal Sentries; after the post-unlock An Empty Vessel event, change areas and wait until the next Vana’diel midnight.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks Omens. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Feet",
@@ -765,7 +1332,13 @@ window.CR_AF1_DATA={
       "route": "Omens",
       "items": "None",
       "source": "Omens",
-      "start": "Waoud/Raubahn, Aht Urhgan Whitegate - (J-10)"
+      "start": "Waoud/Raubahn, Aht Urhgan Whitegate - (J-10)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete Beginnings first. Change areas and wait one Earth minute. Begin on BLU main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock Transformations. Start Transformations, including its opening Imperial Whitegate cutscene."
     },
     {
       "slot": "Legs",
@@ -773,7 +1346,13 @@ window.CR_AF1_DATA={
       "route": "Lathuya Commission",
       "items": "Gold Chain · Velvet Cloth · Flan Meat · Imperial Silk Cloth · Imperial Mythril Piece x2",
       "source": "Lathuya",
-      "start": ""
+      "start": "Lathuya, Aht Urhgan Whitegate (F-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Transformations, including its opening Imperial Whitegate cutscene.",
+      "marker": "Choose piece order",
+      "unlock": "Trade the materials and fee to Lathuya. Change areas, wait until the next Vana’diel midnight, and collect the piece. Change areas and wait through another Vana’diel midnight before ordering the next piece."
     },
     {
       "slot": "Hands",
@@ -781,7 +1360,13 @@ window.CR_AF1_DATA={
       "route": "Lathuya Commission",
       "items": "Platinum Sheet · Velvet Cloth · Karakul Leather · Venom Potion · Imperial Mythril Piece x2",
       "source": "Lathuya",
-      "start": ""
+      "start": "Lathuya, Aht Urhgan Whitegate (F-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Transformations, including its opening Imperial Whitegate cutscene.",
+      "marker": "Choose piece order",
+      "unlock": "Trade the materials and fee to Lathuya. Change areas, wait until the next Vana’diel midnight, and collect the piece. Change areas and wait through another Vana’diel midnight before ordering the next piece."
     },
     {
       "slot": "Body",
@@ -789,7 +1374,13 @@ window.CR_AF1_DATA={
       "route": "Lathuya Commission",
       "items": "Velvet Cloth · Chimera Blood · Karakul Cloth · Imperial Silk Cloth · Imperial Mythril Piece x4",
       "source": "Lathuya",
-      "start": ""
+      "start": "Lathuya, Aht Urhgan Whitegate (F-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Transformations, including its opening Imperial Whitegate cutscene.",
+      "marker": "Choose piece order",
+      "unlock": "Trade the materials and fee to Lathuya. Change areas, wait until the next Vana’diel midnight, and collect the piece. Change areas and wait through another Vana’diel midnight before ordering the next piece."
     },
     {
       "slot": "Head",
@@ -797,7 +1388,13 @@ window.CR_AF1_DATA={
       "route": "Transformations",
       "items": "None",
       "source": "Transformations",
-      "start": "Waoud/Raubahn, Aht Urhgan Whitegate - (J-10)"
+      "start": "Waoud/Raubahn, Aht Urhgan Whitegate - (J-10)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete Omens first. Change areas and wait one Earth minute. Begin on BLU main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "cor": [
@@ -807,15 +1404,27 @@ window.CR_AF1_DATA={
       "route": "Equipped for All Occasions",
       "items": "Lamian Fang Key",
       "source": "Equipped for All Occasions",
-      "start": "??? - Arrapago Reef (H-10)"
+      "start": "??? - Arrapago Reef (H-10)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "COR main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks Navigating the Unfriendly Seas. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Legs",
-      "piece": "Corsair's Culotte",
+      "piece": "Corsair's Culottes",
       "route": "Navigating the Unfriendly Seas",
       "items": "Lamian Fang Key · Hydrogauge",
       "source": "Navigating the Unfriendly Seas",
-      "start": "??? - Arrapago Reef (H-10)"
+      "start": "??? - Arrapago Reef (H-10)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete Equipped for All Occasions first.  Begin on COR main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock Against All Odds. Start Against All Odds."
     },
     {
       "slot": "Hands",
@@ -823,7 +1432,13 @@ window.CR_AF1_DATA={
       "route": "Leleroon Commission",
       "items": "Gold Thread · Karakul Leather · Red Grass Cloth · Wamoura Silk · Imperial Mythril Piece x4",
       "source": "Leleroon",
-      "start": ""
+      "start": "Leleroon, Nashmau (G-7)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Against All Odds.",
+      "marker": "Choose piece order",
+      "unlock": "Ask Leleroon for the letter for the selected piece, then take it to the corresponding craftsman in the three nations. Trade that piece’s materials and fee. Change areas and wait until the next Vana’diel midnight to collect it; you may then order the next piece."
     },
     {
       "slot": "Feet",
@@ -831,7 +1446,13 @@ window.CR_AF1_DATA={
       "route": "Leleroon Commission",
       "items": "Karakul Leather · Laminated Buffalo Leather · Mythril Sheet · Wolf Felt · Imperial Mythril Piece x4",
       "source": "Leleroon",
-      "start": ""
+      "start": "Leleroon, Nashmau (G-7)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Against All Odds.",
+      "marker": "Choose piece order",
+      "unlock": "Ask Leleroon for the letter for the selected piece, then take it to the corresponding craftsman in the three nations. Trade that piece’s materials and fee. Change areas and wait until the next Vana’diel midnight to collect it; you may then order the next piece."
     },
     {
       "slot": "Body",
@@ -839,7 +1460,13 @@ window.CR_AF1_DATA={
       "route": "Leleroon Commission",
       "items": "Gold Chain · Red Grass Cloth · Sailcloth · Velvet Cloth · Imperial Gold Piece x1",
       "source": "Leleroon",
-      "start": ""
+      "start": "Leleroon, Nashmau (G-7)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Against All Odds.",
+      "marker": "Choose piece order",
+      "unlock": "Ask Leleroon for the letter for the selected piece, then take it to the corresponding craftsman in the three nations. Trade that piece’s materials and fee. Change areas and wait until the next Vana’diel midnight to collect it; you may then order the next piece."
     },
     {
       "slot": "Head",
@@ -847,7 +1474,13 @@ window.CR_AF1_DATA={
       "route": "Against All Odds",
       "items": "None",
       "source": "Against All Odds",
-      "start": "Ratihb - Aht Urhgan Whitegate (J-12)"
+      "start": "Ratihb - Aht Urhgan Whitegate (J-12)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete Navigating the Unfriendly Seas first.  Begin on COR main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "pup": [
@@ -857,7 +1490,13 @@ window.CR_AF1_DATA={
       "route": "The Wayward Automaton",
       "items": "",
       "source": "The Wayward Automaton",
-      "start": "Iruki-Waraki - Aht Urhgan Whitegate (K-9)"
+      "start": "Iruki-Waraki - Aht Urhgan Whitegate (K-9)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "PUP main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks Operation Teatime. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Legs",
@@ -865,7 +1504,13 @@ window.CR_AF1_DATA={
       "route": "Operation Teatime",
       "items": "Sleeping Potion · Chai · Lamian Fang Key",
       "source": "Operation Teatime",
-      "start": "Iruki-Waraki, Aht Urhgan Whitegate (K-9)"
+      "start": "Iruki-Waraki, Aht Urhgan Whitegate (K-9)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete The Wayward Automaton first. Change areas. Begin on PUP main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock Puppetmaster Blues. Start Puppetmaster Blues."
     },
     {
       "slot": "Feet",
@@ -873,7 +1518,13 @@ window.CR_AF1_DATA={
       "route": "Dhima Polevhia Commission",
       "items": "Ruby · Wamoura Cloth · Marid Leather · Platinum Sheet · Imperial Mythril Piece x2",
       "source": "Dhima Polevhia",
-      "start": ""
+      "start": "Dhima Polevhia, Aht Urhgan Whitegate (J-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Puppetmaster Blues.",
+      "marker": "Choose piece order",
+      "unlock": "Trade the materials and fee to Dhima Polevhia. Wait until the next Vana’diel midnight to collect the armor, then order another piece."
     },
     {
       "slot": "Hands",
@@ -881,7 +1532,13 @@ window.CR_AF1_DATA={
       "route": "Dhima Polevhia Commission",
       "items": "Rainbow Thread · Wamoura Cloth · Marid Leather · Platinum Sheet · Imperial Mythril Piece x1",
       "source": "Dhima Polevhia",
-      "start": ""
+      "start": "Dhima Polevhia, Aht Urhgan Whitegate (J-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Puppetmaster Blues.",
+      "marker": "Choose piece order",
+      "unlock": "Trade the materials and fee to Dhima Polevhia. Wait until the next Vana’diel midnight to collect the armor, then order another piece."
     },
     {
       "slot": "Body",
@@ -889,7 +1546,13 @@ window.CR_AF1_DATA={
       "route": "Dhima Polevhia Commission",
       "items": "Ruby · Moblinweave · Scarlet Linen · Wamoura Cloth · Imperial Gold Piece x1",
       "source": "Dhima Polevhia",
-      "start": ""
+      "start": "Dhima Polevhia, Aht Urhgan Whitegate (J-8)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start Puppetmaster Blues.",
+      "marker": "Choose piece order",
+      "unlock": "Trade the materials and fee to Dhima Polevhia. Wait until the next Vana’diel midnight to collect the armor, then order another piece."
     },
     {
       "slot": "Head",
@@ -897,7 +1560,13 @@ window.CR_AF1_DATA={
       "route": "Puppetmaster Blues",
       "items": "None",
       "source": "Puppetmaster Blues",
-      "start": "Iruki-Waraki - Aht Urhgan Whitegate (K-9)"
+      "start": "Iruki-Waraki - Aht Urhgan Whitegate (K-9)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete Operation Teatime first.  Begin on PUP main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "dnc": [
@@ -907,7 +1576,13 @@ window.CR_AF1_DATA={
       "route": "The Unfinished Waltz",
       "items": "None",
       "source": "The Unfinished Waltz",
-      "start": "Laila, Upper Jeuno (G-7)"
+      "start": "Laila, Upper Jeuno (G-7)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "DNC main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks The Road to Divadom. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Hands",
@@ -915,7 +1590,13 @@ window.CR_AF1_DATA={
       "route": "Matthias Commission",
       "items": "Karakul Cloth · Rainbow Cloth · Rainbow Velvet",
       "source": "Matthias",
-      "start": ""
+      "start": "Matthias, Bastok Markets (K-10)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Complete The Road to Divadom.",
+      "marker": "Choose piece order",
+      "unlock": "Speak to Olgald in Upper Jeuno (G-7) for the introduction, then order a piece from Matthias and trade its materials. Change areas and wait until the next Vana’diel midnight to collect it. You may then request another piece."
     },
     {
       "slot": "Head",
@@ -923,7 +1604,13 @@ window.CR_AF1_DATA={
       "route": "Matthias Commission",
       "items": "Imperial Silk Cloth · Silver Brocade · Wolf Felt",
       "source": "Matthias",
-      "start": ""
+      "start": "Matthias, Bastok Markets (K-10)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Complete The Road to Divadom.",
+      "marker": "Choose piece order",
+      "unlock": "Speak to Olgald in Upper Jeuno (G-7) for the introduction, then order a piece from Matthias and trade its materials. Change areas and wait until the next Vana’diel midnight to collect it. You may then request another piece."
     },
     {
       "slot": "Feet",
@@ -931,7 +1618,13 @@ window.CR_AF1_DATA={
       "route": "Matthias Commission",
       "items": "Wamoura Cloth · Moblinweave · Gold Brocade",
       "source": "Matthias",
-      "start": ""
+      "start": "Matthias, Bastok Markets (K-10)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Complete The Road to Divadom.",
+      "marker": "Choose piece order",
+      "unlock": "Speak to Olgald in Upper Jeuno (G-7) for the introduction, then order a piece from Matthias and trade its materials. Change areas and wait until the next Vana’diel midnight to collect it. You may then request another piece."
     },
     {
       "slot": "Legs",
@@ -939,7 +1632,13 @@ window.CR_AF1_DATA={
       "route": "The Road to Divadom",
       "items": "Block of Yagudo Glue",
       "source": "The Road to Divadom",
-      "start": "Laila, Upper Jeuno (G-7)"
+      "start": "Laila, Upper Jeuno (G-7)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete The Unfinished Waltz first. Change areas and wait until the next Vana’diel midnight. Begin on DNC main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock Comeback Queen. Complete The Road to Divadom."
     },
     {
       "slot": "Body",
@@ -947,17 +1646,29 @@ window.CR_AF1_DATA={
       "route": "Comeback Queen",
       "items": "None",
       "source": "Comeback Queen",
-      "start": "Laila, Upper Jeuno (G-7)"
+      "start": "Laila, Upper Jeuno (G-7)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete The Road to Divadom first. Change areas and wait until the next Vana’diel midnight. Begin on DNC main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
   "sch": [
     {
-      "slot": "Weapon",
+      "slot": "Magic scroll",
       "piece": "Scroll of Klimaform",
       "route": "On Sabbatical",
       "items": "None",
       "source": "On Sabbatical",
-      "start": "Erlene & Ulbrecht, Batallia Downs (S)"
+      "start": "Erlene, The Eldieme Necropolis (S) (J-8)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "SCH main job, level 40+. Complete this first quest to unlock the armor story, even if you will never use its reward.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks Downward Helix. Quest completion matters; equipping the reward is not an unlock requirement."
     },
     {
       "slot": "Hands",
@@ -965,7 +1676,13 @@ window.CR_AF1_DATA={
       "route": "Downward Helix",
       "items": "None",
       "source": "Downward Helix",
-      "start": "Erlene, The Eldieme Necropolis (S) (J-8)"
+      "start": "Erlene, The Eldieme Necropolis (S) (J-8)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete On Sabbatical first. Change areas and wait until the next Vana’diel midnight. Begin on SCH main job at level 50+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock Seeing Blood-red. Complete Downward Helix."
     },
     {
       "slot": "Feet",
@@ -973,7 +1690,13 @@ window.CR_AF1_DATA={
       "route": "Loussaire Commission",
       "items": "Rafflesia dreamspit · Drogarogan bonemeal",
       "source": "Loussaire",
-      "start": ""
+      "start": "Loussaire, Bastok Markets (S) (G-10)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Complete Downward Helix.",
+      "marker": "Choose piece order",
+      "unlock": "Begin the first request as Scholar level 50+. Select a piece and collect its two quest key items from the appropriate field targets; these are key items, not Auction House materials. Return to Loussaire to collect it. Change areas and wait until the next Vana’diel midnight before the next request. Bastok Markets (S) must not be in an active Campaign battle."
     },
     {
       "slot": "Legs",
@@ -981,7 +1704,13 @@ window.CR_AF1_DATA={
       "route": "Loussaire Commission",
       "items": "Slug mucus · Djinn ember",
       "source": "Loussaire",
-      "start": ""
+      "start": "Loussaire, Bastok Markets (S) (G-10)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Complete Downward Helix.",
+      "marker": "Choose piece order",
+      "unlock": "Begin the first request as Scholar level 50+. Select a piece and collect its two quest key items from the appropriate field targets; these are key items, not Auction House materials. Return to Loussaire to collect it. Change areas and wait until the next Vana’diel midnight before the next request. Bastok Markets (S) must not be in an active Campaign battle."
     },
     {
       "slot": "Body",
@@ -989,7 +1718,13 @@ window.CR_AF1_DATA={
       "route": "Loussaire Commission",
       "items": "Peiste dung · Sample of Gaurberg chert",
       "source": "Loussaire",
-      "start": ""
+      "start": "Loussaire, Bastok Markets (S) (G-10)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Complete Downward Helix.",
+      "marker": "Choose piece order",
+      "unlock": "Begin the first request as Scholar level 50+. Select a piece and collect its two quest key items from the appropriate field targets; these are key items, not Auction House materials. Return to Loussaire to collect it. Change areas and wait until the next Vana’diel midnight before the next request. Bastok Markets (S) must not be in an active Campaign battle."
     },
     {
       "slot": "Head",
@@ -997,9 +1732,297 @@ window.CR_AF1_DATA={
       "route": "Seeing Blood-red",
       "items": "None",
       "source": "Seeing Blood-red",
-      "start": "Erlene, Batallia Downs (S)"
+      "start": "Erlene, The Eldieme Necropolis (S) (J-8)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete Downward Helix first. Change areas and wait until the next Vana’diel midnight. Begin on SCH main job at level 50+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
     }
   ],
-  "geo": [],
-  "run": []
+  "geo": [
+    {
+      "slot": "Weapon / bell",
+      "piece": "Dowser's Wand · Filiae Bell",
+      "route": "For Whom the Bell Tolls",
+      "items": "Silver luopan (quest key item)",
+      "source": "For Whom the Bell Tolls",
+      "start": "Sylvie, Western Adoulin (I-5)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "GEO main job, level 90+. Complete this first quest to unlock the armor story, even if you will never use its reward. * Complete Elementary, My Dear Sylvie first.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks The Bloodline of Zacariah. Quest completion matters; equipping the reward is not an unlock requirement."
+    },
+    {
+      "slot": "Hands",
+      "piece": "Geomancy Mitaines",
+      "route": "The Bloodline of Zacariah",
+      "items": "Acuex Ore x3",
+      "source": "The Bloodline of Zacariah",
+      "start": "Sylvie, Western Adoulin (I-5)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete For Whom the Bell Tolls first. Wait until the next Vana’diel midnight. Begin on GEO main job at level 90+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock The Communion. Start The Bloodline of Zacariah."
+    },
+    {
+      "slot": "Head",
+      "piece": "Geomancy Galero",
+      "route": "Wescolina Commission",
+      "items": "Atramenterrane · Urunday Lumber · Akaso Thread · Sekishitsu · 12,500 Bayld",
+      "source": "Wescolina Commission",
+      "start": "Wescolina, Western Adoulin (H-7)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start The Bloodline of Zacariah.",
+      "marker": "Choose piece order",
+      "unlock": "Select a piece, trade the materials, and retain the Geomancer claim ticket. Wait until the next Vana’diel midnight to collect the armor and pay the listed Bayld fee. Change areas and wait through another Vana’diel midnight before the next order."
+    },
+    {
+      "slot": "Body",
+      "piece": "Geomancy Tunic",
+      "route": "Wescolina Commission",
+      "items": "Lavarion · Silk Cloth · Akaso Cloth · Akaso Thread · 15,000 Bayld",
+      "source": "Wescolina Commission",
+      "start": "Wescolina, Western Adoulin (H-7)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start The Bloodline of Zacariah.",
+      "marker": "Choose piece order",
+      "unlock": "Select a piece, trade the materials, and retain the Geomancer claim ticket. Wait until the next Vana’diel midnight to collect the armor and pay the listed Bayld fee. Change areas and wait through another Vana’diel midnight before the next order."
+    },
+    {
+      "slot": "Feet",
+      "piece": "Geomancy Sandals",
+      "route": "Wescolina Commission",
+      "items": "Cyclone Cotton · Sheep Leather · Gold Ingot · Akaso Thread · 10,000 Bayld",
+      "source": "Wescolina Commission",
+      "start": "Wescolina, Western Adoulin (H-7)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Start The Bloodline of Zacariah.",
+      "marker": "Choose piece order",
+      "unlock": "Select a piece, trade the materials, and retain the Geomancer claim ticket. Wait until the next Vana’diel midnight to collect the armor and pay the listed Bayld fee. Change areas and wait through another Vana’diel midnight before the next order."
+    },
+    {
+      "slot": "Legs",
+      "piece": "Geomancy Pants",
+      "route": "The Communion",
+      "items": "Lhaiso Neftereh’s bell (quest key item)",
+      "source": "The Communion",
+      "start": "Sylvie, Western Adoulin (I-5)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete The Bloodline of Zacariah first. Wait until the next Vana’diel midnight. Begin on GEO main job at level 99+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
+    }
+  ],
+  "run": [
+    {
+      "slot": "Weapon",
+      "piece": "Beorc Sword",
+      "route": "Forging New Bonds",
+      "items": "Sowilo Claymore or Elixir · Rune Saber · Fruiserum · Ifritite · Frost-encrusted flame gem (follow the quest’s exchanges)",
+      "source": "Forging New Bonds",
+      "start": "Octavien, Eastern Adoulin (I-8)",
+      "stage": 1,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "RUN main job, level 90+. Complete this first quest to unlock the armor story, even if you will never use its reward. * Complete Endeavoring to Awaken and change areas first.",
+      "marker": "* Required first quest",
+      "unlock": "Unlocks Legacies Lost and Found. Quest completion matters; equipping the reward is not an unlock requirement."
+    },
+    {
+      "slot": "Legs",
+      "piece": "Runeist Trousers",
+      "route": "Legacies Lost and Found",
+      "items": "Letter from Octavien · at least three runic stones · Secrets of Runic Enhancement (quest key items)",
+      "source": "Legacies Lost and Found",
+      "start": "Octavien, Eastern Adoulin (I-8)",
+      "stage": 2,
+      "required": true,
+      "parallel": false,
+      "prerequisite": "* Complete Forging New Bonds first. Change areas. Begin on RUN main job at level 99+.",
+      "marker": "* Required second quest",
+      "unlock": "Complete this quest to unlock Destiny's Device. Complete Legacies Lost and Found."
+    },
+    {
+      "slot": "Head",
+      "piece": "Runeist Bandeau",
+      "route": "Jerra Ndala Commission",
+      "items": "Corroded Ore x2 · Rhodium Ingot · Vermilion Lacquer · Mithran Tomato · 12,500 Bayld",
+      "source": "Jerra Ndala Commission",
+      "start": "Jerra Ndala at the Tomato Vantage Point, Rala Waterways (E-10)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Complete Legacies Lost and Found.",
+      "marker": "Choose piece order",
+      "unlock": "Examine the Tomato Vantage Point, select a piece, and trade its materials. Keep the proof of order; wait until the next Vana’diel midnight, examine the point again, and pay the Bayld fee to collect the piece."
+    },
+    {
+      "slot": "Hands",
+      "piece": "Runeist Mitons",
+      "route": "Jerra Ndala Commission",
+      "items": "Redoubtable Silk Thread · Runeweave · Rhodium Ingot · Gold Thread · Mithran Tomato · 10,000 Bayld",
+      "source": "Jerra Ndala Commission",
+      "start": "Jerra Ndala at the Tomato Vantage Point, Rala Waterways (E-10)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Complete Legacies Lost and Found.",
+      "marker": "Choose piece order",
+      "unlock": "Examine the Tomato Vantage Point, select a piece, and trade its materials. Keep the proof of order; wait until the next Vana’diel midnight, examine the point again, and pay the Bayld fee to collect the piece."
+    },
+    {
+      "slot": "Feet",
+      "piece": "Runeist Bottes",
+      "route": "Jerra Ndala Commission",
+      "items": "Redoubtable Silk Thread · Runeweave · Uragnite Shell · Black Tiger Leather · Mithran Tomato · 10,000 Bayld",
+      "source": "Jerra Ndala Commission",
+      "start": "Jerra Ndala at the Tomato Vantage Point, Rala Waterways (E-10)",
+      "stage": 0,
+      "required": false,
+      "parallel": true,
+      "prerequisite": "* Complete Legacies Lost and Found.",
+      "marker": "Choose piece order",
+      "unlock": "Examine the Tomato Vantage Point, select a piece, and trade its materials. Keep the proof of order; wait until the next Vana’diel midnight, examine the point again, and pay the Bayld fee to collect the piece."
+    },
+    {
+      "slot": "Body",
+      "piece": "Runeist Coat",
+      "route": "Destiny's Device",
+      "items": "Quest key items from Destiny’s Device",
+      "source": "Destiny's Device",
+      "start": "Octavien, Eastern Adoulin (I-8)",
+      "stage": 3,
+      "required": false,
+      "parallel": false,
+      "prerequisite": "* Complete Legacies Lost and Found first.  Begin on RUN main job at level 99+.",
+      "marker": "Final story quest",
+      "unlock": "Required for this quest’s reward and completion of the Artifact story. You do not need all side pieces before beginning this quest."
+    }
+  ]
+};
+window.CR_AF_CHAINS={
+  "war": [
+    "The Doorman",
+    "The Talekeeper's Truth",
+    "The Talekeeper's Gift"
+  ],
+  "mnk": [
+    "Ghosts of the Past",
+    "The First Meeting",
+    "True Strength"
+  ],
+  "whm": [
+    "Messenger from Beyond",
+    "Prelude of Black and White",
+    "Pieuje's Decision"
+  ],
+  "blm": [
+    "The Three Magi",
+    "Recollections",
+    "The Root of the Problem"
+  ],
+  "rdm": [
+    "The Crimson Trial",
+    "Enveloped in Darkness",
+    "Peace for the Spirit"
+  ],
+  "thf": [
+    "The Tenshodo Showdown",
+    "As Thick as Thieves",
+    "Hitting the Marquisate"
+  ],
+  "pld": [
+    "Sharpening the Sword",
+    "A Boy's Dream",
+    "Under Oath"
+  ],
+  "drk": [
+    "Dark Legacy",
+    "Dark Puppet",
+    "Blade of Evil"
+  ],
+  "bst": [
+    "Wings of Gold",
+    "Scattered Into Shadow",
+    "A New Dawn"
+  ],
+  "brd": [
+    "Painful Memory",
+    "The Requiem",
+    "The Circle of Time"
+  ],
+  "rng": [
+    "Sin Hunting",
+    "Fire and Brimstone",
+    "Unbridled Passion"
+  ],
+  "sam": [
+    "The Sacred Katana",
+    "Yomi Okuri",
+    "A Thief in Norg!?"
+  ],
+  "nin": [
+    "20 in Pirate Years",
+    "I'll Take the Big Box",
+    "True Will"
+  ],
+  "drg": [
+    "A Craftsman's Work",
+    "Chasing Quotas",
+    "Knight Stalker"
+  ],
+  "smn": [
+    "The Puppet Master",
+    "Class Reunion",
+    "Carbuncle Debacle"
+  ],
+  "blu": [
+    "Beginnings",
+    "Omens",
+    "Transformations"
+  ],
+  "cor": [
+    "Equipped for All Occasions",
+    "Navigating the Unfriendly Seas",
+    "Against All Odds"
+  ],
+  "pup": [
+    "The Wayward Automaton",
+    "Operation Teatime",
+    "Puppetmaster Blues"
+  ],
+  "dnc": [
+    "The Unfinished Waltz",
+    "The Road to Divadom",
+    "Comeback Queen"
+  ],
+  "sch": [
+    "On Sabbatical",
+    "Downward Helix",
+    "Seeing Blood-red"
+  ],
+  "geo": [
+    "For Whom the Bell Tolls",
+    "The Bloodline of Zacariah",
+    "The Communion"
+  ],
+  "run": [
+    "Forging New Bonds",
+    "Legacies Lost and Found",
+    "Destiny's Device"
+  ]
 };
