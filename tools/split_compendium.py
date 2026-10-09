@@ -32,6 +32,7 @@ def page(slug, title, ids, interactive):
     visible = "\n".join(section(x) for x in ids)
     if slug == "addons":
         visible = visible.replace('href="addons/updates/index.html"', 'href="updates/index.html"')
+        visible = visible.replace('href="addons/commands/index.html"', 'href="commands/index.html"')
     hidden = ""
     scripts = '<script src="../assets/wiki.js" defer></script>'
     if slug == "addons":
