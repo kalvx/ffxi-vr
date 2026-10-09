@@ -21,7 +21,7 @@
   <style>
     .addon-toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:22px 0}.addon-toolbar .search{flex:1;min-width:260px}.addon-command-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}.addon-card{background:linear-gradient(145deg,rgba(31,34,60,.96),rgba(13,16,30,.96));border:1px solid rgba(145,125,255,.28);border-radius:18px;padding:20px;box-shadow:0 14px 35px rgba(0,0,0,.18)}.addon-card[hidden]{display:none}.addon-card-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}.addon-card-head i{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:rgba(123,96,255,.16);color:#b8aaff;font-style:normal}.addon-card h3{margin:0}.addon-card>p{color:#aeb2c5;min-height:42px}.command-list{display:grid;gap:8px;margin-top:15px}.command-row{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;padding:10px 12px;border-radius:11px;background:rgba(4,7,15,.55);border:1px solid rgba(255,255,255,.07)}.command-row code{color:#8ee8ff;overflow-wrap:anywhere}.command-row span{color:#959aad;font-size:.78rem}.addon-empty{display:none;padding:28px;text-align:center;color:#aeb2c5}.addon-empty.visible{display:block}.command-note{margin-top:18px}
   </style>
-</head>
+<link rel="stylesheet" href="assets/client-updates.css"></head>
 <body>
   <header class="topbar">
     <a class="brand" href="./"><span class="crystal">✦</span><span><small>FFXI VR</small><strong>Current Reality</strong></span></a>
@@ -76,6 +76,13 @@
     </section>
 
     <section class="chapter" id="addons">
+      <div class="client-update-panel" id="version-patch-updates" role="region" aria-labelledby="client-update-title">
+        <div><p class="client-update-eyebrow">Current Reality client</p><h2 id="client-update-title">Version &amp; Patch Updates</h2>
+        <p>Keep your launcher and game files up to date. Patches repair missing or changed client files while preserving your accounts and personal settings.</p></div>
+        <div class="client-update-actions"><span class="client-update-badge">0.1.6 · Test release</span>
+        <a class="client-update-link" href="addons/updates/index.html">View patch updates <span aria-hidden="true">→</span></a></div>
+      </div>
+
       <div class="chapter-head"><span>✦</span><div><p>Current Reality client reference</p><h2>Addon Command Compendium.</h2></div></div>
       <p>Search the commands included with the Current Reality Ashita 4 client. Commands are entered in the in-game chat box. Addons and plugins can also be enabled or disabled from Launcher Settings before Play.</p>
       <div class="addon-toolbar"><div class="search"><span>⌕</span><input id="addon-search" type="search" placeholder="Search addon, command, camera, map, FPS, party…" autocomplete="off"></div><span id="addon-count"></span></div>

@@ -30,8 +30,12 @@ DYNAMIC = ["macros", "jobs", "reference", "gear", "crafts", "skillchains"]
 
 def page(slug, title, ids, interactive):
     visible = "\n".join(section(x) for x in ids)
+    if slug == "addons":
+        visible = visible.replace('href="addons/updates/index.html"', 'href="updates/index.html"')
     hidden = ""
     scripts = '<script src="../assets/wiki.js" defer></script>'
+    if slug == "addons":
+        scripts += '<link rel="stylesheet" href="../assets/client-updates.css">'
     if interactive:
         hidden_ids = [x for x in DYNAMIC if x not in ids]
         clock = '<div id="vana-time"></div><div id="vana-date"></div><div id="vana-element-icon"></div><div id="vana-element"></div><div id="vana-next-day"></div><div id="vana-moon"></div>'
