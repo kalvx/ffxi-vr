@@ -1,0 +1,2 @@
+67c300bd77eabc2aadb822d201af893a9e60a50abadeb03fe614603f702eb810  CurrentRealityAddonPatch-2026-10-09.zip
+d8249b40b3f6f31af96ac7b80c359792016eb8e4f6d1009621633821a816585c  CurrentRealityAddonPatch-2026-10-09.exe
