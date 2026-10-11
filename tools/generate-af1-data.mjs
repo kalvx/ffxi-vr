@@ -4,7 +4,7 @@ const root=path.resolve(import.meta.dirname,'..');
 const api='https://www.bg-wiki.com/api.php?action=parse&page=Category%3AArtifact%20Armor&prop=wikitext&format=json';
 const response=await fetch(api);if(!response.ok)throw new Error(`Artifact source returned ${response.status}`);
 const source=(await response.json()).parse.wikitext['*'];
-const slugs={Warrior:'war',Monk:'mnk','White Mage':'whm','Black Mage':'blm','Red Mage':'rdm',Thief:'thf',Paladin:'pld','Dark Knight':'drk',Beastmaster:'bst',Bard:'brd',Ranger:'rng',Samurai:'sam',Ninja:'nin',Dragoon:'drg',Summoner:'smn','Blue Mage':'blu',Corsair:'cor',Puppetmaster:'pup',Dancer:'dnc',Scholar:'sch',Geomancer:'geo','Rune Fencer':'run'};
+const slugs={Warrior:'war',Monk:'mnk','White Mage':'whm','Black Mage':'blm','Red Mage':'rdm',Thief:'thf',Paladin:'pld','Dark Knight':'drk',Beastmaster:'bst',Bard:'brd',Ranger:'rng',Samurai:'sam',Ninja:'nin',Dragoon:'drg',Summoner:'smn','Blue Mage':'blu',Corsair:'cor',Dancer:'dnc',Scholar:'sch',Geomancer:'geo','Rune Fencer':'run'};
 const plain=s=>String(s||'').replace(/'''/g,'').replace(/<br\s*\/?\s*>/gi,' · ').replace(/&middot;/g,'·').replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g,'$2').replace(/\[\[([^\]]+)\]\]/g,'$1').replace(/\{\{[^{}]*\}\}/g,'').replace(/---x---/g,'None').replace(/\s+/g,' ').trim();
 const linkTarget=s=>(String(s||'').match(/\[\[([^\]|]+)/)||[])[1]||'';
 const result={};

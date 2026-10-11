@@ -59,7 +59,7 @@ const gearJobWeapons={
   WAR:{main:['Great Axe','Axe','Great Sword'],range:['Archery','Marksmanship','Throwing']},MNK:{main:['Hand-to-Hand'],range:['Throwing']},WHM:{main:['Club','Staff'],range:['Throwing']},BLM:{main:['Staff','Club'],range:['Throwing']},RDM:{main:['Sword','Dagger'],range:['Archery','Throwing']},THF:{main:['Dagger'],range:['Marksmanship','Archery','Throwing']},
   PLD:{main:['Sword'],range:[]},DRK:{main:['Scythe'],range:['Marksmanship']},BST:{main:['Axe'],range:[]},BRD:{main:['Dagger','Sword'],range:['Skill 41','Skill 42']},RNG:{main:['Axe','Dagger'],range:['Archery','Marksmanship','Throwing']},
   SAM:{main:['Great Katana'],range:['Archery','Throwing']},NIN:{main:['Katana'],range:['Throwing','Marksmanship','Archery']},DRG:{main:['Polearm'],range:[]},SMN:{main:['Staff','Club'],range:[]},BLU:{main:['Sword'],range:['Throwing']},COR:{main:['Dagger','Sword'],range:['Marksmanship','Throwing']},
-  PUP:{main:['Hand-to-Hand'],range:['Throwing']},DNC:{main:['Dagger'],range:['Throwing']},SCH:{main:['Staff','Club'],range:['Throwing']},GEO:{main:['Club','Staff'],range:['Skill 45']},RUN:{main:['Great Sword','Sword'],range:[]}
+  ALC:{main:['Hand-to-Hand'],range:['Throwing']},DNC:{main:['Dagger'],range:['Throwing']},SCH:{main:['Staff','Club'],range:['Throwing']},GEO:{main:['Club','Staff'],range:['Skill 45']},RUN:{main:['Great Sword','Sword'],range:[]}
 };
 function gearItemScore(item,level,focus){
   const name=item.name.toLowerCase(),weapon=item.weapon||{},terms=gearFocusTerms[focus]||[];

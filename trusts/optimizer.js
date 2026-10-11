@@ -22,7 +22,7 @@ DRG:['Polearm','Staff','Sword','Dagger','Club'],
 SMN:['Staff','Club','Dagger'],
 BLU:['Sword','Club'],
 COR:['Marksmanship','Dagger','Sword'],
-PUP:['Hand-to-Hand','Dagger','Club'],
+ALC:['Hand-to-Hand','Dagger','Club'],
 DNC:['Dagger','Sword','Hand-to-Hand'],
 SCH:['Staff','Club','Dagger'],
 GEO:['Club','Staff','Dagger'],
@@ -44,20 +44,10 @@ const SMN_PET=[
 ['Shiva','Axe Kick',1,'Induration'],['Shiva','Double Slap',50,'Scission'],['Ramuh','Shock Strike',1,'Impaction']
 ];
 
-// Automaton WS properties are frame/automaton-skill dependent. They are
-// usable for planning, but receive a lower confidence than the SMN list
-// because the selected character level alone does not prove the frame's
-// current melee/ranged skill or maneuver state.
-const PUP_PET=[
-['Harlequin/Stormwaker','Slapstick',0,'Reverberation','Impaction'],['Harlequin/Stormwaker','Knockout',145,'Scission','Detonation'],['Harlequin/Stormwaker','Magic Mortar',225,'Fusion'],
-['Sharpshot','Arcuballista',0,'Liquefaction','Transfixion'],['Sharpshot','Daze',150,'Impaction','Transfixion','Compression'],['Sharpshot','Armor Piercer',245,'Gravitation'],['Sharpshot','Armor Shatterer',324,'Fusion','Impaction'],
-['Valoredge','Cannibal Blade',150,'Compression','Reverberation'],['Valoredge','Bone Crusher',245,'Fragmentation'],['Valoredge','String Shredder',324,'Distortion','Scission']
-];
-
 const PET_MODE={
 SMN:'Avatar Blood Pacts can open or close a skillchain with the Summoner.',
 BST:'Damaging Ready moves carry skillchain attributes; the exact route depends on the active jug/charmed pet and Ready move.',
-PUP:'Automaton weapon skills can open or close skillchains. Inhibitor-style control can make the automaton hold TP for the master.',
+ALC:'Alchemist supports allies with medicines and uses its own weapons for skillchains. Volatile Mixture is a TP-consuming job ability.',
 DRG:'Wyvern breaths are useful pet damage/support, but are not treated here as normal weapon-skill skillchain steps.'
 };
 
@@ -85,7 +75,6 @@ function chainMatches(pp,t,want){let out=[];for(const m of moves(t)){for(const l
 
 function petMatches(job,pp,lv,want){let out=[];
  if(job==='SMN')for(const p of SMN_PET){if(p[2]>lv)continue;let pr=[p[3]];for(const l of links(pr,pp))if(wantOK(l.result,want))out.push({result:l.result,pet:p[0],move:p[1],dir:'Pet → Player',confidence:'verified'});for(const l of links(pp,pr))if(wantOK(l.result,want))out.push({result:l.result,pet:p[0],move:p[1],dir:'Player → Pet',confidence:'verified'})}
- if(job==='PUP')for(const p of PUP_PET){let pr=p.slice(3);for(const l of links(pr,pp))if(wantOK(l.result,want))out.push({result:l.result,pet:p[0],move:p[1],dir:'Pet → Player',confidence:'conditional',skill:p[2]});for(const l of links(pp,pr))if(wantOK(l.result,want))out.push({result:l.result,pet:p[0],move:p[1],dir:'Player → Pet',confidence:'conditional',skill:p[2]})}
  return out.sort((a,b)=>(['Light','Darkness'].includes(b.result)?2:1)-(['Light','Darkness'].includes(a.result)?2:1));
 }
 
@@ -97,7 +86,7 @@ function teamCard(team,label,pc,job,lv,weapon,pws,petText){return `<article clas
 function build(){
  let f=$('opt-focus').value,k=+$('opt-size').value,lv=+$('opt-level').value,pws=$('opt-ws').value,job=$('opt-job').value,weapon=$('opt-weapon').value,pp=props(pws),want=$('opt-chain').value,control=$('opt-control').checked;
  if(!pws||pws==='None available'||!pp.length){$('opt-chain-plan').innerHTML=`<article><small>Weapon-skill check</small><h3>No optimizer weapon skill is available for this build at Lv.${lv}.</h3><p>Raise the level or choose another native weapon family.</p></article>`;$('opt-results').innerHTML='';return}
- let pet=petMatches(job,pp,lv,want),petBest=pet[0],petGeneric=['SMN','BST','PUP'].includes(job),base=trustData().map(t=>{let ms=chainMatches(pp,t,want),p=prof(t);return{t,p,match:ms[0],ms}});
+ let pet=petMatches(job,pp,lv,want),petBest=pet[0],petGeneric=['SMN','BST'].includes(job),base=trustData().map(t=>{let ms=chainMatches(pp,t,want),p=prof(t);return{t,p,match:ms[0],ms}});
  let plan='';
  if(petBest){let first=petBest.dir==='Pet → Player'?`${petBest.pet}: ${petBest.move}`:`You: ${pws}`,second=petBest.dir==='Pet → Player'?`You: ${pws}`:`${petBest.pet}: ${petBest.move}`,note=petBest.confidence==='conditional'?` Automaton move requires the listed frame and sufficient automaton skill${petBest.skill?` (${petBest.skill})`:''}.`:'';plan=`<article><small>Pet-assisted battle plan · ${job} Lv.${lv}</small><h3>${first} → ${second} = <strong>${petBest.result}</strong></h3><p><b>Magic burst:</b> ${MB[petBest.result]}.</p><p>This means the player does not necessarily need a Trust to spend TP to create the chain. Low-TP-interference healers, buffers, tanks, and bursters can become the stronger party choice.${note}</p></article>`}
  else if(job==='BST'){plan=`<article><small>Pet-assisted battle plan · BST Lv.${lv}</small><h3>Beastmaster can skillchain with damaging Ready moves.</h3><p>The exact result depends on the summoned/charmed pet and Ready move, so the optimizer does not invent a specific jug-pet route. With <b>Favor Trusts that do not interrupt my skillchain</b> enabled, support/healing/low-TP-interference Trusts receive extra weight.</p></article>`}

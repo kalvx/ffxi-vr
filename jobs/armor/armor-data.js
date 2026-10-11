@@ -16,7 +16,7 @@ window.JOB_ARMOR_DATA=[
 ['smn','Summoner','SMN',"Evoker's","Summoner's","Caller's",'Convoker',"Glyphic","Beckoner's"],
 ['blu','Blue Mage','BLU','Magus','Mirage','Mavi',"Assimilator's","Luhlaza","Hashishin"],
 ['cor','Corsair','COR',"Corsair's",'Commodore',"Navarch's",'Laksamana',"Lanun","Chasseur's"],
-['pup','Puppetmaster','PUP','Puppetry','Pantin','Cirque','Foire','Pitre','Karagoz'],
+['alc','Alchemist','ALC','Apothecary','Medic','Chemist','Alchemist','Physician','Compounder'],
 ['dnc','Dancer','DNC',"Dancer's",'Etoile','Charis','Maxixi','Horos','Maculele'],
 ['sch','Scholar','SCH',"Scholar's",'Argute',"Savant's",'Academic','Pedagogy','Arbatel'],
 ['geo','Geomancer','GEO','—','—','—','Geomancy','Bagua','Azimuth'],

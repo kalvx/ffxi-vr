@@ -5,7 +5,7 @@ import argparse, json, re
 from collections import Counter, defaultdict
 from pathlib import Path
 
-JOB_CODES = ['WAR','MNK','WHM','BLM','RDM','THF','PLD','DRK','BST','BRD','RNG','SAM','NIN','DRG','SMN','BLU','COR','PUP','DNC','SCH','GEO','RUN']
+JOB_CODES = ['WAR','MNK','WHM','BLM','RDM','THF','PLD','DRK','BST','BRD','RNG','SAM','NIN','DRG','SMN','BLU','COR','ALC','DNC','SCH','GEO','RUN']
 ELEMENTS = ['Fire','Ice','Wind','Earth','Lightning','Water','Light','Dark','None']
 WEAPONS = {1:'Hand-to-Hand',2:'Dagger',3:'Sword',4:'Great Sword',5:'Axe',6:'Great Axe',7:'Scythe',8:'Polearm',9:'Katana',10:'Great Katana',11:'Club',12:'Staff',25:'Archery',26:'Marksmanship',27:'Throwing',28:'Guarding',29:'Evasion',30:'Shield',31:'Parrying'}
 SKILLCHAINS = {0:'',1:'Transfixion',2:'Compression',3:'Liquefaction',4:'Scission',5:'Reverberation',6:'Detonation',7:'Induration',8:'Impaction',9:'Gravitation',10:'Fragmentation',11:'Distortion',12:'Fusion',13:'Light',14:'Darkness'}
@@ -78,7 +78,7 @@ def main():
     db={name:table_records(text,name) for name in needed}
     item_names={int(x['itemid']):title(x['name']) for x in db['item_basic']}
     equipment={int(x['itemId']):x for x in db['item_equipment']}; weapons={int(x['itemId']):x for x in db['item_weapon']}; usable={int(x['itemid']):x for x in db['item_usable']}
-    jobs=[{'id':int(j['job_id']),'code':JOB_CODES[int(j['job_id'])-1],'name':j['job_name']} for j in db['jobs'] if 1<=int(j['job_id'])<=22]
+    jobs=[{'id':int(j['job_id']),'code':JOB_CODES[int(j['job_id'])-1],'name':'Alchemist' if int(j['job_id'])==18 else j['job_name']} for j in db['jobs'] if 1<=int(j['job_id'])<=22]
     abilities=[{'id':int(a['abilityId']),'name':title(a['name']),'job':JOB_CODES[int(a['job'])-1] if 1<=int(a['job'])<=22 else 'ALL','level':int(a['level']),'recast':int(a['recastTime']),'target':int(a['validTarget']),'aoe':bool(a['isAOE']),'content':a['content_tag']} for a in db['abilities']]
     spells=[]
     for s in db['spell_list']:
@@ -91,7 +91,7 @@ def main():
         weapon_skills.append({'id':int(w['weaponskillid']),'name':title(w['name']),'jobs':available,'weapon':WEAPONS.get(int(w['type']),f"Skill {w['type']}"),'skill':int(w['skilllevel']),'sc':sc,'aoe':bool(w['aoe']),'mainOnly':bool(w['main_only'])})
     skill_ranks=[]
     for r in db['skill_ranks']:
-        ranks={code:int(r[code.lower()]) for code in JOB_CODES if code.lower() in r and int(r[code.lower()])}
+        ranks={code:int(r['pup' if code=='ALC' else code.lower()]) for code in JOB_CODES if ('pup' if code=='ALC' else code.lower()) in r and int(r['pup' if code=='ALC' else code.lower()])}
         skill_ranks.append({'id':int(r['skillid']),'name':title(r['name']),'jobs':ranks})
     items=[]
     for b in db['item_basic']:

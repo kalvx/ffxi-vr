@@ -12,7 +12,7 @@
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
   })[character]);
   const slotNames = { 1:'Main',2:'Sub',4:'Ranged',8:'Ammo',16:'Head',32:'Body',64:'Hands',128:'Legs',256:'Feet',512:'Neck',1024:'Waist',2048:'Left Ear',4096:'Right Ear',8192:'Left Ring',16384:'Right Ring',32768:'Back' };
-  const jobCodes = ['WAR','MNK','WHM','BLM','RDM','THF','PLD','DRK','BST','BRD','RNG','SAM','NIN','DRG','SMN','BLU','COR','PUP','DNC','SCH','GEO','RUN'];
+  const jobCodes = ['WAR','MNK','WHM','BLM','RDM','THF','PLD','DRK','BST','BRD','RNG','SAM','NIN','DRG','SMN','BLU','COR','ALC','DNC','SCH','GEO','RUN'];
   const equipSlots = (mask = 0) => Object.entries(slotNames).filter(([bit]) => mask & Number(bit)).map(([, name]) => name).join(' / ') || '—';
   const equipJobs = (mask = 0) => jobCodes.filter((job, index) => mask & (1 << index)).join(' · ') || '—';
 
@@ -78,6 +78,7 @@
   function purposeDetails(record = {}) {
     const item = record.item || {}, effects = item.effects || {}, sources = record.sources || {};
     const lines = [];
+    if (effects.alchemist) lines.push(escapeHtml(effects.alchemist));
     if (effects.food) lines.push(`<strong>Food effect${effects.duration ? ` · ${escapeHtml(durationLabel(effects.duration))}` : ''}</strong>`);
     if (effects.modifiers?.length) lines.push(`<span class="item-effect-list">${effects.modifiers.map(modifier => `<span>${escapeHtml(modifierLabel(modifier))}</span>`).join('')}</span>`);
     effects.use?.forEach(effect => lines.push(`${escapeHtml(effect.effect)}${effect.power ? ` (power ${escapeHtml(effect.power)})` : ''}${effect.duration ? ` for ${escapeHtml(durationLabel(effect.duration))}` : ''}`));
