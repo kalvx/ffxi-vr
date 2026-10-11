@@ -3,8 +3,8 @@
   "product": "CurrentReality",
   "version": "1.0.1",
   "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.1/CurrentRealityPatch-1.0.1.zip",
-  "packageSha256": "84ab703758694e4b1b9cb72597d13880069d4205b15c2e100d8378078a5e88db",
-  "packageSize": 55346955,
+  "packageSha256": "7524925b09c692d55e172041a55934bccb6456c730272acfa48254a43879b575",
+  "packageSize": 55353701,
   "files": [
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/FFXi.dll",
@@ -333,13 +333,13 @@
     },
     {
       "path": "current_reality_launcher.exe",
-      "size": 335872,
-      "sha256": "241fc9ea30e7814ddc4ba2d1617006f3a39f835c2937ddc2370de7e13fc5641e"
+      "size": 347136,
+      "sha256": "9b83362192c15f8fdbc83ddaa026c157e4f3df370a03dc3df4cd49613c1e050c"
     },
     {
       "path": "data/app.so",
       "size": 5948320,
-      "sha256": "8e8d6d2afc4777d4407a3e2388f22a501cbaa6ef776a18836b253ec93cb71b99"
+      "sha256": "a2031cf71ae9cf968bb04f5ec951ae9d488bf5a6973b7d17786ccc8d1780f1dd"
     },
     {
       "path": "data/flutter_assets/AssetManifest.bin",
@@ -408,8 +408,8 @@
     },
     {
       "path": "tools/Apply-CurrentRealityUpdate.ps1",
-      "size": 9772,
-      "sha256": "e00ac7e97443346b9db032af37694889bd8102ecad8bede17f5ee22fe27d2f91"
+      "size": 10647,
+      "sha256": "e68d8f8571794d33d4cecf95d4c8dc32628c97ae6441ca19600f6fbfabc53436"
     },
     {
       "path": "tools/CurrentReality-Diagnostics.ps1",
