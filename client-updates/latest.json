@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "product": "CurrentReality",
-  "version": "1.0.3",
-  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.3/CurrentRealityPatch-1.0.3.zip",
-  "packageSha256": "3de26af226be4530983803813031e38c4ad8d49ad49a6da7563b72068a4930f6",
-  "packageSize": 58954561,
+  "version": "1.0.4",
+  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.4/CurrentRealityPatch-1.0.4.zip",
+  "packageSha256": "ff231c99b9d2a16b76dd7d34c268fa29250da8e5543d9a1b75fceb8fb5b8af02",
+  "packageSize": 58954759,
   "files": [
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/FFXi.dll",
@@ -49,7 +49,7 @@
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/119/55.DAT",
       "size": 1048576,
-      "sha256": "1862e6a5bc7d84914662d7fee58073818dee3bf32506195d0cfe9cd697191d3f"
+      "sha256": "bec55ffe9dbf41685a6d622eef34eb02e1749e9809caaa2e4f80c551e1e44225"
     },
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/165/37.DAT",
@@ -69,7 +69,7 @@
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/181/72.DAT",
       "size": 471104,
-      "sha256": "c531770b3fce462e84ec6f634d2f998b92bc02f24715d68ea9511622fd311420"
+      "sha256": "ef99ae934b56c9bf7e4841a033ef0c447486acf358c44324b6535e3149c8ee1a"
     },
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/181/74.DAT",
@@ -263,8 +263,8 @@
     },
     {
       "path": "Runtime/addons/crcurse/crcurse.lua",
-      "size": 3803,
-      "sha256": "2ceedf28280e66ca092b450fe926b1c227904d825a8ab1fdad979f3c84b25cee"
+      "size": 4536,
+      "sha256": "bd01c138db4e38cf69964ecaa914528567536580a1f84a431d2d3f2a031a952b"
     },
     {
       "path": "Runtime/addons/crhotswap/crhotswap.lua",
