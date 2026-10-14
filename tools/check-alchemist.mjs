@@ -22,9 +22,10 @@ const customItems=json('assets/data/item-sources/89.json');
 for(const [id,level,seals] of [[23030,20,5],[23031,30,10],[23032,40,20],[23033,60,40]]){
  const record=customItems[id];assert.equal(record.item.equip.level,level);
  assert.equal(record.item.equip.jobs,131072);assert.equal(record.ah.listed,false);
- assert.equal(record.sources.vendors[0].name,'Aldric Gunsmith');
+ assert.equal(record.sources.vendors[0].name,'Aldric Basin');
  assert.equal(record.sources.vendors[0].quantity,seals);assert.equal(record.sources.vendors[0].type,'exchange');
 }
+for(const [id,value] of [[23031,4],[23032,8]]){assert.equal(customItems[id].item.effects.modifiers[0].value,value);assert.equal(data.items.find(i=>i.id===id).effects.modifiers[0].value,value);}
 for(const [id,level,effect] of [[23034,50,'Stun'],[23035,55,'Defense down']]){
  const record=customItems[id];assert.equal(record.item.equip.level,level);
  assert.equal(record.item.stack,99);assert.equal(record.item.equip.jobs,131072);
@@ -36,7 +37,7 @@ assert.equal(unlockContext.unlock.quest,'A Remedy Without a Name');
 assert.equal(unlockContext.unlock.src,'../jobs/alchemist/index.html');
 assert.ok(unlockContext.unlock.steps.some(s=>s.includes('five ordinary Potions')));
 assert.ok(unlockContext.unlock.steps.some(s=>s.includes('five ordinary Ethers')));
-assert.ok(json('npcs/quest-index.json').some(n=>n.name==='Aldric Gunsmith'));
+assert.ok(json('npcs/quest-index.json').some(n=>n.name==='Aldric Basin'));
 for(const page of ['index','mixtures','magic','equipment']){
  const source=fs.readFileSync(path.join(root,`jobs/alchemist/${page}.html`),'utf8');
  assert.ok(source.includes('../../assets/wiki.css'));
