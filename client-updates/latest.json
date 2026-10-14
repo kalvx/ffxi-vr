@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "product": "CurrentReality",
-  "version": "1.0.11",
-  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.11/CurrentRealityPatch-1.0.11.zip",
-  "packageSha256": "0d4fea69aec52ff0c90473e4fa6024b3a135347f1105bf36ed1b93dac9af3301",
-  "packageSize": 69322699,
+  "version": "1.0.12",
+  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.12/CurrentRealityPatch-1.0.12.zip",
+  "packageSha256": "8d19aead55a329c5a1a0dc2ca938bfd2124e0ef40ac7e6134447e4c06322c4c2",
+  "packageSize": 69325798,
   "files": [
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/FFXi.dll",
@@ -482,6 +482,11 @@
       "sha256": "da0b3ee061c2d5487fbb5e443836feb8ea2881a96ee126de527cdcbe86cba4fb"
     },
     {
+      "path": "Runtime/addons/crpaste/crpaste.lua",
+      "size": 6622,
+      "sha256": "64f1c1e5fe162714adb47b0a25b4dc8c965a1000e4cfe971b8975e442c7e7faf"
+    },
+    {
       "path": "Runtime/addons/imrecast/imrecast.lua",
       "size": 410,
       "sha256": "cdd12795171f32789449aea5047365b7e89c5cbbae84d54f160585245ad96977"
@@ -495,6 +500,11 @@
       "path": "Runtime/addons/libs/cr_packets.lua",
       "size": 1436,
       "sha256": "976a1b38a511ef58f99cb4aabeb08a22a72e23526b2f4ee17f19ad26c1eed934"
+    },
+    {
+      "path": "Runtime/addons/libs/cr_paste_plan.lua",
+      "size": 914,
+      "sha256": "35361c3604f7bfa5bf32d936263d5612de0b53e7d253a17367b42c9cacc66be0"
     },
     {
       "path": "Runtime/addons/libs/cr_recast_catalog.lua",
@@ -523,8 +533,8 @@
     },
     {
       "path": "Runtime/scripts/default.txt",
-      "size": 2187,
-      "sha256": "80b4241b3e90fa1f7206ff51f945977f3734e5188bfcc5a577aaeb732dfa04df"
+      "size": 2208,
+      "sha256": "b9939d5887fc8f10a3675210583810e2f8c8b608dfdcb3b252958675d99b8ab8"
     },
     {
       "path": "current_reality_launcher.exe",
