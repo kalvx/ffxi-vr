@@ -30,6 +30,7 @@
 
   function obtainSummary(sources = {}) {
     const vendor = sources.vendors?.[0];
+    if (vendor?.type === 'exchange') return `Trade ${vendor.quantity} ${vendor.currency} to ${vendor.name} in ${vendor.zone}.`;
     if (vendor) return `Sold by ${vendor.name} in ${vendor.zone}${vendor.price != null ? ` for ${Number(vendor.price).toLocaleString()} gil` : ''}.`;
     const drop = sources.drops?.[0];
     if (drop) return `Dropped by ${drop.monster} in ${drop.zone} (${drop.rate}% recorded rate).`;
@@ -54,7 +55,7 @@
   function sourceDetails(record = {}) {
     const sources = record.sources || {}, details = [];
     if (record.ah?.listed) details.push(`Purchasable: Auction House · ${record.ah.path.join(' → ')}`);
-    sources.vendors?.slice(0, 2).forEach((vendor) => details.push(`Vendor: ${vendor.name} · ${vendor.zone}${vendor.price != null ? ` · ${Number(vendor.price).toLocaleString()} gil` : ''}`));
+    sources.vendors?.slice(0, 2).forEach((vendor) => details.push(`Vendor: ${vendor.name} · ${vendor.zone}${vendor.type === 'exchange' ? ` · Trade ${vendor.quantity} ${vendor.currency}` : vendor.price != null ? ` · ${Number(vendor.price).toLocaleString()} gil` : ''}`));
     sources.drops?.slice(0, 2).forEach((drop) => details.push(`Drop: ${drop.monster} · ${drop.zone}${drop.rate != null ? ` · ${drop.rate}%` : ''}`));
     if (sources.craftedBy?.length) details.push(`Craftable: ${sources.craftedBy.length} recorded recipe${sources.craftedBy.length === 1 ? '' : 's'}`);
     sources.quests?.slice(0, 2).forEach((quest) => details.push(`Quest: ${quest.quest} · ${quest.area}`));
