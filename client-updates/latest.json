@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "product": "CurrentReality",
-  "version": "1.0.14",
-  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.14/CurrentRealityPatch-1.0.14.zip",
-  "packageSha256": "d74eb8a133126b5fd47dc6030f83eb59d75d18436ad8e6396718dc92ffe481d0",
-  "packageSize": 69326582,
+  "version": "1.0.15",
+  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.15/CurrentRealityPatch-1.0.15.zip",
+  "packageSha256": "13e0f8616e8674ba559f23b00a2f90bef71eeb5aa06707342bd5c3538820cb1d",
+  "packageSize": 69328139,
   "files": [
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/FFXi.dll",
@@ -383,8 +383,8 @@
     },
     {
       "path": "Runtime/addons/cralcbot/cralcbot.lua",
-      "size": 8410,
-      "sha256": "dd64b199aa204779f3c68b7723ce9021658216121cc372358284ab214401ac40"
+      "size": 8383,
+      "sha256": "27a9fe63fcdc12abfeedca8910cf6b51c341780826a393f45a5384ae28c328b9"
     },
     {
       "path": "Runtime/addons/cralltimers/cralltimers.lua",
@@ -493,8 +493,8 @@
     },
     {
       "path": "Runtime/addons/libs/cr_alc_policy.lua",
-      "size": 2057,
-      "sha256": "5d6d79254ac99f30c1a0381b9c61cdff662ce98916270bae394d7ada5a5068a9"
+      "size": 5548,
+      "sha256": "9c24f5941a322b9568e6b57fecdf556e5011ccc21207ebe18acfe2b671ea7d2c"
     },
     {
       "path": "Runtime/addons/libs/cr_packets.lua",
@@ -635,6 +635,11 @@
       "path": "tools/VerifyPlayOnline.exe",
       "size": 13824,
       "sha256": "f1328c0c56c36fbf584f08162c7b6ef2d7720fa63a95eef9a457843533184faa"
+    },
+    {
+      "path": "Runtime/addons/libs/cr_alc_care_data.lua",
+      "size": 1187,
+      "sha256": "bd08c796b31d7850b1b00a702fdcd7e99bfb4cbe5fb4de3b9ec4d66df7e2f7d7"
     }
   ]
 }
