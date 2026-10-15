@@ -1,0 +1,4 @@
+#trust-macro-grid{max-height:560px;overflow:auto}
+.trust-card button[data-trust-copy]{margin:0 0 12px;padding:8px 12px;border:1px solid var(--gold2);background:#09171c;color:var(--aqua);font:700 10px Arial;cursor:pointer}
+.trust-card button[data-trust-copy]:hover{border-color:var(--gold);color:var(--gold)}
+.trust-card button[data-trust-copy]:focus-visible{outline:2px solid var(--aqua);outline-offset:3px}
