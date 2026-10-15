@@ -95,7 +95,7 @@ function loadReferenceData(){
   initializeItemBrowser();renderReference();const requested=new URLSearchParams(location.search).get('item');if(requested)openItemDetail(requested,false);
 }
 
-function actionCard(type,name,detail,command){return `<article><span>${esc(type)}</span><strong>${esc(name)}</strong><p>${esc(detail)}</p><code>${esc(command)}</code><button data-copy="${esc(command)}">Copy</button></article>`;}
+function actionCard(type,name,detail,command,action={}){return `<article><span>${esc(type)}</span><strong>${esc(name)}</strong><p>${esc(detail)}</p>${window.CRMacroTargets.render(command,action)}</article>`;}
 function infoCard(type,name,detail,extra=''){return `<article class="info-card"><span>${esc(type)}</span><strong>${esc(name)}</strong><p>${esc(detail)}</p>${extra?`<small>${esc(extra)}</small>`:''}</article>`;}
 function bindCopy(root=document){root.querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{await navigator.clipboard.writeText(b.dataset.copy);const old=b.textContent;b.textContent='Copied';setTimeout(()=>b.textContent=old,900);});}
 // Trust is a spell group, not an ID range: custom job spells also use IDs 1000+.
@@ -116,15 +116,15 @@ function renderDossier(){
 
 function renderMacroLibrary(){
   const code=document.querySelector('#macro-job').value,kind=document.querySelector('#macro-type').value,q=document.querySelector('#macro-search').value.trim().toLowerCase();
-  const abilities=gameData.abilities.filter(x=>code==='ALL'||x.job===code).map(x=>({type:'Ability',name:x.name,detail:`${x.job} Lv.${x.level}`,command:`/ja "${x.name}" <${x.target===1?'me':'t'}>`}));
-  const spells=gameData.spells.filter(x=>!isTrustSpell(x)&&(code==='ALL'||x.jobs[code])).map(x=>({type:'Spell',name:x.name,detail:code==='ALL'?Object.entries(x.jobs).map(([j,l])=>`${j} ${l}`).join(' · '):`${code} Lv.${x.jobs[code]}`,command:`/ma "${x.name}" <${x.macroTarget||'t'}>`}));
-  const weaponSkills=gameData.weaponSkills.filter(x=>code==='ALL'||x.jobs.includes(code)).map(x=>({type:'Weapon skill',name:x.name,detail:`${x.weapon} · skill ${x.skill}`,command:`/ws "${x.name}" <t>`}));
+  const abilities=gameData.abilities.filter(x=>code==='ALL'||x.job===code).map(x=>({type:'Ability',kind:'ability',id:x.id,mask:x.target,name:x.name,detail:`${x.job} Lv.${x.level}`,command:`/ja "${x.name}" <${x.target===1?'me':'t'}>`}));
+  const spells=gameData.spells.filter(x=>!isTrustSpell(x)&&(code==='ALL'||x.jobs[code])).map(x=>({type:'Spell',kind:'spell',id:x.id,name:x.name,detail:code==='ALL'?Object.entries(x.jobs).map(([j,l])=>`${j} ${l}`).join(' · '):`${code} Lv.${x.jobs[code]}`,command:`/ma "${x.name}" <${x.macroTarget||'t'}>`}));
+  const weaponSkills=gameData.weaponSkills.filter(x=>code==='ALL'||x.jobs.includes(code)).map(x=>({type:'Weapon skill',kind:'weaponskill',id:x.id,name:x.name,detail:`${x.weapon} · skill ${x.skill}`,command:`/ws "${x.name}" <t>`}));
   const general=utilityMacros.map(x=>({type:x.type[0].toUpperCase()+x.type.slice(1),name:x.label,detail:x.detail,command:x.command,category:x.type}));
   let actions=kind==='ability'?abilities:kind==='spell'?spells:kind==='weaponskill'?weaponSkills:kind==='all'?[...general,...weaponSkills,...abilities,...spells]:general.filter(x=>x.category===kind);
-  const matches=actions.filter(x=>`${x.type} ${x.name} ${x.detail} ${x.command}`.toLowerCase().includes(q));
+  const matches=actions.filter(x=>!q||`${x.type} ${x.name} ${x.detail} ${window.CRMacroTargets.variants(x.command,x).map(row=>row.line).join(' ')}`.toLowerCase().includes(q));
   let visible=matches.slice(0,180);
   if(kind==='all'&&!q)visible=[...general,...weaponSkills.slice(0,45),...abilities.slice(0,45),...spells.slice(0,45)];
-  const root=document.querySelector('#macro-results');root.innerHTML=visible.map(x=>actionCard(x.type,x.name,x.detail,x.command)).join('')||'<p class="empty">No matching commands.</p>';if(matches.length>visible.length)root.insertAdjacentHTML('beforeend',`<p class="result-note">Showing ${visible.length} of ${matches.length}. Use a command filter or search to reach the rest.</p>`);bindCopy(root);
+  const root=document.querySelector('#macro-results');root.innerHTML=visible.map(x=>actionCard(x.type,x.name,x.detail,x.command,x)).join('')||'<p class="empty">No matching commands.</p>';if(matches.length>visible.length)root.insertAdjacentHTML('beforeend',`<p class="result-note">Showing ${visible.length} of ${matches.length}. Use a command filter or search to reach the rest.</p>`);window.CRMacroTargets.bind(root);bindCopy(root);
 }
 
 function renderDatabaseCrafts(){

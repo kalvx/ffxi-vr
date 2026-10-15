@@ -1,0 +1,7 @@
+.macro-target-tabs{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0 8px}
+.macro-card .macro-target-tabs button,.macro-results .macro-target-tabs button{margin:0;padding:5px 7px;min-height:26px;border:1px solid var(--line);background:#071116;color:var(--muted);font:10px monospace;text-transform:none;cursor:pointer}
+.macro-card .macro-target-tabs button[aria-selected=true],.macro-results .macro-target-tabs button[aria-selected=true]{border-color:var(--gold);color:var(--gold);background:rgba(207,174,91,.1)}
+.macro-target-tabs button:focus-visible{outline:2px solid var(--aqua);outline-offset:2px}
+.macro-target-choice code{white-space:pre-wrap;overflow-wrap:anywhere}
+.macro-target-note{display:block;margin:5px 0;color:var(--muted);font:10px Arial}
+.macro-target-note[hidden]{display:none}

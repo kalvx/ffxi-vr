@@ -37,7 +37,8 @@ function renderList(query = '') {
 
 function renderDetail() {
   const job = jobs.find(entry => entry.code === selected) || jobs[0];
-  detail.innerHTML = `<div class="job-heading"><span class="job-seal">${job.code}</span><div><p class="eyebrow">Macro loadout</p><h3>${job.name}</h3></div></div><p>${job.summary}</p><div class="ability-tags">${job.abilities.map(a => `<span>${a}</span>`).join('')}</div><h4>Starter macro set</h4><div class="macro-grid">${job.macros.map(([name,line]) => `<article class="macro-card"><strong>${name}</strong><code>${line}</code><button class="copy-button" data-copy="${line.replaceAll('"','&quot;')}">Copy macro</button></article>`).join('')}</div><p class="field-note">Macros are starting points. Adjust targets, waits, and equipment swaps for your own play style and server rules.</p>`;
+  detail.innerHTML = `<div class="job-heading"><span class="job-seal">${job.code}</span><div><p class="eyebrow">Macro loadout</p><h3>${job.name}</h3></div></div><p>${job.summary}</p><div class="ability-tags">${job.abilities.map(a => `<span>${a}</span>`).join('')}</div><h4>Starter macro set</h4><div class="macro-grid">${job.macros.map(([name,line]) => `<article class="macro-card"><strong>${name}</strong>${window.CRMacroTargets.render(line)}</article>`).join('')}</div><p class="field-note">Choose a target tab, then copy its complete macro line. Adjust waits and equipment swaps for your own play style and server rules.</p>`;
+  window.CRMacroTargets.bind(detail);
   detail.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => { await navigator.clipboard.writeText(button.dataset.copy); const old = button.textContent; button.textContent = 'Copied'; setTimeout(() => button.textContent = old, 1200); }));
 }
 

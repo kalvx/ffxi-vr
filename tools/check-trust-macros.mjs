@@ -9,6 +9,7 @@ const elements=new Map();
 const element=id=>{if(!elements.has(id))elements.set(id,{value:'',innerHTML:'',textContent:'',querySelectorAll:()=>[],insertAdjacentHTML(_,s){this.innerHTML+=s;}});return elements.get(id);};
 const document={currentScript:{src:'https://example.test/assets/v4-data.js'},createElement:()=>({}),head:{append(){}},addEventListener(){},querySelector:element};
 const c={document,URL,URLSearchParams,location:{search:'',pathname:'/jobs/index.html',href:'https://example.test/jobs/index.html'},window:{},jobs:[]};
+vm.runInNewContext(read('assets/macro-target-data.js')+'\n'+read('assets/macro-targets.js'),c);
 vm.runInNewContext(read('assets/v4-data.js')+`;globalThis.api={setData:d=>gameData=d,setJob:j=>dossierJob=j,setView:v=>dossierView=v,isTrustSpell,renderDossier,renderMacroLibrary,esc};`,c);
 c.api.setData(data);
 const trusts=data.spells.filter(c.api.isTrustSpell);
