@@ -1,5 +1,5 @@
 (() => {
-  const style=document.createElement('link');style.rel='stylesheet';style.href=new URL('macro-targets.css?v=20261014-tabs2',document.currentScript.src);document.head.append(style);
+  const style=document.createElement('link');style.rel='stylesheet';style.href=new URL('macro-targets.css?v=20261014-bt1',document.currentScript.src);document.head.append(style);
   const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   let sequence=0;
   const generalTargets={attack:4,ra:4,assist:2,follow:2,check:20};
@@ -16,7 +16,7 @@
     const command=line.match(/^\/([a-z]+)\b/i)?.[1].toLowerCase();return generalTargets[command];
   }
   function variants(line,action={}){
-    const token=line.match(/<(t|me|stpc|stnpc)>/i);if(!token)return[{target:null,line,note:''}];
+    const token=line.match(/<(t|me|stpc|stnpc|bt)>/i);if(!token)return[{target:null,line,note:''}];
     const mask=targetMask(line,action);if(mask==null||mask===0)return[{target:token[1].toLowerCase(),line,note:''}];
     const players=mask&(2|8|16|32),conditional=mask&(128|512),enemy=mask&4;
     const allowed=[];
@@ -24,12 +24,13 @@
     if(players||conditional)allowed.push('stpc');
     // Friendly NPC flags also cover Trusts: do not add NPC selectors to player buffs.
     if(enemy||((mask&64)&&!players&&!conditional))allowed.push('stnpc');
+    if(enemy)allowed.push('bt');
     if(mask&1)allowed.push('me');
     if(!allowed.length)return[{target:token[1].toLowerCase(),line,note:''}];
     return allowed.map(target=>({target,line:line.replace(token[0],`<${target}>`),note:target!=='me'&&!players&&conditional?(mask&128?'Requires Pianissimo.':'Requires Entrust.') : ''}));
   }
   function render(line,action={}){
-    const rows=variants(line,action),original=line.match(/<(t|me|stpc|stnpc)>/i)?.[1].toLowerCase();
+    const rows=variants(line,action),original=line.match(/<(t|me|stpc|stnpc|bt)>/i)?.[1].toLowerCase();
     const active=rows.findIndex(row=>row.target===original),index=active<0?0:active,row=rows[index];
     const id=`macro-target-${++sequence}`;
     const tabs=rows.length>1?`<div class="macro-target-tabs" role="tablist" aria-label="Macro targets">${rows.map((r,i)=>`<button type="button" role="tab" id="${id}-${i}" aria-controls="${id}-line" aria-selected="${i===index}" tabindex="${i===index?0:-1}" data-target-line="${escape(r.line)}" data-target-note="${escape(r.note)}">${escape(`<${r.target}>`)}</button>`).join('')}</div>`:'';
