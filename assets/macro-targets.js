@@ -1,5 +1,5 @@
 (() => {
-  const style=document.createElement('link');style.rel='stylesheet';style.href=new URL('macro-targets.css',document.currentScript.src);document.head.append(style);
+  const style=document.createElement('link');style.rel='stylesheet';style.href=new URL('macro-targets.css?v=20261014-tabs2',document.currentScript.src);document.head.append(style);
   const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   let sequence=0;
   const generalTargets={attack:4,ra:4,assist:2,follow:2,check:20};

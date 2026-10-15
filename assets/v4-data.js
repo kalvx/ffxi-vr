@@ -1,4 +1,5 @@
 const itemDetailStyles=document.createElement('link');itemDetailStyles.rel='stylesheet';itemDetailStyles.href=new URL('item-details.css',document.currentScript.src);document.head.append(itemDetailStyles);const itemBrowserStyles=document.createElement('link');itemBrowserStyles.rel='stylesheet';itemBrowserStyles.href=new URL('item-browser.css',document.currentScript.src);document.head.append(itemBrowserStyles);
+const gameDataSourceUrl=document.currentScript.src;
 let gameData=null,dossierJob=new URLSearchParams(location.search).get('job')||'WAR',dossierView='overview',dossierLevel='1-10',itemBrowseGroup=null,itemBrowseType=null;
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const seconds=value=>value?value>=60?`${Math.round(value/60)} min`:`${value} sec`:'—';
@@ -50,10 +51,10 @@ function initializeItemBrowser(){
 }
 
 function itemLink(id){return `${location.pathname}?item=${id}`;}
-function itemHref(id){const source=document.querySelector('script[src$="v4-data.js"]')?.src||location.href;return new URL(`../reference/index.html?item=${id}`,source).href;}
+function itemHref(id){return new URL(`../reference/index.html?item=${id}`,gameDataSourceUrl).href;}
 function itemAnchor(item,label=item.name){return `<a data-item-id="${item.id}" href="${itemHref(item.id)}">${esc(label)}</a>`;}
 const itemSourceShards=new Map();
-async function loadItemSource(id){const shard=Math.floor(Number(id)/256);if(!itemSourceShards.has(shard)){const source=document.querySelector('script[src$="v4-data.js"]')?.src||location.href;itemSourceShards.set(shard,fetch(new URL(`data/item-sources/${shard}.json`,source)).then(r=>{if(!r.ok)throw new Error(`Item sources ${r.status}`);return r.json();}));}const records=await itemSourceShards.get(shard);return records[String(id)]||{};}
+async function loadItemSource(id){const shard=Math.floor(Number(id)/256);if(!itemSourceShards.has(shard)){itemSourceShards.set(shard,fetch(new URL(`data/item-sources/${shard}.json`,gameDataSourceUrl)).then(r=>{if(!r.ok)throw new Error(`Item sources ${r.status}`);return r.json();}));}const records=await itemSourceShards.get(shard);return records[String(id)]||{};}
 function recipeSummary(recipe){return `${recipe.crystal.name}: ${recipe.ingredients.map(x=>`${x.name}${x.qty>1?` ×${x.qty}`:''}`).join(' + ')}`;}
 function recipeSummaryHtml(recipe){return `${itemAnchor(recipe.crystal)}: ${recipe.ingredients.map(x=>`${itemAnchor(x)}${x.qty>1?` ×${x.qty}`:''}`).join(' + ')}`;}
 function sourceSection(title,rows,empty='No matching source is recorded in this server build.'){return `<section><h3>${esc(title)}</h3>${rows.length?`<div class="item-source-list">${rows.join('')}</div>`:`<p class="empty">${esc(empty)}</p>`}</section>`;}
@@ -138,7 +139,7 @@ function renderDatabaseCrafts(){
 }
 
 async function initializeGameData(){
-  const source=document.querySelector('script[src$="v4-data.js"]')?.src||location.href;const [response,indexResponse]=await Promise.all([fetch(new URL('data/game-data.json',source)),fetch(new URL('data/item-index.json',source))]);if(!response.ok)throw new Error(`Database ${response.status}`);gameData=await response.json();if(indexResponse.ok){const index=await indexResponse.json();gameData.items.forEach(item=>item.catalog=index[String(item.id)]||null);}window.gameData=gameData;loadReferenceData();if(typeof renderGear==='function')renderGear();
+  const [response,indexResponse]=await Promise.all([fetch(new URL('data/game-data.json',gameDataSourceUrl)),fetch(new URL('data/item-index.json',gameDataSourceUrl))]);if(!response.ok)throw new Error(`Database ${response.status}`);gameData=await response.json();if(indexResponse.ok){const index=await indexResponse.json();gameData.items.forEach(item=>item.catalog=index[String(item.id)]||null);}window.gameData=gameData;loadReferenceData();if(typeof renderGear==='function')renderGear();
   if(!jobRecord(dossierJob))dossierJob='WAR';
   const options=gameData.jobs.map(j=>`<option value="${j.code}">${j.code} · ${esc(j.name)}</option>`).join('');document.querySelector('#dossier-job').innerHTML=options;document.querySelector('#macro-job').innerHTML='<option value="ALL">All jobs</option>'+options;const controls=document.querySelector('.job-dossier-controls');if(controls&&!document.querySelector('#dossier-level')){const label=document.createElement('label');label.className='dossier-level-filter';label.innerHTML='Equipment levels<select id="dossier-level"><option value="1-10">1–10</option><option value="11-20">11–20</option><option value="21-30">21–30</option><option value="31-40">31–40</option><option value="41-50">41–50</option><option value="51-60">51–60</option><option value="61-70">61–70</option><option value="71-80">71–80</option><option value="81-90">81–90</option><option value="91-99">91–99</option><option value="all">All levels</option></select>';controls.append(label);label.querySelector('select').onchange=e=>{dossierLevel=e.target.value;renderDossier()}}
   document.querySelector('#dossier-job').value=dossierJob;document.querySelector('#dossier-job').onchange=e=>{dossierJob=e.target.value;renderDossier();};document.querySelectorAll('#dossier-tabs [data-view]').forEach(b=>b.onclick=()=>{dossierView=b.dataset.view;document.querySelectorAll('#dossier-tabs button').forEach(x=>x.classList.toggle('active',x===b));renderDossier();});
