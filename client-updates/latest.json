@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "product": "CurrentReality",
-  "version": "1.0.19",
-  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.19/CurrentRealityPatch-1.0.19.zip",
-  "packageSha256": "b9a23ebb57fd789a22f12afdb6c5fcc81015ea6ab98ccc59909d02c4b26ee655",
-  "packageSize": 69334097,
+  "version": "1.0.20",
+  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.20/CurrentRealityPatch-1.0.20.zip",
+  "packageSha256": "50113843683b0d34c3826225db5f9a415064a7481de61cb3d4c1160350737113",
+  "packageSize": 69334360,
   "files": [
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/FFXi.dll",
@@ -648,13 +648,13 @@
     },
     {
       "path": "Runtime/addons/crmap/crmap.lua",
-      "size": 7318,
-      "sha256": "ce6e798aceb1b34a81a9a1a9fafe841b784d9ec2ef7d3b8d7baa7e2d42ef3e15"
+      "size": 7316,
+      "sha256": "b51be68f02a36f7e17279685620d990cbf27e0becd5e2a9c35d7d201a28420fb"
     },
     {
       "path": "Runtime/addons/crmap/control.lua",
-      "size": 3058,
-      "sha256": "7cf0caaa00aa67fcf4dbbe6fc2d4a91b981cfd4d25fcb09fe055cd7237f14f5c"
+      "size": 3671,
+      "sha256": "95e7872589744d85d522bb8f14d5bdca948ae45b724e1c9c30be8f07aaf5740b"
     }
   ]
 }
