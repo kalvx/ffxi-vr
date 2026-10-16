@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "product": "CurrentReality",
-  "version": "1.0.17",
-  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.17/CurrentRealityPatch-1.0.17.zip",
-  "packageSha256": "813116b5759b2487cfecd49e308ddf6290214af06f2eb4316d0d7e0650b8a525",
-  "packageSize": 69328658,
+  "version": "1.0.18",
+  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.18/CurrentRealityPatch-1.0.18.zip",
+  "packageSha256": "73184617714d024d8eb6f79570f73ec5df298311269f919507d20f077a1827a6",
+  "packageSize": 69333831,
   "files": [
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/FFXi.dll",
@@ -383,8 +383,8 @@
     },
     {
       "path": "Runtime/addons/cralcbot/cralcbot.lua",
-      "size": 9133,
-      "sha256": "56697cc0aeb46e7fe7e61e138f5fb4d3808aaa2724ea7d172d0fa3d41703788d"
+      "size": 9231,
+      "sha256": "94083b0cd60aa1357e9f96328e0f990635b16432088341629baf3a9e0b7aa84f"
     },
     {
       "path": "Runtime/addons/cralltimers/cralltimers.lua",
@@ -403,8 +403,8 @@
     },
     {
       "path": "Runtime/addons/crcurse/crcurse.lua",
-      "size": 8429,
-      "sha256": "a1a2de220d365f51aebcdb757711d2dc8157c874dff36ac076f2b313914ef234"
+      "size": 9768,
+      "sha256": "2084538ae8956f6cbc9687f77be44d6c1d400d1a45cd78b19d087e33b08bee9e"
     },
     {
       "path": "Runtime/addons/crcurse/float_actor.lua",
@@ -493,8 +493,8 @@
     },
     {
       "path": "Runtime/addons/libs/cr_alc_policy.lua",
-      "size": 6122,
-      "sha256": "057e1bc29bdb50b50268843c88dbf17da44ffdfac4ee52e68f6a8c0ac798f9bc"
+      "size": 6402,
+      "sha256": "857fe579f2c21cd7b1c92dbcacb439c2d88922893ed9f50dc553262186e83316"
     },
     {
       "path": "Runtime/addons/libs/cr_packets.lua",
@@ -533,8 +533,8 @@
     },
     {
       "path": "Runtime/scripts/default.txt",
-      "size": 2165,
-      "sha256": "97abfeca591eeff3504f850a94445fc1425b07906805a94bc5ca12900983d2bb"
+      "size": 2184,
+      "sha256": "536d8630631c7389bd93ac2e061305dd7278c2e6b9a80dca6267d3c84c473167"
     },
     {
       "path": "current_reality_launcher.exe",
@@ -640,6 +640,21 @@
       "path": "Runtime/addons/libs/cr_alc_care_data.lua",
       "size": 1187,
       "sha256": "bd08c796b31d7850b1b00a702fdcd7e99bfb4cbe5fb4de3b9ec4d66df7e2f7d7"
+    },
+    {
+      "path": "Runtime/addons/libs/cr_alc_transport.lua",
+      "size": 1383,
+      "sha256": "9a85f9befbe18cf968797d9fc48092c9f231eb66697b5c251d8f6a4148f44160"
+    },
+    {
+      "path": "Runtime/addons/crmap/crmap.lua",
+      "size": 6458,
+      "sha256": "d151a9e486252e4720e7b07a405d4f6856c8398fccc5d6811257d8f983252baf"
+    },
+    {
+      "path": "Runtime/addons/crmap/control.lua",
+      "size": 3058,
+      "sha256": "7cf0caaa00aa67fcf4dbbe6fc2d4a91b981cfd4d25fcb09fe055cd7237f14f5c"
     }
   ]
 }
