@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "product": "CurrentReality",
-  "version": "1.0.21",
-  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.21/CurrentRealityPatch-1.0.21.zip",
-  "packageSha256": "0afcbdce8c484f262d6c10065ff5088247fb010cf51aed8e8f66829783b88513",
-  "packageSize": 69334375,
+  "version": "1.0.22",
+  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.22/CurrentRealityPatch-1.0.22.zip",
+  "packageSha256": "7b58e22d2c1048e01ba246476572615c9cb3241f9567871f961793d8fde661e2",
+  "packageSize": 69336433,
   "files": [
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/FFXi.dll",
@@ -398,8 +398,8 @@
     },
     {
       "path": "Runtime/addons/crcrafting/crcrafting.lua",
-      "size": 6195,
-      "sha256": "2b1779cd5f5024746a54dbc934314d9da4e01c50e094accf3e06f97e4db33681"
+      "size": 6874,
+      "sha256": "36120aa3251da0eace7c8db4a2eb2d46b1f09fa921d0d30442e0e7cbd46a7b5c"
     },
     {
       "path": "Runtime/addons/crcurse/crcurse.lua",
@@ -655,6 +655,16 @@
       "path": "Runtime/addons/crmap/control.lua",
       "size": 3671,
       "sha256": "95e7872589744d85d522bb8f14d5bdca948ae45b724e1c9c30be8f07aaf5740b"
+    },
+    {
+      "path": "Runtime/addons/crcrafting/compass.lua",
+      "size": 3369,
+      "sha256": "4220dfae32224d36dc0650768dd505d51e6fc0163097b75c185bb7381f4d5a9d"
+    },
+    {
+      "path": "Runtime/addons/crcrafting/compass_data.lua",
+      "size": 415,
+      "sha256": "a55214e41d6c1ec05b62bb3c00fff8101a24bbb4bbdf96061ee30dc8d119ed63"
     }
   ]
 }
