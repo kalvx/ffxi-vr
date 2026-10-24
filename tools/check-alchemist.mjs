@@ -18,6 +18,11 @@ for(const [id,level,name] of [[256,10,'Virus'],[1000,37,'Float'],[1001,40,'Mana 
  assert.equal(spell.mp,id===1021?25:id===1022?35:0);assert.equal(spell.prepared,true);
  assert.equal(spell.macroTarget,[1000,1001].includes(id)?'me':'t');
 }
+for(const id of [1021,1022])assert.equal(data.spells.find(s=>s.id===id).description,'Deals non-elemental damage to one enemy.');
+const magicGuide=fs.readFileSync(path.join(root,'jobs/alchemist/magic.html'),'utf8');
+assert.ok(magicGuide.includes('<td>Mix: Meteor</td><td>60</td><td>25</td>'));
+assert.ok(magicGuide.includes('<td>Mix: Meteor II</td><td>72</td><td>35</td>'));
+assert.ok(!magicGuide.includes('base multiplier')&&!magicGuide.includes('40%'));
 const customItems=json('assets/data/item-sources/89.json');
 for(const [id,level,seals] of [[23030,20,5],[23031,30,10],[23032,40,20],[23033,60,40]]){
  const record=customItems[id];assert.equal(record.item.equip.level,level);
