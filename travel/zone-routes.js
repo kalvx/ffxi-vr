@@ -4,6 +4,7 @@
   const exits=window.CR_ZONE_EXITS||{};
   const field=window.CR_ZONE_FIELD_GUIDES||{};
   const maps=window.CR_ZONE_MAPS||{};
+  const travel=window.CR_ZONE_TRAVEL||{};
   const root=document.querySelector('#world-route-root');
   const search=document.querySelector('#route-search');
   const type=document.querySelector('#route-expansion');
@@ -26,6 +27,17 @@
   const getExits=zone=>{const k=keyFor(zone);return k?exits[k]:null};
   const getField=zone=>{const k=fieldKeyFor(zone);return k?field[k]:null};
   const mapFor=zone=>maps[zone]||maps[Object.keys(maps).find(k=>norm(k)===norm(zone))]||null;
+  const travelFor=zone=>travel[zone]||travel[Object.keys(travel).find(k=>norm(k)===norm(zone))]||null;
+  const regionFor=zone=>travelFor(zone)?.region||'Other areas';
+  const areaOrder=(a,b)=>a.localeCompare(b,'en',{sensitivity:'base',numeric:true});
+  const mapLink=(zone,label)=>mapFor(zone)?`<button type="button" class="zone-travel-link" data-open-map="${esc(zone)}">${esc(label)}</button>`:esc(label);
+  function travelSummary(zone){
+    const t=travelFor(zone);if(!t)return'';
+    const outpost=t.outpost?`${t.outpostNearby?'Nearby outpost':'Outpost'}: ${mapLink(t.outpost.zone,`${t.outpost.region} — ${t.outpost.zone}`)}`:'Outpost: no conquest outpost in this region';
+    const crystal=t.crystals.length?`Closest crystal${t.crystals.length>1?'s':''}: ${t.crystals.map(c=>mapLink(c.zone,`${c.name} — ${c.zone}`)).join(' / ')}`:`Closest crystal: ${esc(t.crystalNote)}`;
+    const note=t.approachNote?`<span class="zone-travel-note">${esc(t.approachNote)}</span>`:'';
+    return `<div class="zone-travel"><span>${outpost}</span><span title="Closest approach by the fewest mapped land-zone connections. Tied approaches are listed together; access requirements still apply.">${crystal}</span>${note}</div>`;
+  }
   const coordRe=/\[([A-N](?:\/[A-N])?)-(\d{1,2})\]/g;
 
   function parseExit(raw){
@@ -43,7 +55,9 @@
   function refreshViewerInfo(){
     const m=mapFor(currentZone); if(!m)return;
     const list=getExits(currentZone)||[];
-    viewerInfo.innerHTML=`<span>Zone ID ${m.zoneId} / 0x${m.hex}</span><span>${m.maps.length} map${m.maps.length===1?'':'s'}</span><span>${list.length} mapped connection${list.length===1?'':'s'}</span>${m.source?`<span>${esc(m.source)}</span>`:''}`;
+    viewerInfo.innerHTML=`<span>${esc(regionFor(currentZone))}</span><span>Zone ID ${m.zoneId} / 0x${m.hex}</span><span>${m.maps.length} map${m.maps.length===1?'':'s'}</span><span>${list.length} mapped connection${list.length===1?'':'s'}</span>${m.source?`<span>${esc(m.source)}</span>`:''}`;
+    const travelInfo=document.querySelector('#map-viewer-travel');
+    if(travelInfo)travelInfo.innerHTML=travelSummary(currentZone);
   }
   function setMap(index){
     const m=mapFor(currentZone); if(!m||!m.maps[index])return;
@@ -82,6 +96,7 @@
   function closeMap(){if(!viewer)return;viewer.hidden=true;document.body.classList.remove('map-viewer-open');currentZone=''}
 
   viewerTabs?.addEventListener('click',e=>{const b=e.target.closest('[data-map-index]');if(b)setMap(Number(b.dataset.mapIndex))});
+  document.querySelector('#map-viewer-travel')?.addEventListener('click',e=>{const b=e.target.closest('[data-open-map]');if(b)openMap(b.dataset.openMap)});
   viewerClose?.addEventListener('click',closeMap);
   viewer?.addEventListener('click',e=>{if(e.target===viewer)closeMap()});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!viewer?.hidden)closeMap()});
@@ -168,9 +183,10 @@
     if(g?.npcs?.length)summaryBits.push(`${g.npcs.length} NPC${g.npcs.length===1?'':'s'}`);
     const mobCount=(g?.mobs?.length||0)+(g?.nms?.length||0)+(g?.hnms?.length||0);
     if(mobCount)summaryBits.push(`${mobCount} mob/NM entr${mobCount===1?'y':'ies'}`);
+    summaryBits.push(regionFor(zone));
     const quick=summaryBits.length?`<div class="zone-quick">${summaryBits.map(esc).join(' • ')}</div>`:'';
     const exitsPanel=`<details class="route-detail exits-panel"><summary>Exits & connections</summary>${exitList(zone)}</details>`;
-    return `<article class="trust-card route-card" data-zone="${esc(zone.toLowerCase())}"><small>ZONE FIELD GUIDE</small><h3>${esc(zone)}</h3>${mapPreview(zone)}${quick}${exitsPanel}${d?.access?`<p><strong>Access:</strong> ${esc(d.access)}</p>`:''}${d?.protection?`<p><strong>Sneak / Invisible:</strong> ${esc(d.protection)}</p>`:''}${hazards}${routes}${dbLoader(zone)}${fieldGuide(zone)}${unlocks}</article>`;
+    return `<article class="trust-card route-card" data-zone="${esc(zone.toLowerCase())}"><small>ZONE FIELD GUIDE</small><h3>${esc(zone)}</h3>${mapPreview(zone)}${quick}${travelSummary(zone)}${exitsPanel}${d?.access?`<p><strong>Access:</strong> ${esc(d.access)}</p>`:''}${d?.protection?`<p><strong>Sneak / Invisible:</strong> ${esc(d.protection)}</p>`:''}${hazards}${routes}${dbLoader(zone)}${fieldGuide(zone)}${unlocks}</article>`;
   };
 
   root.addEventListener('click',e=>{
@@ -199,7 +215,14 @@
     data.forEach(group=>{
       if(exp!=='all'&&group.id!==exp)return;
       const regions=[];
-      group.regions.forEach(region=>{
+      const grouped=new Map();
+      [...new Set(group.regions.flatMap(region=>region.zones))].forEach(zone=>{
+        const region=regionFor(zone);
+        if(!grouped.has(region))grouped.set(region,[]);
+        grouped.get(region).push(zone);
+      });
+      [...grouped.keys()].sort(areaOrder).forEach(name=>{
+        const region={name,zones:grouped.get(name).sort(areaOrder)};
         const zones=region.zones.filter(z=>!q||z.toLowerCase().includes(q)||region.name.toLowerCase().includes(q)||group.name.toLowerCase().includes(q));
         if(!zones.length)return;
         regions.push(`<details class="route-region" open><summary><strong>${esc(region.name)}</strong> <span>${zones.length} areas</span></summary><div class="trust-grid">${zones.map(routeCard).join('')}</div></details>`);
