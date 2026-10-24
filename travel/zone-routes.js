@@ -31,10 +31,11 @@
   const regionFor=zone=>travelFor(zone)?.region||'Other areas';
   const areaOrder=(a,b)=>a.localeCompare(b,'en',{sensitivity:'base',numeric:true});
   const mapLink=(zone,label)=>mapFor(zone)?`<button type="button" class="zone-travel-link" data-open-map="${esc(zone)}">${esc(label)}</button>`:esc(label);
+  const crystalLandmark=name=>['Holla','Dem','Mea'].includes(name)?'beside the Shattered Telepoint':'near the intact Telepoint';
   function travelSummary(zone){
     const t=travelFor(zone);if(!t)return'';
     const outpost=t.outpost?`${t.outpostNearby?'Nearby outpost':'Outpost'}: ${mapLink(t.outpost.zone,`${t.outpost.region} — ${t.outpost.zone}`)}`:'Outpost: no conquest outpost in this region';
-    const crystal=t.crystals.length?`Closest crystal${t.crystals.length>1?'s':''}: ${t.crystals.map(c=>mapLink(c.zone,`${c.name} — ${c.zone}`)).join(' / ')}`:`Closest crystal: ${esc(t.crystalNote)}`;
+    const crystal=t.crystals.length?`Closest crystal${t.crystals.length>1?'s':''}: ${t.crystals.map(c=>`${mapLink(c.zone,`${c.name} — ${c.zone}`)} (<a href="blue-crystals.html#${esc(c.name.toLowerCase())}">${esc(crystalLandmark(c.name))}; location</a>)`).join(' / ')}`:`Closest crystal: ${esc(t.crystalNote)}`;
     const note=t.approachNote?`<span class="zone-travel-note">${esc(t.approachNote)}</span>`:'';
     return `<div class="zone-travel"><span>${outpost}</span><span title="Closest approach by the fewest mapped land-zone connections. Tied approaches are listed together; access requirements still apply.">${crystal}</span>${note}</div>`;
   }

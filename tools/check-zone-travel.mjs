@@ -71,8 +71,10 @@ assert.ok(element('#map-viewer-travel').innerHTML.includes('Dem — Konschtat Hi
 element('#map-viewer-travel').events.click({target:{closest:()=>({dataset:{openMap:'La Theine Plateau'}})}});
 assert.equal(element('#map-viewer-title').textContent,'La Theine Plateau');
 assert.ok(element('#map-viewer-travel').innerHTML.includes('Holla — La Theine Plateau'));
+assert.ok(element('#map-viewer-travel').innerHTML.includes('blue-crystals.html#holla'));
+assert.ok(element('#map-viewer-travel').innerHTML.includes('beside the Shattered Telepoint'));
 const page=read('travel/zone-routes.html');
 assert.ok(page.indexOf('zone-travel-data.js')<page.indexOf('zone-routes.js?v='));
-assert.ok(page.includes('zone-routes.js?v=20261023-regions2'));
+assert.ok(page.includes('zone-routes.js?v=20261024-crystal-locations'));
 assert.ok(page.includes('grid-template-rows:auto auto auto minmax(0,1fr)'));
 console.log('PASS: all 210 areas, six expansions, exact region grouping, crystal/outpost coverage, post-load summaries, search and actual map-link callbacks.');
