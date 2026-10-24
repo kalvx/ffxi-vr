@@ -12,10 +12,10 @@ for(const id of [136,137])assert.equal(data.abilities.find(a=>a.id===id).recast,
 for(const id of [140,147])assert.equal(data.abilities.find(a=>a.id===id).recast,30);
 const curse=data.spells.find(s=>s.id===257);
 assert.deepEqual(curse.jobs,{ALC:25});assert.equal(curse.mp,0);
-for(const [id,level,name] of [[256,10,'Virus'],[1000,37,'Float'],[1001,40,'Mana Shield'],[1020,50,'Mix: Impact'],[1021,60,'Mix: Meteor'],[1022,60,'Mix: Meteor II']]){
+for(const [id,level,name] of [[256,10,'Virus'],[1000,37,'Float'],[1001,40,'Mana Shield'],[1020,50,'Mix: Impact'],[1021,60,'Mix: Meteor'],[1022,72,'Mix: Meteor II']]){
  const spell=data.spells.find(s=>s.id===id);
  assert.equal(spell.name,name);assert.deepEqual(spell.jobs,{ALC:level});
- assert.equal(spell.mp,0);assert.equal(spell.prepared,true);
+ assert.equal(spell.mp,id===1021?25:id===1022?35:0);assert.equal(spell.prepared,true);
  assert.equal(spell.macroTarget,[1000,1001].includes(id)?'me':'t');
 }
 const customItems=json('assets/data/item-sources/89.json');
