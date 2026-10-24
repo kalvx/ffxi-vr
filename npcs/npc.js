@@ -88,7 +88,7 @@
   input.addEventListener('input', render);
   area.addEventListener('change', render);
   technical.addEventListener('change', render);
-  fetch('quest-index.json').then(response => { if (!response.ok) throw Error('Index unavailable'); return response.json(); }).then(data => {
+  fetch('quest-index.json?v=20261024-companions').then(response => { if (!response.ok) throw Error('Index unavailable'); return response.json(); }).then(data => {
     people = data;
     for (const zone of [...new Set(data.flatMap(p => p.zones))].sort((a, b) => a.localeCompare(b))) {
       const option = document.createElement('option'); option.value = zone; option.textContent = zone; area.append(option);

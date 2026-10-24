@@ -35,13 +35,17 @@ def clean(value):
     return re.sub(r'\s+',' ',unescape(value)).strip(' ;')
 
 parsed={norm(name):fields(body) for name,body in blocks}
-raw=re.search(r'const raw=`([^`]+)`',(ROOT/'trusts/trusts.js').read_text(encoding='utf-8')).group(1)
+catalog=json.loads((ROOT/'trusts/purchase-data.json').read_text(encoding='utf-8'))
+prices={r['id']:r for r in catalog}
+raw=','.join(str(r['id'])+':'+r['key'] for r in catalog)
 aliases={'aahm':'Ark Angel HM','aaev':'Ark Angel EV','aamr':'Ark Angel MR','aatt':'Ark Angel TT','aagk':'Ark Angel GK','d_shantotto':'Domina Shantotto','babban':'Babban Mheillea','i_shield_uc':'Invincible Shield (UC)','naja_uc':'Naja Salaheem (UC)','jakoh_uc':'Jakoh Wahcondalo (UC)','yoran-oran_uc':'Yoran-Oran (UC)','pieuje_uc':'Pieuje (UC)','apururu_uc':'Apururu (UC)','flaviria_uc':'Flaviria (UC)','ayame_uc':'Ayame (UC)','maat_uc':'Maat (UC)','aldo_uc':'Aldo (UC)','sylvie_uc':'Sylvie (UC)','excenmille_s':'Excenmille (S)','selh_teus':"Selh'teus"}
 def pretty(key):return aliases.get(key,key.replace('_ii',' II').replace('_uc',' (UC)').replace('_',' ').title())
 records=[]
 for row in raw.split(','):
     spell_id,key=row.split(':',1);name=pretty(key);data=parsed[norm(name)]
-    records.append({'id':int(spell_id),'key':key,'name':name,'job':clean(data.get('Job','Not listed')),'acquisition':clean(data.get('Acquisition','Acquisition not listed')),'weaponSkills':clean(data.get('Weapon Skills','None')),'behavior':clean(data.get('Special','No additional behavior note listed'))})
+    item=prices[int(spell_id)]
+    acquisition=f"Purchase from Trusty-Musky in Mhaura, near Home Point #1: {item['seals']} Kindred’s Seals. Choose this shadow, then trade the exact price. A matching quest or Cipher memory reduces the price by one seal, minimum one. No nation tutorial or Shadow Lord clear is required."
+    records.append({'id':int(spell_id),'key':key,'name':name,'job':clean(data.get('Job','Not listed')),'seals':item['seals'],'role':item['role'],'acquisition':acquisition,'legacyAcquisition':clean(data.get('Acquisition','Acquisition not listed')),'weaponSkills':clean(data.get('Weapon Skills','None')),'behavior':clean(data.get('Special','No additional behavior note listed'))})
 out='const TRUST_DETAILS='+json.dumps(records,ensure_ascii=False,separators=(',',':'))+';\n'
 (ROOT/'trusts/trust-data.js').write_text(out,encoding='utf-8')
 print(f'Wrote {len(records)} local Trust records')

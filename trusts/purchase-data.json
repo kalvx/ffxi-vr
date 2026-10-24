@@ -1,0 +1,835 @@
+[
+  {
+    "id": 959,
+    "key": "abenzio",
+    "name": "Abenzio",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 982,
+    "key": "abquhbah",
+    "name": "Abquhbah",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 968,
+    "key": "adelheid",
+    "name": "Adelheid",
+    "role": "Magic support",
+    "seals": 4
+  },
+  {
+    "id": 904,
+    "key": "ajido-marujido",
+    "name": "Ajido-Marujido",
+    "role": "Magic damage",
+    "seals": 3
+  },
+  {
+    "id": 930,
+    "key": "aldo",
+    "name": "Aldo",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 1007,
+    "key": "aldo_uc",
+    "name": "Aldo (UC)",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 969,
+    "key": "amchuchu",
+    "name": "Amchuchu",
+    "role": "Tank",
+    "seals": 6
+  },
+  {
+    "id": 955,
+    "key": "apururu_uc",
+    "name": "Apururu (UC)",
+    "role": "Healer",
+    "seals": 8
+  },
+  {
+    "id": 965,
+    "key": "arciela",
+    "name": "Arciela",
+    "role": "Support",
+    "seals": 4
+  },
+  {
+    "id": 1017,
+    "key": "arciela_ii",
+    "name": "Arciela II",
+    "role": "Support",
+    "seals": 8
+  },
+  {
+    "id": 939,
+    "key": "areuhat",
+    "name": "Areuhat",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 993,
+    "key": "aaev",
+    "name": "Ark Angel EV",
+    "role": "Tank",
+    "seals": 6
+  },
+  {
+    "id": 996,
+    "key": "aagk",
+    "name": "Ark Angel GK",
+    "role": "Damage",
+    "seals": 6
+  },
+  {
+    "id": 992,
+    "key": "aahm",
+    "name": "Ark Angel HM",
+    "role": "Tank",
+    "seals": 6
+  },
+  {
+    "id": 994,
+    "key": "aamr",
+    "name": "Ark Angel MR",
+    "role": "Damage",
+    "seals": 6
+  },
+  {
+    "id": 995,
+    "key": "aatt",
+    "name": "Ark Angel TT",
+    "role": "Magic damage",
+    "seals": 6
+  },
+  {
+    "id": 984,
+    "key": "august",
+    "name": "August",
+    "role": "Tank",
+    "seals": 8
+  },
+  {
+    "id": 900,
+    "key": "ayame",
+    "name": "Ayame",
+    "role": "Damage",
+    "seals": 2
+  },
+  {
+    "id": 1005,
+    "key": "ayame_uc",
+    "name": "Ayame (UC)",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 958,
+    "key": "babban",
+    "name": "Babban Mheillea",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 983,
+    "key": "balamor",
+    "name": "Balamor",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 970,
+    "key": "brygid",
+    "name": "Brygid",
+    "role": "Aura support",
+    "seals": 4
+  },
+  {
+    "id": 963,
+    "key": "chacharoon",
+    "name": "Chacharoon",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 916,
+    "key": "cherukiki",
+    "name": "Cherukiki",
+    "role": "Healer",
+    "seals": 6
+  },
+  {
+    "id": 937,
+    "key": "cid",
+    "name": "Cid",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 902,
+    "key": "curilla",
+    "name": "Curilla",
+    "role": "Tank",
+    "seals": 2
+  },
+  {
+    "id": 991,
+    "key": "darrcuiln",
+    "name": "Darrcuiln",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 934,
+    "key": "d_shantotto",
+    "name": "Domina Shantotto",
+    "role": "Magic damage",
+    "seals": 3
+  },
+  {
+    "id": 941,
+    "key": "elivira",
+    "name": "Elivira",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 899,
+    "key": "excenmille",
+    "name": "Excenmille",
+    "role": "Tank",
+    "seals": 1
+  },
+  {
+    "id": 1004,
+    "key": "excenmille_s",
+    "name": "Excenmille (S)",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 932,
+    "key": "fablinix",
+    "name": "Fablinix",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 944,
+    "key": "ferreous_coffin",
+    "name": "Ferreous Coffin",
+    "role": "Healer",
+    "seals": 3
+  },
+  {
+    "id": 957,
+    "key": "flaviria_uc",
+    "name": "Flaviria (UC)",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 919,
+    "key": "gadalar",
+    "name": "Gadalar",
+    "role": "Magic damage",
+    "seals": 3
+  },
+  {
+    "id": 918,
+    "key": "gessho",
+    "name": "Gessho",
+    "role": "Tank",
+    "seals": 3
+  },
+  {
+    "id": 938,
+    "key": "gilgamesh",
+    "name": "Gilgamesh",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 972,
+    "key": "halver",
+    "name": "Halver",
+    "role": "Tank",
+    "seals": 4
+  },
+  {
+    "id": 921,
+    "key": "ingrid",
+    "name": "Ingrid",
+    "role": "Healer",
+    "seals": 3
+  },
+  {
+    "id": 1016,
+    "key": "ingrid_ii",
+    "name": "Ingrid II",
+    "role": "Healer",
+    "seals": 6
+  },
+  {
+    "id": 954,
+    "key": "i_shield_uc",
+    "name": "Invincible Shield (UC)",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 997,
+    "key": "iroha",
+    "name": "Iroha",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 1018,
+    "key": "iroha_ii",
+    "name": "Iroha II",
+    "role": "Damage",
+    "seals": 8
+  },
+  {
+    "id": 917,
+    "key": "iron_eater",
+    "name": "Iron Eater",
+    "role": "Damage",
+    "seals": 2
+  },
+  {
+    "id": 956,
+    "key": "jakoh_uc",
+    "name": "Jakoh Wahcondalo (UC)",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 911,
+    "key": "joachim",
+    "name": "Joachim",
+    "role": "Support",
+    "seals": 6
+  },
+  {
+    "id": 936,
+    "key": "karaha-baruha",
+    "name": "Karaha-Baruha",
+    "role": "Healer",
+    "seals": 6
+  },
+  {
+    "id": 976,
+    "key": "kayeel-payeel",
+    "name": "Kayeel-Payeel",
+    "role": "Magic damage",
+    "seals": 4
+  },
+  {
+    "id": 989,
+    "key": "king_of_hearts",
+    "name": "King Of Hearts",
+    "role": "Support",
+    "seals": 6
+  },
+  {
+    "id": 948,
+    "key": "klara",
+    "name": "Klara",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 952,
+    "key": "koru-moru",
+    "name": "Koru-Moru",
+    "role": "Support",
+    "seals": 6
+  },
+  {
+    "id": 961,
+    "key": "kukki-chebukki",
+    "name": "Kukki-Chebukki",
+    "role": "Magic damage",
+    "seals": 4
+  },
+  {
+    "id": 898,
+    "key": "kupipi",
+    "name": "Kupipi",
+    "role": "Healer",
+    "seals": 1
+  },
+  {
+    "id": 978,
+    "key": "kupofried",
+    "name": "Kupofried",
+    "role": "Aura support",
+    "seals": 4
+  },
+  {
+    "id": 950,
+    "key": "kuyin_hathdenna",
+    "name": "Kuyin Hathdenna",
+    "role": "Support",
+    "seals": 3
+  },
+  {
+    "id": 922,
+    "key": "lehko_habhoka",
+    "name": "Lehko Habhoka",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 974,
+    "key": "leonoyne",
+    "name": "Leonoyne",
+    "role": "Magic damage",
+    "seals": 4
+  },
+  {
+    "id": 964,
+    "key": "lhe_lhangavo",
+    "name": "Lhe Lhangavo",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 943,
+    "key": "lhu_mhakaracca",
+    "name": "Lhu Mhakaracca",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 945,
+    "key": "lilisette",
+    "name": "Lilisette",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 1013,
+    "key": "lilisette_ii",
+    "name": "Lilisette II",
+    "role": "Damage",
+    "seals": 6
+  },
+  {
+    "id": 907,
+    "key": "lion",
+    "name": "Lion",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 1009,
+    "key": "lion_ii",
+    "name": "Lion II",
+    "role": "Damage",
+    "seals": 6
+  },
+  {
+    "id": 928,
+    "key": "luzaf",
+    "name": "Luzaf",
+    "role": "Support",
+    "seals": 3
+  },
+  {
+    "id": 933,
+    "key": "maat",
+    "name": "Maat",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 1006,
+    "key": "maat_uc",
+    "name": "Maat (UC)",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 988,
+    "key": "makki-chebukki",
+    "name": "Makki-Chebukki",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 962,
+    "key": "margret",
+    "name": "Margret",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 975,
+    "key": "maximilian",
+    "name": "Maximilian",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 966,
+    "key": "mayakov",
+    "name": "Mayakov",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 909,
+    "key": "mihli_aliapoh",
+    "name": "Mihli Aliapoh",
+    "role": "Healer",
+    "seals": 3
+  },
+  {
+    "id": 971,
+    "key": "mildaurion",
+    "name": "Mildaurion",
+    "role": "Tank",
+    "seals": 4
+  },
+  {
+    "id": 926,
+    "key": "mnejing",
+    "name": "Mnejing",
+    "role": "Tank",
+    "seals": 3
+  },
+  {
+    "id": 931,
+    "key": "moogle",
+    "name": "Moogle",
+    "role": "Aura support",
+    "seals": 3
+  },
+  {
+    "id": 990,
+    "key": "morimar",
+    "name": "Morimar",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 946,
+    "key": "mumor",
+    "name": "Mumor",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 1015,
+    "key": "mumor_ii",
+    "name": "Mumor II",
+    "role": "Magic damage",
+    "seals": 6
+  },
+  {
+    "id": 912,
+    "key": "naja_salaheem",
+    "name": "Naja Salaheem",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 1008,
+    "key": "naja_uc",
+    "name": "Naja Salaheem (UC)",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 929,
+    "key": "najelith",
+    "name": "Najelith",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 897,
+    "key": "naji",
+    "name": "Naji",
+    "role": "Damage",
+    "seals": 1
+  },
+  {
+    "id": 901,
+    "key": "nanaa_mihgo",
+    "name": "Nanaa Mihgo",
+    "role": "Damage",
+    "seals": 2
+  },
+  {
+    "id": 923,
+    "key": "nashmeira",
+    "name": "Nashmeira",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 1012,
+    "key": "nashmeira_ii",
+    "name": "Nashmeira II",
+    "role": "Healer",
+    "seals": 6
+  },
+  {
+    "id": 942,
+    "key": "noillurie",
+    "name": "Noillurie",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 925,
+    "key": "ovjang",
+    "name": "Ovjang",
+    "role": "Support",
+    "seals": 3
+  },
+  {
+    "id": 953,
+    "key": "pieuje_uc",
+    "name": "Pieuje (UC)",
+    "role": "Healer",
+    "seals": 4
+  },
+  {
+    "id": 913,
+    "key": "prishe",
+    "name": "Prishe",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 1011,
+    "key": "prishe_ii",
+    "name": "Prishe II",
+    "role": "Healer",
+    "seals": 6
+  },
+  {
+    "id": 967,
+    "key": "qultada",
+    "name": "Qultada",
+    "role": "Support",
+    "seals": 6
+  },
+  {
+    "id": 951,
+    "key": "rahal",
+    "name": "Rahal",
+    "role": "Tank",
+    "seals": 3
+  },
+  {
+    "id": 920,
+    "key": "rainemard",
+    "name": "Rainemard",
+    "role": "Support",
+    "seals": 3
+  },
+  {
+    "id": 977,
+    "key": "robel-akbel",
+    "name": "Robel-Akbel",
+    "role": "Magic damage",
+    "seals": 4
+  },
+  {
+    "id": 949,
+    "key": "romaa_mihgo",
+    "name": "Romaa Mihgo",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 973,
+    "key": "rongelouts",
+    "name": "Rongelouts",
+    "role": "Damage",
+    "seals": 4
+  },
+  {
+    "id": 985,
+    "key": "rosulatia",
+    "name": "Rosulatia",
+    "role": "Magic damage",
+    "seals": 4
+  },
+  {
+    "id": 960,
+    "key": "rughadjeen",
+    "name": "Rughadjeen",
+    "role": "Tank",
+    "seals": 4
+  },
+  {
+    "id": 927,
+    "key": "sakura",
+    "name": "Sakura",
+    "role": "Aura support",
+    "seals": 3
+  },
+  {
+    "id": 979,
+    "key": "selh_teus",
+    "name": "Selh'teus",
+    "role": "Tank",
+    "seals": 8
+  },
+  {
+    "id": 940,
+    "key": "semih_lafihna",
+    "name": "Semih Lafihna",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 896,
+    "key": "shantotto",
+    "name": "Shantotto",
+    "role": "Magic damage",
+    "seals": 3
+  },
+  {
+    "id": 1019,
+    "key": "shantotto_ii",
+    "name": "Shantotto II",
+    "role": "Magic damage",
+    "seals": 10
+  },
+  {
+    "id": 915,
+    "key": "shikaree_z",
+    "name": "Shikaree Z",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 935,
+    "key": "star_sibyl",
+    "name": "Star Sibyl",
+    "role": "Aura support",
+    "seals": 3
+  },
+  {
+    "id": 981,
+    "key": "sylvie_uc",
+    "name": "Sylvie (UC)",
+    "role": "Support",
+    "seals": 8
+  },
+  {
+    "id": 908,
+    "key": "tenzen",
+    "name": "Tenzen",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 1014,
+    "key": "tenzen_ii",
+    "name": "Tenzen II",
+    "role": "Damage",
+    "seals": 6
+  },
+  {
+    "id": 986,
+    "key": "teodor",
+    "name": "Teodor",
+    "role": "Magic damage",
+    "seals": 4
+  },
+  {
+    "id": 905,
+    "key": "trion",
+    "name": "Trion",
+    "role": "Tank",
+    "seals": 3
+  },
+  {
+    "id": 947,
+    "key": "uka_totlihn",
+    "name": "Uka Totlihn",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 987,
+    "key": "ullegore",
+    "name": "Ullegore",
+    "role": "Magic damage",
+    "seals": 4
+  },
+  {
+    "id": 914,
+    "key": "ulmia",
+    "name": "Ulmia",
+    "role": "Support",
+    "seals": 6
+  },
+  {
+    "id": 910,
+    "key": "valaineral",
+    "name": "Valaineral",
+    "role": "Tank",
+    "seals": 6
+  },
+  {
+    "id": 903,
+    "key": "volker",
+    "name": "Volker",
+    "role": "Damage",
+    "seals": 2
+  },
+  {
+    "id": 998,
+    "key": "ygnas",
+    "name": "Ygnas",
+    "role": "Healer",
+    "seals": 10
+  },
+  {
+    "id": 980,
+    "key": "yoran-oran_uc",
+    "name": "Yoran-Oran (UC)",
+    "role": "Healer",
+    "seals": 8
+  },
+  {
+    "id": 924,
+    "key": "zazarg",
+    "name": "Zazarg",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 906,
+    "key": "zeid",
+    "name": "Zeid",
+    "role": "Damage",
+    "seals": 3
+  },
+  {
+    "id": 1010,
+    "key": "zeid_ii",
+    "name": "Zeid II",
+    "role": "Damage",
+    "seals": 6
+  }
+]

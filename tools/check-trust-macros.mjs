@@ -31,16 +31,20 @@ for(const name of ['Virus','Curse','Float','Mana Shield','Mix: Impact','Mix: Met
 assert.equal((alc.match(/class="info-card"/g)||[]).length,7);
 const t={document,setTimeout(){},navigator:{clipboard:{writeText:async()=>{}}}};
 vm.runInNewContext(read('trusts/trust-data.js')+'\n'+read('trusts/macro-data.js')+'\n'+read('trusts/trusts.js')+';globalThis.api={details:TRUST_DETAILS,names:TRUST_MACRO_NAMES,render,renderTrustMacros,trustSummonCommand};',t);
-assert.equal(t.api.details.length,120);assert.equal(Object.keys(t.api.names).length,120);
-assert.deepEqual([...t.api.details.map(x=>x.id)].sort((a,b)=>a-b),trusts.map(x=>x.id).sort((a,b)=>a-b));
+assert.equal(t.api.details.length,119);assert.equal(Object.keys(t.api.names).length,119);
+assert.deepEqual([...t.api.details.map(x=>x.id)].sort((a,b)=>a-b),trusts.filter(x=>x.id!==999).map(x=>x.id).sort((a,b)=>a-b));
+assert.ok(!t.api.details.some(x=>x.id===999));assert.ok(!t.api.names[999]);
+const purchases=JSON.parse(read('trusts/purchase-data.json'));
+for(const trust of t.api.details){const price=purchases.find(x=>x.id===trust.id);assert.equal(trust.seals,price.seals);assert.ok(trust.acquisition.includes('Trusty-Musky'));}
 element('#trust-macro-search').value='';t.api.renderTrustMacros();
-assert.equal((element('#trust-macro-grid').innerHTML.match(/data-trust-copy=/g)||[]).length,120);
+assert.equal((element('#trust-macro-grid').innerHTML.match(/data-trust-copy=/g)||[]).length,119);
 for(const name of ['D. Shantotto','I. Shield (UC)',"Selh'teus",'Excenmille [S]','AAHM','Shantotto II'])assert.ok(Object.values(t.api.names).includes(name));
 for(const trust of t.api.details)assert.equal(t.api.trustSummonCommand(trust),`/ma "${t.api.names[trust.id]}" <me>`);
 element('#trust-macro-search').value='Shantotto';t.api.renderTrustMacros();assert.equal((element('#trust-macro-grid').innerHTML.match(/data-trust-copy=/g)||[]).length,3);
 element('#trust-search').value='';element('#trust-kind').value='all';t.api.render();
-assert.equal((element('#trust-grid').innerHTML.match(/class="trust-card"/g)||[]).length,120);
+assert.equal((element('#trust-grid').innerHTML.match(/class="trust-card"/g)||[]).length,119);
+assert.equal((element('#trust-grid').innerHTML.match(/ · Trusty-Musky, Mhaura<\/p>/g)||[]).length,119);
 for(const trust of t.api.details){assert.ok(trust.acquisition);assert.ok(element('#trust-grid').innerHTML.includes(trust.name));}
 assert.ok(read('macros/index.html').includes('../trusts/index.html#summoning-macros'));
 assert.ok(read('trusts/index.html').includes('id="summoning-macros"'));
-console.log('PASS: all 22 job lists exclude Trusts; all seven ALC spells remain; 120 native-name self-targeted Trust macros, search and full roster preserved.');
+console.log('PASS: all 22 job lists exclude Trusts; all seven ALC spells remain; 119 priced Trusts/native-name macros, search and roster verified; Monberaux excluded.');

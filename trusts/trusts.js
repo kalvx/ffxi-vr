@@ -20,10 +20,10 @@ function renderTrustMacros(){
 }
 function render(){
   const q=document.querySelector('#trust-search').value.trim().toLowerCase(),kind=document.querySelector('#trust-kind').value;
-  const rows=TRUST_DETAILS.filter(t=>{t.kind=classify(t.key);return(kind==='all'||t.kind===kind)&&`${t.name} ${t.job} ${t.acquisition} ${t.weaponSkills}`.toLowerCase().includes(q)});
+  const rows=TRUST_DETAILS.filter(t=>{t.kind=classify(t.key);return(kind==='all'||t.kind===kind)&&`${t.name} ${t.job} ${t.role} ${t.seals} seals ${t.acquisition} ${t.weaponSkills}`.toLowerCase().includes(q)});
   document.querySelector('#trust-count').textContent=`${rows.length} of ${TRUST_DETAILS.length}`;
   const root=document.querySelector('#trust-grid');
-  root.innerHTML=rows.map(t=>`<article class="trust-card"><small>${t.kind==='unity'?'Unity Concord':t.kind==='alternate'?'Alternate version':'Trust'}</small><h3>${t.name}</h3><b class="trust-job">${t.job||'Role not listed'}</b><code>${trustEscape(trustSummonCommand(t))}</code><button type="button" data-trust-copy="${trustEscape(trustSummonCommand(t))}">Copy summon macro</button><details><summary>How to obtain</summary><p>${t.acquisition}</p></details><details><summary>Weapon skills & behavior</summary><p><strong>Weapon skills:</strong> ${t.weaponSkills||'None listed'}</p><p>${shortBehavior(t.behavior)}</p></details></article>`).join('')||'<p>No matching Trust.</p>';
+  root.innerHTML=rows.map(t=>`<article class="trust-card"><small>${t.kind==='unity'?'Unity Concord':t.kind==='alternate'?'Alternate version':'Trust'}</small><h3>${t.name}</h3><b class="trust-job">${t.job||'Role not listed'}</b><p><strong>${t.seals} Kindred’s Seal${t.seals===1?'':'s'}</strong> · Trusty-Musky, Mhaura</p><code>${trustEscape(trustSummonCommand(t))}</code><button type="button" data-trust-copy="${trustEscape(trustSummonCommand(t))}">Copy summon macro</button><details><summary>How to obtain</summary><p>${t.acquisition}</p></details><details><summary>Weapon skills & behavior</summary><p><strong>Weapon skills:</strong> ${t.weaponSkills||'None listed'}</p><p>${shortBehavior(t.behavior)}</p></details></article>`).join('')||'<p>No matching Trust.</p>';
   bindTrustCopy(root);
 }
 document.addEventListener('DOMContentLoaded',()=>{document.querySelector('#trust-search').addEventListener('input',render);document.querySelector('#trust-kind').addEventListener('change',render);document.querySelector('#trust-macro-search')?.addEventListener('input',renderTrustMacros);render();renderTrustMacros()});
