@@ -225,7 +225,7 @@
         const region={name,zones:grouped.get(name).sort(areaOrder)};
         const zones=region.zones.filter(z=>!q||z.toLowerCase().includes(q)||region.name.toLowerCase().includes(q)||group.name.toLowerCase().includes(q));
         if(!zones.length)return;
-        regions.push(`<details class="route-region" open><summary><strong>${esc(region.name)}</strong> <span>${zones.length} areas</span></summary><div class="trust-grid">${zones.map(routeCard).join('')}</div></details>`);
+        regions.push(`<details class="route-region" open><summary><strong>${esc(region.name)}</strong> <span>${zones.length} ${zones.length===1?'area':'areas'}</span></summary><div class="trust-grid">${zones.map(routeCard).join('')}</div></details>`);
       });
       if(regions.length)html+=`<details class="route-expansion" open><summary><h2>${esc(group.name)}</h2></summary>${regions.join('')}</details>`;
     });

@@ -49,7 +49,7 @@ for(const group of c.window.CR_WORLD_ROUTES){
   assert.equal(names.length,expected.length,group.name+' lost areas');
   assert.equal((html.match(/class="zone-quick"/g)||[]).length,expected.length,'Missing region/count summary');
   assert.equal((html.match(/class="zone-travel"/g)||[]).length,expected.length,'Missing transport summary');
-  const headings=[...html.matchAll(/<summary><strong>(.*?)<\/strong> <span>\d+ areas<\/span>/g)].map(m=>m[1]);
+  const headings=[...html.matchAll(/<summary><strong>(.*?)<\/strong> <span>\d+ areas?<\/span>/g)].map(m=>m[1]);
   assert.equal(new Set(headings).size,headings.length,'Duplicate region groups');
   assert.equal(headings.length,new Set(expected.map(zone=>t[zone].region)).size,'Broad directory labels survived');
   rendered+=names.length;
@@ -73,6 +73,6 @@ assert.equal(element('#map-viewer-title').textContent,'La Theine Plateau');
 assert.ok(element('#map-viewer-travel').innerHTML.includes('Holla — La Theine Plateau'));
 const page=read('travel/zone-routes.html');
 assert.ok(page.indexOf('zone-travel-data.js')<page.indexOf('zone-routes.js?v='));
-assert.ok(page.includes('zone-routes.js?v=20261023-regions1'));
+assert.ok(page.includes('zone-routes.js?v=20261023-regions2'));
 assert.ok(page.includes('grid-template-rows:auto auto auto minmax(0,1fr)'));
 console.log('PASS: all 210 areas, six expansions, exact region grouping, crystal/outpost coverage, post-load summaries, search and actual map-link callbacks.');
