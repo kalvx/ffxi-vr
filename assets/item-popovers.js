@@ -19,21 +19,22 @@
   async function recordFor(id) {
     const shard = Math.floor(Number(id) / 256);
     if (!shards.has(shard)) {
-      shards.set(shard, fetch(new URL(`data/item-sources/${shard}.json`, assetBase)).then((response) => {
+      shards.set(shard, fetch(new URL(`data/item-sources/${shard}.json?v=20261024-drops1`, assetBase)).then((response) => {
         if (!response.ok) throw new Error(`Item reference ${response.status}`);
         return response.json();
       }));
     }
     const records = await shards.get(shard);
-    return records[String(id)];
+    const drops = await import(new URL('monster-drop-sources.js?v=20261024-drops1', assetBase));
+    return drops.enrichRecord(records[String(id)]);
   }
 
   function obtainSummary(sources = {}) {
     const vendor = sources.vendors?.[0];
     if (vendor?.type === 'exchange') return `Trade ${vendor.quantity} ${vendor.currency} to ${vendor.name} in ${vendor.zone}.`;
     if (vendor) return `Sold by ${vendor.name} in ${vendor.zone}${vendor.price != null ? ` for ${Number(vendor.price).toLocaleString()} gil` : ''}.`;
-    const drop = sources.drops?.[0];
-    if (drop) return `Dropped by ${drop.monster} in ${drop.zone} (${drop.rate}% recorded rate).`;
+    const drop = (sources.monsterRows || sources.drops)?.[0];
+    if (drop) return `Dropped by ${drop.monster} in ${drop.zone}${drop.rate != null ? ` (${drop.rate}% base chance per roll)` : ''}.`;
     if (sources.craftedBy?.length) return 'Produced by crafting; open the full entry for its recipe.';
     if (sources.quests?.length) return `Involved in ${sources.quests[0].quest}.`;
     return 'No direct vendor, monster, craft, or quest source is recorded in the current dataset.';
@@ -45,7 +46,7 @@
     if (flags & 0x4000) badges.push(['exclusive', 'Exclusive']);
     if (record.ah?.listed) badges.push(['buy', 'Auction House']);
     if (sources.vendors?.length) badges.push(['buy', 'NPC Vendor']);
-    if (sources.drops?.length) badges.push(['find', 'Monster Drop']);
+    if (sources.drops?.length || sources.dropRules?.length) badges.push(['find', 'Monster Drop']);
     if (sources.craftedBy?.length) badges.push(['craft', 'Crafted']);
     if (sources.quests?.length || sources.guideUses?.length) badges.push(['quest', 'Quest']);
     if (!badges.length) badges.push(['unknown', 'Source Unrecorded']);
@@ -56,7 +57,8 @@
     const sources = record.sources || {}, details = [];
     if (record.ah?.listed) details.push(`Purchasable: Auction House · ${record.ah.path.join(' → ')}`);
     sources.vendors?.slice(0, 2).forEach((vendor) => details.push(`Vendor: ${vendor.name} · ${vendor.zone}${vendor.type === 'exchange' ? ` · Trade ${vendor.quantity} ${vendor.currency}` : vendor.price != null ? ` · ${Number(vendor.price).toLocaleString()} gil` : ''}`));
-    sources.drops?.slice(0, 2).forEach((drop) => details.push(`Drop: ${drop.monster} · ${drop.zone}${drop.rate != null ? ` · ${drop.rate}%` : ''}`));
+    (sources.monsterRows || sources.drops)?.slice(0, 2).forEach((drop) => details.push(`Drop: ${drop.monster} · ${drop.zone}${drop.rate != null ? ` · ${drop.rate}% base per roll` : ''}${drop.note && drop.source !== 'shared' ? ` · ${drop.note}` : ''}`));
+    sources.dropRules?.slice(0, 1).forEach(rule => details.push(rule.description, rule.rateNote));
     if (sources.craftedBy?.length) details.push(`Craftable: ${sources.craftedBy.length} recorded recipe${sources.craftedBy.length === 1 ? '' : 's'}`);
     sources.quests?.slice(0, 2).forEach((quest) => details.push(`Quest: ${quest.quest} · ${quest.area}`));
     sources.guideUses?.slice(0, 1).forEach((guide) => details.push(`Guide: ${guide.title}`));
