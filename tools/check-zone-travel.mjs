@@ -75,6 +75,19 @@ assert.ok(element('#map-viewer-travel').innerHTML.includes('blue-crystals.html#h
 assert.ok(element('#map-viewer-travel').innerHTML.includes('beside the Shattered Telepoint'));
 const page=read('travel/zone-routes.html');
 assert.ok(page.indexOf('zone-travel-data.js')<page.indexOf('zone-routes.js?v='));
-assert.ok(page.includes('zone-routes.js?v=20261024-crystal-locations'));
+assert.match(page,/zone-routes\.js\?v=[^" ]+/);
 assert.ok(page.includes('grid-template-rows:auto auto auto minmax(0,1fr)'));
+// Loading one zone replaces only that card, preserving open sections by label.
+const section=(text,open=false)=>({open,querySelector:()=>({textContent:text})});
+const oldSection=section('Mobs, levels, detection & drops 1',true),newSections=[section('Route hazards & how to avoid them 2'),section('Mobs, levels, detection & drops 2')];
+let firstReplaced=0,otherReplaced=0;
+const card={dataset:{zone:'konschtat highlands'},querySelectorAll:()=>[oldSection],replaceWith(){firstReplaced++}};
+const untouched={dataset:{zone:'west ronfaure'},replaceWith(){otherReplaced++}};
+element('#world-route-root').querySelectorAll=()=>[card,untouched];
+document.createElement=()=>({content:{firstElementChild:{querySelectorAll:()=>newSections}}});
+c.window.dispatchEvent=()=>{};c.CustomEvent=class{};
+const before=element('#world-route-root').innerHTML;
+c.window.CR_ATLAS.merge('Konschtat Highlands',{mobs:[{name:'Fresh native mob'}],nms:[],hnms:[],npcs:[]});
+assert.equal(firstReplaced,1);assert.equal(otherReplaced,0);assert.equal(element('#world-route-root').innerHTML,before,'Entire directory was rebuilt');
+assert.equal(newSections[0].open,false);assert.equal(newSections[1].open,true,'Changed counts/new sections lost open panel');
 console.log('PASS: all 210 areas, six expansions, exact region grouping, crystal/outpost coverage, post-load summaries, search and actual map-link callbacks.');

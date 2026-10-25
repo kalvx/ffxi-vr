@@ -122,7 +122,8 @@
     const list=Array.isArray(d)?d:(d?String(d).split('|'):[]);
     return list.length?`<small><b>Drops:</b> ${list.map(esc).join(' • ')}</small>`:'';
   };
-  const mobCard=m=>{
+  const mobCard=(m,zone)=>{
+    if(window.CR_MOB_CARDS&&m.key)return window.CR_MOB_CARDS.summary(m,zone);
     const tags=[];
     if(m.level)tags.push(`Lv. ${esc(m.level)}`);
     if(m.pos)tags.push(esc(m.pos));
@@ -130,7 +131,7 @@
     const rank=m.hnm?'HNM':m.nm?'NM':'';
     return `<div class="${m.hnm?'hnm-entry':m.nm?'nm-entry':''}">${rank?`<em class="mob-rank">${rank}</em>`:''}<strong>${esc(m.name)}</strong>${tags.length?`<span>${tags.join(' • ')}</span>`:''}${m.detect?`<span>${esc(m.detect)}</span>`:''}${m.note?`<small>${esc(m.note)}</small>`:''}${dropText(m)}</div>`;
   };
-  const npcCard=n=>`<div><strong>${esc(n.name)}</strong><span>${esc(n.pos||'')}</span>${n.service?`<small><b>Service:</b> ${esc(n.service)}</small>`:''}${n.note?`<small>${esc(n.note)}</small>`:''}</div>`;
+  const npcCard=n=>`<div><strong>${esc(n.name)}</strong><span>${esc(n.pos||'')}</span>${n.count?`<small>${n.count} recorded ${n.count===1?'entity':'entities'} · coordinates may include scripted placeholders.</small>`:n.indexedOnly?'<small>Compendium service/story reference; no native spawn coordinates indexed.</small>':''}${n.service?`<small><b>Service:</b> ${esc(n.service)}</small>`:''}${n.note?`<small>${esc(n.note)}</small>`:''}${(n.activities||[]).map(a=>`<small>${esc(a)}</small>`).join('')}${n.points?.length?`<details><summary>All recorded locations</summary><div class="atlas-location-scroll"><table><thead><tr><th>NPC ID</th><th>X</th><th>Y</th><th>Z</th></tr></thead><tbody>${n.points.map(p=>`<tr>${p.map(v=>`<td>${esc(v)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></details>`:''}${n.quests?.length?`<details><summary>Quests, missions & services · ${n.quests.length}</summary>${n.quests.map(q=>`<p><a href="${esc(q.url)}" target="_blank" rel="noopener">${esc(q.title)} ↗</a><small>${esc(q.role||'')}${q.requirements?' · '+esc(q.requirements):''}</small></p>`).join('')}</details>`:''}${n.wares?.length?`<details><summary>Shop items · ${n.wares.length}</summary>${n.wares.map(d=>`<p><a class="atlas-item-link" data-atlas-item-id="${d.id}" href="../reference/index.html?item=${d.id}">${esc(d.name)}</a>${d.priceMin!=null?`<small>${Number(d.priceMin).toLocaleString()}${d.priceMax!==d.priceMin?'–'+Number(d.priceMax).toLocaleString():''} gil · indexed price</small>`:''}</p>`).join('')}</details>`:''}</div>`;
 
   function fieldGuide(zone){
     const g=getField(zone);if(!g)return'';
@@ -138,14 +139,22 @@
     const nms=[...(g.nms||[]),...(g.mobs||[]).filter(m=>m.nm&&!m.hnm)];
     const hnms=[...(g.hnms||[]),...(g.mobs||[]).filter(m=>m.hnm)];
     const mobTotal=regular.length+nms.length+hnms.length;
+    const danger=[...regular,...nms,...hnms].filter(m=>m.aggressive||m.trueDetection||m.links);
+    const avoidance=m=>{const senses=m.detects||[];return[m.trueDetection?'True detection bypasses ordinary Sneak/Invisible.':m.aggressive?[senses.includes('Sight')?'Use Invisible against sight.':'',senses.includes('Sound')?'Use Sneak against sound.':''].filter(Boolean).join(' '):'',senses.includes('Magic')?'Avoid casting nearby.':'',senses.includes('Low HP')?'Keep HP above the low-HP detection threshold.':'',m.links?'Avoid fighting beside others of its family.':''].filter(Boolean).join(' ')};
+    const hazards=danger.length?`<details class="route-detail route-hazard-auto"><summary><strong>Route hazards & how to avoid them</strong> <span>${danger.length}</span></summary><div class="route-hazard-list">${danger.map(m=>`<div class="route-hazard-row"><strong>${esc(m.name)}</strong><span>${esc(m.detect)}</span><small>${esc(avoidance(m))}</small></div>`).join('')}</div></details>`:'';
     const mobTools=mobTotal?`<div class="mob-view-tools"><button type="button" class="mob-grid-open" data-open-mob-grid="${esc(zone)}"><span aria-hidden="true">▦</span> Open monster card grid <small>${mobTotal}</small></button><span>The compact list stays available below.</span></div>`:'';
-    const mobs=regular.length?`<details class="field-panel"><summary>Mobs, levels, detection & drops <span>${regular.length}</span></summary><div class="field-grid mob-grid">${regular.map(mobCard).join('')}</div></details>`:'';
-    const notorious=(nms.length||hnms.length)?`<details class="field-panel notorious-panel" open><summary>Notorious Monsters & HNMs <span>${nms.length+hnms.length}</span></summary>${hnms.length?`<h4>HNMs</h4><div class="field-grid hnm-grid">${hnms.map(mobCard).join('')}</div>`:''}${nms.length?`<h4>Notorious Monsters</h4><div class="field-grid nm-grid">${nms.map(mobCard).join('')}</div>`:''}</details>`:'';
-    const npcs=g.npcs?.length?`<details class="field-panel"><summary>Notable NPCs <span>${g.npcs.length}</span></summary><div class="field-grid">${g.npcs.map(npcCard).join('')}</div></details>`:'';
+    const mobs=regular.length?`<details class="field-panel"><summary>Mobs, levels, detection & drops <span>${regular.length}</span></summary><div class="field-grid mob-grid">${regular.map(m=>mobCard(m,zone)).join('')}</div></details>`:'';
+    const notorious=(nms.length||hnms.length)?`<details class="field-panel notorious-panel"><summary>Notorious Monsters & HNMs <span>${nms.length+hnms.length}</span></summary>${hnms.length?`<h4>HNMs</h4><div class="field-grid hnm-grid">${hnms.map(m=>mobCard(m,zone)).join('')}</div>`:''}${nms.length?`<h4>Notorious Monsters</h4><div class="field-grid nm-grid">${nms.map(m=>mobCard(m,zone)).join('')}</div>`:''}</details>`:'';
+    const npcs=g.npcs?.length?`<details class="field-panel"><summary>NPCs & zone objects <span>${g.npcs.length}</span></summary><div class="field-grid">${g.npcs.map(npcCard).join('')}</div></details>`:'';
     const dig=g.dig?.length?`<details class="field-panel"><summary>Chocobo digging / gathering</summary><p>${g.dig.map(esc).join(' • ')}</p></details>`:'';
     const items=g.items?.length?`<details class="field-panel"><summary>Zone items, chests & gathering</summary><p>${g.items.map(esc).join(' • ')}</p></details>`:'';
     const note=g.sourceNote?`<p class="field-source">${esc(g.sourceNote)}</p>`:'';
-    return mobTools+mobs+notorious+npcs+dig+items+note;
+    const stories=g.stories?.length?`<details class="field-panel"><summary>Zone quests, missions & services <span>${g.stories.length}</span></summary><p>Indexed NPC connections. Guides open separately so this atlas stays loaded.</p>${g.stories.map(q=>`<p><a href="${esc(q.url)}" target="_blank" rel="noopener">${esc(q.title)} ↗</a> <small>${esc(q.role||'')}</small></p>`).join('')}</details>`:'';
+    const query=(search?.value||'').trim().toLowerCase();
+    const matchedMobs=query?[...regular,...nms,...hnms].filter(m=>[m.name,...(window.CR_MOB_CARDS?.dropNames(m)||[])].join(' ').toLowerCase().includes(query)):[];
+    const matchedNPCs=query?(g.npcs||[]).filter(n=>[n.name,...(n.wares||[]).map(d=>d.name),...(n.quests||[]).map(q=>q.title)].join(' ').toLowerCase().includes(query)):[];
+    const matches=matchedMobs.length||matchedNPCs.length?`<details class="field-panel atlas-matching-records" open><summary>Matching records <span>${matchedMobs.length+matchedNPCs.length}</span></summary><div class="field-grid">${matchedMobs.slice(0,8).map(m=>mobCard(m,zone)).join('')}${matchedNPCs.slice(0,8).map(npcCard).join('')}</div>${matchedMobs.length>8||matchedNPCs.length>8?'<p>First eight matches of each type shown. The full lists and searchable monster grid are below.</p>':''}</details>`:'';
+    return matches+hazards+mobTools+mobs+notorious+npcs+stories+dig+items+note;
   }
 
   const mapPreview=zone=>{
@@ -164,13 +173,22 @@
     const m=mapFor(zone);
     if(!m||!window.CR_ZONE_DB)return'';
     const loaded=getField(zone)?.dbLoaded;
-    return `<div class="zone-db-load"><button type="button" data-load-zone-db="${esc(zone)}" ${loaded?'disabled':''}>${loaded?'Server database loaded':'Load full mob / NPC / drop database'}</button><span class="zone-db-status" data-zone-db-status="${esc(zone)}">${loaded?'LandSandBoat reference merged into this guide.':'Loads the full reference for this zone on demand.'}</span></div>`;
+    return `<div class="zone-db-load"><button type="button" data-load-zone-db="${esc(zone)}" ${loaded?'disabled':''}>${loaded?'Server records loaded':'Load zone records'}</button><span class="zone-db-status" data-zone-db-status="${esc(zone)}">${loaded?'Current Reality records ready.':'Zone records load automatically and stay cached.'}</span></div>`;
   };
 
   function mergeDbGuide(zone,incoming){
-    const k=fieldKeyFor(zone)||zone,old=field[k]||{},byName=(arr=[])=>new Map(arr.map(x=>[norm(x.name),x]));
-    const merge=(base=[],fresh=[])=>{const m=byName(fresh);for(const x of base){const key=norm(x.name),f=m.get(key)||{};m.set(key,{...f,...x,drops:(x.drops?.length?x.drops:f.drops)||[]})}return [...m.values()]};
-    field[k]={...old,...incoming,mobs:merge(old.mobs,incoming.mobs),nms:merge(old.nms,incoming.nms),hnms:merge(old.hnms,incoming.hnms),npcs:merge(old.npcs,incoming.npcs),dbLoaded:true};
+    const k=fieldKeyFor(zone)||zone,old=field[k]||{};
+    if(incoming.npcs){const annotations=new Map((old.npcs||[]).map(n=>[n.name.toLowerCase(),n]));incoming={...incoming,npcs:incoming.npcs.map(n=>{const previous=annotations.get(n.name.toLowerCase());return previous?{...previous,...n}:n})}}
+    field[k]={...old,...incoming,dbLoaded:true};if(k!==zone)field[zone]=field[k];
+    updateCard(zone);
+    window.dispatchEvent(new CustomEvent('cr:zone-loaded',{detail:{zone}}));
+  }
+  function updateCard(zone){
+    const card=[...root.querySelectorAll('.route-card')].find(card=>card.dataset.zone===zone.toLowerCase());if(!card)return;
+    const label=node=>(node.querySelector('summary')?.textContent||'').replace(/\s+/g,' ').trim().replace(/\s+\d+$/,'');
+    const states=new Map([...card.querySelectorAll('details')].map(node=>[label(node),node.open]));
+    const template=document.createElement('template');template.innerHTML=routeCard(zone);const replacement=template.content.firstElementChild;
+    replacement.querySelectorAll('details').forEach(node=>{if(states.has(label(node)))node.open=states.get(label(node))});card.replaceWith(replacement);
   }
 
   const routeCard=zone=>{
@@ -198,7 +216,7 @@
       const zone=dbButton.dataset.loadZoneDb,m=mapFor(zone),status=root.querySelector(`[data-zone-db-status="${CSS.escape(zone)}"]`);
       if(!m||!window.CR_ZONE_DB)return;
       dbButton.disabled=true;dbButton.textContent='Loading zone database…';
-      window.CR_ZONE_DB.loadZone(m.zoneId,msg=>{if(status)status.textContent=msg}).then(g=>{mergeDbGuide(zone,g);render()}).catch(err=>{dbButton.disabled=false;dbButton.textContent='Retry full zone database';if(status)status.textContent=`Could not load database: ${err.message}`});
+      window.CR_ZONE_DB.loadZone(m.zoneId,msg=>{if(status)status.textContent=msg},zone).then(g=>{mergeDbGuide(zone,g)}).catch(err=>{dbButton.disabled=false;dbButton.textContent='Retry zone records';if(status)status.textContent=`Could not load zone records: ${err.message}`});
       return;
     }
     const exitButton=e.target.closest('[data-open-zone]');
@@ -224,7 +242,7 @@
       });
       [...grouped.keys()].sort(areaOrder).forEach(name=>{
         const region={name,zones:grouped.get(name).sort(areaOrder)};
-        const zones=region.zones.filter(z=>!q||z.toLowerCase().includes(q)||region.name.toLowerCase().includes(q)||group.name.toLowerCase().includes(q));
+        const zones=region.zones.filter(z=>!q||[z,region.name,group.name,window.CR_ATLAS_INDEX?.areas[z]?.search||''].join(' ').toLowerCase().includes(q));
         if(!zones.length)return;
         regions.push(`<details class="route-region" open><summary><strong>${esc(region.name)}</strong> <span>${zones.length} ${zones.length===1?'area':'areas'}</span></summary><div class="trust-grid">${zones.map(routeCard).join('')}</div></details>`);
       });
@@ -232,6 +250,7 @@
     });
     root.innerHTML=html||'<p class="notice">No matching areas.</p>';
   }
+  window.CR_ATLAS={merge:mergeDbGuide,openMap,render,failed:zone=>{const node=[...root.querySelectorAll('[data-zone-db-status]')].find(node=>node.dataset.zoneDbStatus===zone);if(node)node.textContent='Records unavailable. Retry without losing completed zones.'}};
   if(type){type.innerHTML='<option value="all">All expansions</option>'+data.map(g=>`<option value="${esc(g.id)}">${esc(g.name)}</option>`).join('');type.addEventListener('change',render)}
   search?.addEventListener('input',render);render();
 })();

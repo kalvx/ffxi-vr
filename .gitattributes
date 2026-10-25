@@ -1,0 +1,2 @@
+# Atlas hashes are calculated over these exact UTF-8/LF bytes.
+/travel/atlas-data/*.json text eol=lf
