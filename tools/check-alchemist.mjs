@@ -6,8 +6,8 @@ const root=path.resolve(import.meta.dirname,'..');
 const json=file=>JSON.parse(fs.readFileSync(path.join(root,file),'utf8'));
 const data=json('assets/data/game-data.json');
 assert.deepEqual(data.jobs.find(j=>j.id===18),{id:18,code:'ALC',name:'Alchemist'});
-assert.equal(data.abilities.filter(a=>a.job==='ALC').length,20);
-assert.equal(new Set(data.abilities.filter(a=>a.job==='ALC').map(a=>a.recastGroup)).size,20);
+assert.equal(data.abilities.filter(a=>a.job==='ALC').length,21);
+assert.equal(new Set(data.abilities.filter(a=>a.job==='ALC').map(a=>a.recastGroup)).size,21);
 for(const id of [136,137])assert.equal(data.abilities.find(a=>a.id===id).recast,15);
 for(const id of [140,147])assert.equal(data.abilities.find(a=>a.id===id).recast,30);
 const curse=data.spells.find(s=>s.id===257);
@@ -69,7 +69,13 @@ for(const job of context.window.JOB_ARMOR_DATA){
  const c={window:context.window,document:{createElement:()=>({}),head:{append:()=>{}},querySelector:()=>guide},localStorage:{getItem:()=>null}};
  vm.runInNewContext(js,c);
  assert.ok(guide.innerHTML.includes(job.name),job.slug);
- if(job.slug==='alc'){assert.ok(guide.innerHTML.includes('96,000,000 gil'));assert.ok(!guide.innerHTML.includes('Rem’s Tale'));}
+ if(job.slug==='alc'){assert.ok(guide.innerHTML.includes('96,000,000 gil'));assert.ok(!guide.innerHTML.includes('Remâ€™s Tale'));}
  else assert.ok(guide.innerHTML.includes('required quest order'),job.slug);
 }
-console.log('PASS: 22 armor guides, 20 Alchemist abilities, seven prepared spells, 100 gear records, four gun trades, two effect bullets, NPC directory, unlock quest and four separate job guides.');
+console.log('PASS: 22 armor guides, 21 Alchemist abilities, seven prepared spells, 100 gear records, four gun trades, two effect bullets, NPC directory, unlock quest and four separate job guides.');
+
+const potion=data.abilities.find(a=>a.id===340);assert.equal(potion.level,65);assert.equal(potion.recast,30);assert.equal(potion.recastGroup,179);assert.deepEqual(potion.skillchain,["Darkness","Gravitation"]);
+assert.equal(data.abilities.find(a=>a.id===139).name,"Mix: Dry Ether");
+assert.equal(data.abilities.find(a=>a.id===148).name,"Mix: Dragon Shld.");
+assert.equal(data.abilities.find(a=>a.id===179).name,"Mix: Element Pwr.");
+assert.equal(data.abilities.find(a=>a.id===180).name,"Mix: Sams Str.");

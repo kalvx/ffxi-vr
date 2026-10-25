@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "product": "CurrentReality",
-  "version": "1.0.22",
-  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.22/CurrentRealityPatch-1.0.22.zip",
-  "packageSha256": "7b58e22d2c1048e01ba246476572615c9cb3241f9567871f961793d8fde661e2",
-  "packageSize": 69336433,
+  "version": "1.0.23",
+  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.23/CurrentRealityPatch-1.0.23.zip",
+  "packageSha256": "c86fde4b6007b7e999d35d00ce7f8ad7efa588cfa4e2c1106912b0b1e0751ffd",
+  "packageSize": 69362641,
   "files": [
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/FFXi.dll",
@@ -39,7 +39,7 @@
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/118/114.DAT",
       "size": 403280,
-      "sha256": "96d82794bce50bee1c5ee042f906cf6c49782dba4a1aa20bea8b94e7b7da3570"
+      "sha256": "dbaa0910bf51ac3b9665099214a7abd1be1009597467847a8d0603bbea103d50"
     },
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/119/51.DAT",
@@ -54,7 +54,7 @@
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/119/55.DAT",
       "size": 1048576,
-      "sha256": "8c96999b9a556e08d05862eec9369edddb97f72c0f4539b7288523c12c8a6d9a"
+      "sha256": "055d785818a5b8fd61167f4717594abcbaa3041b55eeb81e802efd4fb0d9d76d"
     },
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/119/56.DAT",
@@ -79,7 +79,7 @@
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/181/72.DAT",
       "size": 471104,
-      "sha256": "724464ed63a64ae69789e105ed36b1fe52e56a93e6f594cbf3361899c5aa4765"
+      "sha256": "a2d102b4cf3cefc28858ef9433c911615a91dc9a6cd1902a88c2e3ccea415e62"
     },
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/181/73.DAT",
@@ -89,7 +89,7 @@
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/181/74.DAT",
       "size": 1507392,
-      "sha256": "d2f174d128593a9df79f298978cea80fa546e0a4895f320fc86a6cb7d5c3e0be"
+      "sha256": "e0ea4f56e6420c428885db0450915c6deaa0ca2be62d57d0ca7f810eae2db476"
     },
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/181/75.DAT",
@@ -98,8 +98,8 @@
     },
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/27/80.DAT",
-      "size": 73355,
-      "sha256": "7038ada23121eb9d78fa693a9122405d5d9f9b3ad3bc1f4ae0aea1d0c830cfbe"
+      "size": 73340,
+      "sha256": "3e94cd6290ec1e3c14d4e8a707639b5139d5ed29dd0c42d16bc80017b399610c"
     },
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/27/82.DAT",
@@ -383,8 +383,8 @@
     },
     {
       "path": "Runtime/addons/cralcbot/cralcbot.lua",
-      "size": 9231,
-      "sha256": "94083b0cd60aa1357e9f96328e0f990635b16432088341629baf3a9e0b7aa84f"
+      "size": 10182,
+      "sha256": "d0f829e0f3844d473e275153a5b0ab966f528c807dcf93f2b40bca3a20ee60b6"
     },
     {
       "path": "Runtime/addons/cralltimers/cralltimers.lua",
@@ -493,8 +493,8 @@
     },
     {
       "path": "Runtime/addons/libs/cr_alc_policy.lua",
-      "size": 6402,
-      "sha256": "857fe579f2c21cd7b1c92dbcacb439c2d88922893ed9f50dc553262186e83316"
+      "size": 6607,
+      "sha256": "6c62d0dc1158b57d67c6c500eff819dda07cd1628bbe19f5832deabd84ec05ca"
     },
     {
       "path": "Runtime/addons/libs/cr_packets.lua",
@@ -508,8 +508,8 @@
     },
     {
       "path": "Runtime/addons/libs/cr_recast_catalog.lua",
-      "size": 60729,
-      "sha256": "fc369058d826dc2412631c7378658b2101dc907fb2263ed5c7b16a9b478e858b"
+      "size": 60782,
+      "sha256": "09e2084776dcae7ee9c9a37f2befb13122c105e265192ccb88ff7310614d6762"
     },
     {
       "path": "Runtime/addons/libs/cr_recast_model.lua",
@@ -638,8 +638,8 @@
     },
     {
       "path": "Runtime/addons/libs/cr_alc_care_data.lua",
-      "size": 1187,
-      "sha256": "bd08c796b31d7850b1b00a702fdcd7e99bfb4cbe5fb4de3b9ec4d66df7e2f7d7"
+      "size": 1170,
+      "sha256": "8a53f2cb1353032ef25fcf035abbf3506e66331e6202e3feb89ddef4842ff7fa"
     },
     {
       "path": "Runtime/addons/libs/cr_alc_transport.lua",
@@ -665,6 +665,21 @@
       "path": "Runtime/addons/crcrafting/compass_data.lua",
       "size": 415,
       "sha256": "a55214e41d6c1ec05b62bb3c00fff8101a24bbb4bbdf96061ee30dc8d119ed63"
+    },
+    {
+      "path": "Runtime/addons/libs/cr_alc_offense.lua",
+      "size": 1577,
+      "sha256": "3d1c2c41822b29d5fe5b5333a670062346de5bbb977705fea0073cfa65af4432"
+    },
+    {
+      "path": "Runtime/addons/chains/skills.lua",
+      "size": 51692,
+      "sha256": "c75e7060d9c0ec6ba09dccddb41c8f8a6b60e3bb4d8a847d450d5973b3e22659"
+    },
+    {
+      "path": "Runtime/addons/chains/chains.lua",
+      "size": 69284,
+      "sha256": "c138707b3757cc24f7b4b2fe6fc0481b58217ebb3a5f5871ee9fb4ebc24b40a3"
     }
   ]
 }
