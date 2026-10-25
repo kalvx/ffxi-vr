@@ -34,6 +34,7 @@ const mobs=name=>{const z=zones.get(name);return[...z.mobs,...z.nms,...z.hnms]};
 const lizard=mobs('Kuftal Tunnel').find(m=>m.name==='Sand Lizard');assert(lizard.shared.includes(1127)&&lizard.shared.includes(1126));assert(lizard.points.length>5);
 const hare=mobs('West Ronfaure').find(m=>m.name==='Forest Hare');assert(hare.shared.includes(1126));assert(!hare.shared.includes(1127));
 assert.equal(index.areas['Purgonorgo Isle'].zoneId,4);assert(mobs('Purgonorgo Isle').every(m=>m.points.every(p=>p[3]<0)));
+assert.equal(index.areas['Purgonorgo Isle'].exits.length,0,'Island inherited a mainland walking exit');
 assert(mobs('Bibiki Bay').every(m=>m.points.every(p=>p[3]>=0)));
 assert.equal(index.groups.length,6);
 const npc=(zone,name)=>zones.get(zone).npcs.find(n=>n.name===name);

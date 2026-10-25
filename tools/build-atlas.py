@@ -173,6 +173,7 @@ for area in area_rows:
     terms.update(d['name'] for n in npc_rows.values() for d in n['wares'])
     area['search']=' | '.join(sorted(terms)).lower()
     area['exits']=sorted({area_names.get(edge['tozone'],title(zones.get(edge['tozone'],{}).get('name',''))) for edge in data.get('edges',[]) if edge['fromzone']==ident})
+    if isle:area['exits']=[] # Bibiki's mainland zoneline is not walkable from the island.
     if name in old['maps']:
         area['maps']=old['maps'][name]
     else:
