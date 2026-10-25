@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "product": "CurrentReality",
-  "version": "1.0.24",
-  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.24/CurrentRealityPatch-1.0.24.zip",
-  "packageSha256": "0692554892291f96dfda895f822b84231d9e42ca57736fe29c8ed1286a6b0f9d",
-  "packageSize": 69363163,
+  "version": "1.0.25",
+  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.25/CurrentRealityPatch-1.0.25.zip",
+  "packageSha256": "9d4f2a915a19e952301e75fd059875dd194703fc88314c6d991dd2231a4d0c1c",
+  "packageSize": 88088833,
   "files": [
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/FFXi.dll",
@@ -538,8 +538,8 @@
     },
     {
       "path": "current_reality_launcher.exe",
-      "size": 347136,
-      "sha256": "9b83362192c15f8fdbc83ddaa026c157e4f3df370a03dc3df4cd49613c1e050c"
+      "size": 347648,
+      "sha256": "b106576fb531c6633550c86776a80f0a96f8bacf791d668d30797af1101dbe71"
     },
     {
       "path": "data/app.so",
@@ -573,8 +573,8 @@
     },
     {
       "path": "data/flutter_assets/assets/audio/windowertweakinlofi.wav",
-      "size": 34959438,
-      "sha256": "7e507de7a1c1bbaccbb661e02f64ca26d542ad280544632d6de4f3991d28f00e"
+      "size": 7764250,
+      "sha256": "332aa46a81dda0238b34cfdc9a8ad9b2b71824ae576c67a464ab3721c9152e73"
     },
     {
       "path": "data/flutter_assets/assets/images/current-reality-logo.png",
@@ -680,6 +680,26 @@
       "path": "Runtime/addons/chains/chains.lua",
       "size": 69284,
       "sha256": "c138707b3757cc24f7b4b2fe6fc0481b58217ebb3a5f5871ee9fb4ebc24b40a3"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/sound/win/music/data/music901.bgw",
+      "size": 9149268,
+      "sha256": "629b2e60270fccba12eb5a347a5e64dc926454dcd9c2d1ef6936ce23dccad3b0"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/sound/win/music/data/music902.bgw",
+      "size": 9564024,
+      "sha256": "d3c4c5c353519f940bc35b5f6f72c9927359f31dd50aec785c35f5c0b5476105"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/sound/win/music/data/music903.bgw",
+      "size": 8788098,
+      "sha256": "97e84e1ffe9ef35c3d5e660712a8f763bb26311cb6a00b1501048b4d981be3da"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/sound/win/music/data/music904.bgw",
+      "size": 8831748,
+      "sha256": "3025096c12917ebf48d1ae2d00d3a7e924b2e5176341c5f5de391ac790383883"
     }
   ]
 }
