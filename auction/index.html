@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Current Reality Auction House: item categories, current stock, rotating inventory and completed sales.">
+  <title>Auction House | FFXI VR: Current Reality</title>
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/wiki.css">
+  <link rel="stylesheet" href="auction.css?v=1">
+  <script src="../assets/wiki.js" defer></script>
+  <script src="auction.js?v=1" type="module"></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="../index.html"><span class="crystal">✦</span><span><small>FFXI VR</small><strong>Current Reality</strong></span></a><nav aria-label="Main navigation"><a href="../index.html">Compendium</a><a href="../crafting/index.html">Crafting</a><a href="../reference/index.html">Database</a></nav></header>
+  <main class="ah-page">
+    <header class="ah-heading"><div><p class="eyebrow">03 · Items & Crafting</p><h1>Auction House</h1><p>Current Reality · All auction counters share this market.</p></div><a href="../index.html">← Compendium</a></header>
+    <section class="ah-feed" aria-label="Market update status"><div><strong id="feed-state">Connecting…</strong><span id="feed-time">Loading auction inventory.</span></div><button id="refresh" type="button">Refresh</button></section>
+    <div class="ah-summary" id="summary" aria-live="polite"></div>
+    <div class="ah-layout">
+      <aside class="ah-menu"><h2>Item Category</h2><nav id="categories" aria-label="Auction House categories"></nav><a class="ah-return" href="../reference/index.html">Item information ↗</a></aside>
+      <section class="ah-market" aria-label="Auction inventory">
+        <div class="ah-titlebar"><h2 id="category-title">All Items</h2><span id="item-count"></span></div>
+        <form id="filters" class="ah-filters" role="search">
+          <label class="ah-search">Find item<input id="search" type="search" placeholder="Item name or ID" autocomplete="off"></label>
+          <label>Show<select id="status"><option value="all">All auctionable items</option><option value="available">Available now</option><option value="rotation">Current rotation</option><option value="sold">Sold in last 24 hours</option><option value="empty">Out of stock</option><option value="outside">Outside automated catalog</option><option value="never">Never on Auction House</option><option value="every">Every item</option></select></label>
+          <label>Quantity<select id="mode"><option value="0">Singles</option><option value="1">Stacks</option></select></label>
+          <label>Sort<select id="sort"><option value="name">Name</option><option value="level">Level</option><option value="stock">Stock</option><option value="sold">Sold (24h)</option><option value="recent">Latest sale</option></select></label>
+          <label>Rows<select id="page-size"><option>50</option><option>100</option><option>200</option></select></label>
+        </form>
+        <p class="ah-key"><span class="available">● In stock</span><span class="rotation">◆ Current rotation</span><span class="empty">○ Out of stock</span><span class="outside">○ Outside automated catalog</span><span class="never">⊘ Never on AH</span></p>
+        <div class="ah-table-scroll" tabindex="0" aria-label="Scrollable item table">
+          <table class="ah-table"><thead><tr><th scope="col">Item</th><th scope="col">Lv.</th><th scope="col">Category</th><th scope="col" id="stock-heading">Stock [singles]</th><th scope="col">Sold · 24h</th><th scope="col">Last sale · gil</th><th scope="col">Status</th></tr></thead><tbody id="items"><tr><td colspan="7">Loading items…</td></tr></tbody></table>
+        </div>
+        <nav class="ah-pagination" aria-label="Item table pages"><button id="previous" type="button">← Previous</button><span id="page-info"></span><label>Page <input id="page-number" type="number" min="1" value="1" aria-label="Go to page"></label><button id="next" type="button">Next →</button></nav>
+        <section class="ah-history" id="history" hidden aria-labelledby="history-title"></section>
+        <details class="ah-notes"><summary>Reading this market</summary><p>Select an item for Price History. Singles and full stacks have separate stock counts and sales. A stock count is the number of listings; a stack contains the item’s stated stack size. Sales counts cover the last 24 hours of retained completed transactions.</p><p>◆ marks an item selected by the current automated seller rotation. Previous rotations can leave stock available. Eligible items outside that catalog may still be listed by players. Red ⊘ means the item has NOAUCTION or no auction category. An unverified category is shown separately.</p><p>Completed sales can include automated buyers. Existing seeded market references are labeled “Reference” and never counted as completed sales. Asking prices remain hidden, as in FFXI. This page displays the market; buying and selling take place in game.</p><p>The market publishes every two minutes while Current Reality Auction runs. Delivery can add several minutes. Check the inventory timestamp; after six minutes without a fresh snapshot, counts are marked stale.</p></details>
+      </section>
+    </div>
+    <noscript><p>Enable JavaScript to browse the Auction House table and current inventory.</p></noscript>
+  </main>
+  <footer><div>✦ FFXI VR: Current Reality</div><a href="../index.html">Player Compendium</a></footer>
+</body>
+</html>

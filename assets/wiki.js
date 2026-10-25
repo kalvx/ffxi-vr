@@ -1,4 +1,5 @@
 const wikiAssetBase=new URL('.',document.currentScript.src);
+document.addEventListener('DOMContentLoaded',()=>{const destination=new URL('../auction/index.html',wikiAssetBase).href;document.querySelectorAll('.wiki-sidebar nav').forEach(nav=>{if([...nav.querySelectorAll('a')].some(a=>a.href===destination))return;const crafting=[...nav.querySelectorAll('a')].find(a=>/\/crafting\/index\.html$/.test(new URL(a.href).pathname));if(!crafting)return;const link=document.createElement('a');link.href=destination;link.textContent='Auction House';crafting.before(link)})});
 const itemPopoverStyles=document.createElement('link');itemPopoverStyles.rel='stylesheet';itemPopoverStyles.href=new URL('item-popovers.css',wikiAssetBase);document.head.append(itemPopoverStyles);
 const itemIconStyles=document.createElement('link');itemIconStyles.rel='stylesheet';itemIconStyles.href=new URL('item-icons.css',wikiAssetBase);document.head.append(itemIconStyles);
 const itemIconScript=document.createElement('script');itemIconScript.src=new URL('item-icons.js',wikiAssetBase);itemIconScript.defer=true;document.head.append(itemIconScript);
