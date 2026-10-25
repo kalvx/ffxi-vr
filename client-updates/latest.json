@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "product": "CurrentReality",
-  "version": "1.0.23",
-  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.23/CurrentRealityPatch-1.0.23.zip",
-  "packageSha256": "c86fde4b6007b7e999d35d00ce7f8ad7efa588cfa4e2c1106912b0b1e0751ffd",
-  "packageSize": 69362641,
+  "version": "1.0.24",
+  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.24/CurrentRealityPatch-1.0.24.zip",
+  "packageSha256": "0692554892291f96dfda895f822b84231d9e42ca57736fe29c8ed1286a6b0f9d",
+  "packageSize": 69363163,
   "files": [
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/FFXi.dll",
@@ -383,8 +383,8 @@
     },
     {
       "path": "Runtime/addons/cralcbot/cralcbot.lua",
-      "size": 10182,
-      "sha256": "d0f829e0f3844d473e275153a5b0ab966f528c807dcf93f2b40bca3a20ee60b6"
+      "size": 11023,
+      "sha256": "9709f1feb7603c7c4babc372be23f42e9f922c81b7b7cdabc7ff8500fa3c4019"
     },
     {
       "path": "Runtime/addons/cralltimers/cralltimers.lua",
@@ -668,8 +668,8 @@
     },
     {
       "path": "Runtime/addons/libs/cr_alc_offense.lua",
-      "size": 1577,
-      "sha256": "3d1c2c41822b29d5fe5b5333a670062346de5bbb977705fea0073cfa65af4432"
+      "size": 2482,
+      "sha256": "e416e7544b1874d5e70ef2d8376af9792e1054c2ebdccc430f652e3171906ebc"
     },
     {
       "path": "Runtime/addons/chains/skills.lua",
