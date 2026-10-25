@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "product": "CurrentReality",
-  "version": "1.0.26",
-  "packageUrl": "https://kalvx.github.io/ffxi-vr/client-updates/1.0.26/CurrentRealityPatch-1.0.26.zip",
-  "packageSha256": "3fe1a6c230c50f4fca13726f80e13b67b324b3034a924f1a229b60dcb2350740",
-  "packageSize": 94776400,
+  "version": "1.0.27",
+  "packageUrl": "https://github.com/kalvx/ffxi-vr/releases/download/client-1.0.27/CurrentRealityPatch-1.0.27.zip",
+  "packageSha256": "0b3031a43078755498de4947a7cac3f8a61f8dfe7ce3c04a87c2dc94440595f8",
+  "packageSize": 136680212,
   "files": [
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/FFXi.dll",
@@ -705,6 +705,31 @@
       "path": "data/launcher-theme.wav",
       "size": 7764250,
       "sha256": "957fa42f4298d0db9aa42bb08da6de456c2462cbad8938bd64389d458022013d"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/sound/win/music/data/music905.bgw",
+      "size": 9175062,
+      "sha256": "d8d37dc2e9d1a5e3287d2a18871450d5210ab7d04e2e8ac48e883e77539ab79e"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/sound/win/music/data/music906.bgw",
+      "size": 9169122,
+      "sha256": "04b1bcfe2feaaa6e7867b73f48cc1713e29dff2c511f363f4506acf488641a07"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/sound/win/music/data/music907.bgw",
+      "size": 9425118,
+      "sha256": "a0cd3913bc43a9bed7a24f1f84fd78bc084be743df6dc92c5c55347b2d7e0046"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/sound/win/music/data/music908.bgw",
+      "size": 9087744,
+      "sha256": "addb66b0489942f0e948520703550e3450a83d2e0c128964ef74a27c8e5fc952"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/sound/win/music/data/music909.bgw",
+      "size": 8413014,
+      "sha256": "924dfa2a811039b88cee07c0c2a015c12f4b9b64bbdf7ee1bbdff3c776b6a2b1"
     }
   ]
 }
