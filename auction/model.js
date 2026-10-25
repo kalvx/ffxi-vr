@@ -25,6 +25,7 @@ export function itemState(item, feed, mode, index = marketIndex(feed)) {
 export function filteredItems(items, categories, feed, options) {
   const {query='', category='', status='all', mode=0, sort='name'} = options;
   const tokens = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const exactId = /^\d+$/.test(query.trim()) ? Number(query.trim()) : null;
   const index = marketIndex(feed);
   const rows = items.filter(item => {
     const path = categories[item[2]] || [];
@@ -35,7 +36,7 @@ export function filteredItems(items, categories, feed, options) {
     if (category && category !== 'never' && location !== category && !location.startsWith(category+' / ')) return false;
     if (mode === 1 && item[3] < 2) return false;
     const text = `${item[0]} ${item[1]} ${path.join(' ')}`.toLowerCase();
-    if (!tokens.every(token => text.includes(token))) return false;
+    if (exactId !== null ? item[0] !== exactId : !tokens.every(token => text.includes(token))) return false;
     if (status === 'all' && item[5]) return false;
     if (['available','empty','outside','never'].includes(status) && state !== status) return false;
     if (status === 'rotation' && (!index.rotation.has(item[0]) || item[5])) return false;

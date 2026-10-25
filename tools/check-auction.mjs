@@ -37,7 +37,7 @@ assert.deepEqual(filter({status:'rotation'}),[2]);
 assert.deepEqual(filter({status:'outside'}),[5,4]);
 assert.deepEqual(filter({status:'sold',mode:1}),[2]);
 assert.deepEqual(filter({query:'weapons alpha'}),[1]);
-assert.deepEqual(filter({query:'2'}),[2,5]);
+assert.deepEqual(filter({query:'2'}),[2]);
 assert.deepEqual(filter({sort:'stock'}),[1,2,5,4]);
 assert.deepEqual(filter({sort:'level'}),[2,5,1,4]);
 assert.equal(marketIndex(feed).rotation.size,1);

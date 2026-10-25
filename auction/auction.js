@@ -1,4 +1,4 @@
-import {EMPTY, number, escape as esc, validFeed, freshness, marketIndex, itemState, filteredItems} from './model.js';
+import {EMPTY, number, escape as esc, validFeed, freshness, marketIndex, itemState, filteredItems} from './model.js?v=2';
 
 const endpoint = 'https://raw.githubusercontent.com/kalvx/ffxi-vr/auction-live/latest.json';
 const $ = id => document.getElementById(id);
