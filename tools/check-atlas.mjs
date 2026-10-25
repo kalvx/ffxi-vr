@@ -37,6 +37,18 @@ assert.equal(index.areas['Purgonorgo Isle'].zoneId,4);assert(mobs('Purgonorgo Is
 assert.equal(index.areas['Purgonorgo Isle'].exits.length,0,'Island inherited a mainland walking exit');
 assert(mobs('Bibiki Bay').every(m=>m.points.every(p=>p[3]>=0)));
 assert.equal(index.groups.length,6);
+let gatheringPoints=0,fishingWaters=0,diggingRows=0;
+for(const zone of zones.values()){
+  const a=zone.activities;assert(a);
+  for(const g of a.gathering){assert(g.tool.id>0);for(const d of g.items)assert(d.id>0&&d.weight>0);for(const p of g.points){assert.equal(p.length,3);assert(p.every(Number.isFinite));gatheringPoints++}}
+  for(const water of a.fishing){fishingWaters++;assert(water.items.length);for(const f of water.items){assert(f.id>0&&f.skill>=0);assert(Array.isArray(f.preferences));assert(f.baits.every(b=>b.id>0&&b.affinity>0))}}
+  diggingRows+=a.digging.length;
+}
+assert.equal(gatheringPoints,index.stats.gatheringPoints);assert.equal(fishingWaters,index.stats.fishingWaters);assert.equal(diggingRows,index.stats.diggingRows);
+assert(zones.get('West Ronfaure').activities.fishing.some(w=>w.items.some(f=>f.name==='Moat Carp')));
+assert(zones.get('Yughott Grotto').activities.gathering.some(g=>g.kind==='Mining'&&g.points.length));
+assert(zones.get('Purgonorgo Isle').activities.fishing.every(w=>w.name.startsWith('PI -')));
+assert(zones.get('Bibiki Bay').activities.fishing.every(w=>!w.name.startsWith('PI -')));
 const npc=(zone,name)=>zones.get(zone).npcs.find(n=>n.name===name);
 assert(npc('Lower Jeuno','Vapor').activities.some(line=>line.includes('Dispatch')));
 assert(npc('Mhaura','Trusty-Musky').quests.some(q=>q.url.includes('trusty-musky')));

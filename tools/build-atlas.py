@@ -9,6 +9,7 @@ import hashlib,json,re,sys
 SITE=Path(__file__).resolve().parents[1]
 snapshot,directory,mappy=map(Path,sys.argv[1:4])
 data=json.loads(snapshot.read_text(encoding='utf-8'));old=json.loads(directory.read_text(encoding='utf-8'))
+activity_data=json.loads((snapshot.parent/'zone-activities.json').read_text(encoding='utf-8'))
 OUT=SITE/'travel/atlas-data';OUT.mkdir(exist_ok=True)
 MAP_OUT=SITE/'travel/atlas-maps'
 map_files={p.stem.lower():p for p in mappy.iterdir() if p.suffix.lower() in ('.gif','.png')}
@@ -100,7 +101,7 @@ for n in data['npcs']:npcs[(n['npcid']>>12)&4095].append(n)
 hnm={'Absolute Virtue','Adamantoise','Aspidochelone','Behemoth','King Behemoth','Fafnir','Nidhogg','Roc','Simurgh','Serket','King Arthro','Capricious Cassie','Lord of Onzozo','Charybdis','Tiamat','Jormungand','Vrtra','Khimaira','Cerberus','Hydra','Sandworm','Dark Ixion'}
 detect_names={1:'Sight',2:'Sound',4:'Low HP',32:'Magic',64:'Weapon skills',128:'Job abilities',256:'Scent tracking'}
 spawn_names={1:'Night',2:'Evening',4:'Weather-dependent',8:'Fog-dependent',16:'Moon-dependent',32:'Lottery',64:'Windowed',128:'Scripted / conditional'}
-bestiary=defaultdict(list);index={};spawn_total=0
+bestiary=defaultdict(list);index={};spawn_total=0;activity_totals=defaultdict(int)
 area_names={row['zoneId']:row['name'] for row in area_rows if row['name']!='Purgonorgo Isle'}
 for area in area_rows:
     ident=area['zoneId'];name=area['name'];isle=name=='Purgonorgo Isle';bay=name=='Bibiki Bay'
@@ -116,6 +117,8 @@ for area in area_rows:
         entry['aggressive']|=bool(m['aggro']);entry['trueDetection']|=bool(m['true_detection']);entry['links']|=bool(m['links'])
         entry['detects'].update(label for bit,label in detect_names.items() if (m['detects'] or 0)&bit)
         entry['spawnTypes'].update(label for bit,label in spawn_names.items() if m['spawntype']&bit)
+        if m['mobType']&4:entry['spawnTypes'].add('Fishing')
+        if m['mobType']&16:entry['spawnTypes'].add('Battlefield')
         entry['respawns'].add(m['respawntime'])
         # Keep every entity record. Placeholder origin/fished positions are explicit.
         xyz=[round(float(m['pos_'+axis]),3) for axis in 'xyz']
@@ -158,11 +161,17 @@ for area in area_rows:
     for key,n in npc_rows.items():
         if n['points']:n['pos']=' · '.join(f'{a.upper()} {v}' for a,v in zip('xyz',n['points'][0][1:]))
         n['count']=len(n['points']);n['wares']=vendors[(norm(name),key)]
+    activities=json.loads(json.dumps(activity_data['zones'].get(str(ident),dict(gathering=[],fishing=[]))))
+    if isle or bay:activities['fishing']=[water for water in activities['fishing'] if water['name'].startswith('PI -')==isle]
+    activities['digging']=[] if isle else next((rows for zone,rows in activity_data['digging'].items() if norm(zone)==norm(name)),[])
+    activity_totals['gatheringPoints']+=sum(len(g['points']) for g in activities['gathering'])
+    activity_totals['fishingWaters']+=len(activities['fishing']);activity_totals['diggingRows']+=len(activities['digging'])
     records.sort(key=lambda m:m['name'].lower())
     result=dict(version=1,zone=name,zoneId=ident,mobs=[m for m in records if not m['nm'] and not m['hnm']],
                 nms=[m for m in records if m['nm'] and not m['hnm']],hnms=[m for m in records if m['hnm']],
                 npcs=sorted(npc_rows.values(),key=lambda n:n['name'].lower()),
                 stories=sorted(stories.values(),key=lambda q:q['title'].lower()),
+                activities=activities,
                 sourceNote='Current Reality server records. Spawn records are potential entity slots, not a live population count. Scripted locations, timers and availability may vary.')
     encoded=dump(result)+'\n';filename=str(ident)+('-isle' if isle else '')+'.json'
     (OUT/filename).write_bytes(encoded.encode('utf-8'))
@@ -171,6 +180,9 @@ for area in area_rows:
     terms.update(d['name'] for m in records for d in m['drops'])
     terms.update(item_names[i] for m in records for i in m['shared'])
     terms.update(d['name'] for n in npc_rows.values() for d in n['wares'])
+    terms.update(d['name'] for g in activities['gathering'] for d in g['items'])
+    terms.update(d['name'] for g in activities['fishing'] for d in g['items'])
+    terms.update(d['name'] for d in activities['digging'])
     area['search']=' | '.join(sorted(terms)).lower()
     area['exits']=sorted({area_names.get(edge['tozone'],title(zones.get(edge['tozone'],{}).get('name',''))) for edge in data.get('edges',[]) if edge['fromzone']==ident})
     if isle:area['exits']=[] # Bibiki's mainland zoneline is not walkable from the island.
@@ -192,7 +204,7 @@ for area in area_rows:
 
 version=hashlib.sha256((dump(index)+dump(rules)+item_revision.hexdigest()).encode()).hexdigest()[:16]
 payload=dict(version=version,areas=index,groups=groups,rules={iid:dict(name=item_names[iid],**rule) for iid,rule in rules.items()},
-             stats=dict(areas=len(index),mobRecords=sum(a['mobCount'] for a in area_rows),spawnRecords=spawn_total,missingGameplay=[]))
+             stats=dict(areas=len(index),mobRecords=sum(a['mobCount'] for a in area_rows),spawnRecords=spawn_total,missingGameplay=[],**activity_totals))
 (SITE/'travel/atlas-index.js').write_text('window.CR_ATLAS_INDEX='+dump(payload)+';\n',encoding='utf-8')
 write(OUT/'bestiary-index.json',bestiary)
 print(dump(dict(version=version,areas=len(index),added=len(index)-210,mobs=payload['stats']['mobRecords'],spawns=spawn_total,bytes=sum(p.stat().st_size for p in OUT.glob('*.json')))))
