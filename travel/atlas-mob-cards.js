@@ -50,7 +50,10 @@
   function hover(button){
     const zone=button.dataset.mobZone,m=find(zone,button.dataset.mobKey);if(!m)return;
     hidePreview();hoverSource=button;button.setAttribute('aria-describedby',preview.id);preview.innerHTML=body(m,zone,true);preview.hidden=false;
-    const rect=button.getBoundingClientRect(),width=Math.min(430,innerWidth-24);preview.style.width=width+'px';preview.style.left=Math.max(12,Math.min(rect.left,innerWidth-width-12))+'px';preview.style.top=Math.max(85,Math.min(rect.bottom+8,innerHeight-preview.offsetHeight-12))+'px';
+    const rect=button.getBoundingClientRect(),width=Math.min(430,innerWidth-24),above=rect.top-20,below=innerHeight-rect.bottom-20;
+    preview.style.width=width+'px';preview.style.left=Math.max(12,Math.min(rect.left,innerWidth-width-12))+'px';
+    preview.style.maxHeight=Math.max(80,Math.max(above,below))+'px';
+    preview.style.top=(below>=preview.offsetHeight||below>=above?rect.bottom+8:Math.max(12,rect.top-preview.offsetHeight-8))+'px';
   }
   document.addEventListener('pointerover',e=>{const button=e.target.closest('.atlas-mob-name');if(button&&button!==hoverSource){clearTimeout(hoverTimer);hoverTimer=setTimeout(()=>hover(button),220)}});
   document.addEventListener('focusin',e=>{if(e.target.matches('.atlas-mob-name'))hover(e.target)});
