@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "product": "CurrentReality",
-  "version": "1.0.27",
-  "packageUrl": "https://github.com/kalvx/ffxi-vr/releases/download/client-1.0.27/CurrentRealityPatch-1.0.27.zip",
-  "packageSha256": "0b3031a43078755498de4947a7cac3f8a61f8dfe7ce3c04a87c2dc94440595f8",
-  "packageSize": 136680212,
+  "version": "1.0.28",
+  "packageUrl": "https://github.com/kalvx/ffxi-vr/releases/download/client-1.0.28/CurrentRealityPatch-1.0.28.zip",
+  "packageSha256": "dd6145f4633dc060b2c35dd0050593895b70a9c5af4320f2471c0edb2e5af065",
+  "packageSize": 225610730,
   "files": [
     {
       "path": "Game/SquareEnix/FINAL FANTASY XI/FFXi.dll",
@@ -730,6 +730,91 @@
       "path": "Game/SquareEnix/FINAL FANTASY XI/sound/win/music/data/music909.bgw",
       "size": 8413014,
       "sha256": "924dfa2a811039b88cee07c0c2a015c12f4b9b64bbdf7ee1bbdff3c776b6a2b1"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/1/31.DAT",
+      "size": 9915456,
+      "sha256": "7e66686747bf157de737179b86a2ea2399f74e5d5c9b8faee1f7fde3fceec47c"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/1/32.DAT",
+      "size": 10242976,
+      "sha256": "e31272edb916ff9d8a0a6512c0d97b3d5d81492411ee9746b350569a95d45568"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/1/34.DAT",
+      "size": 9380032,
+      "sha256": "6cdd95d75edcfeaaae733f90cd9664cc0ccd33ae23e0734b8c36ff2c42955a1c"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/1/35.DAT",
+      "size": 9954352,
+      "sha256": "d4e5fc4e500866ffa5e327b634d08b63ada5147f799b6fc93ae7c7b65301b99c"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/1/36.DAT",
+      "size": 9176784,
+      "sha256": "5732c105066783540ce3090a63243a971498f966b69153f5584d46eb2075bade"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/1/39.DAT",
+      "size": 8011088,
+      "sha256": "e142d78744d00bd8654c9764d3dd022cc94a08e4100b509d616d19cf981e82c1"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/1/40.DAT",
+      "size": 9159232,
+      "sha256": "22688f2f493f3313e08b994ffc099d571d917eccffc5d2b45e601f6a3223a67d"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/1/41.DAT",
+      "size": 9271856,
+      "sha256": "ebe95e0118ec02e68feda355a5d61f4977355315a0815278fd84d683a78ba641"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/1/42.DAT",
+      "size": 10382032,
+      "sha256": "a9dac177487915220acb36a06439cdec6e1d5e26cab575825b6c873861301285"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/0/113.DAT",
+      "size": 6807184,
+      "sha256": "8041b513d9317fd26f14c1cf6a912c0e5f663f0fd1416a013116cfc12a95964e"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/0/78.DAT",
+      "size": 11003408,
+      "sha256": "4f998f6c3e9b0519236e525bb4e301c645f4f2313fb7963e5d1b2ad5e2bacdb7"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/0/79.DAT",
+      "size": 9945328,
+      "sha256": "70a093424632961f7f7238ee2ef04d398643719874e6ff354f6dcf50f58583b9"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/0/80.DAT",
+      "size": 8754768,
+      "sha256": "842d4e2cdca97c73dacd888da0ac83b6e0ac0cb715deb9f933fd406227359c2a"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM/0/81.DAT",
+      "size": 9749280,
+      "sha256": "32d8ff60f108b193037091b0b08cc260783b19a190edb32063947f1e8d776543"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM4/0/2.DAT",
+      "size": 11070832,
+      "sha256": "6645615a6d7499ecb899820ba60fb3fe5ba021d9233dbcb533279e79e618db43"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM4/0/3.DAT",
+      "size": 9555008,
+      "sha256": "ce5e78912b7eea959bbdca19afe382f27cb1b651777d0f603f8476fcf86586d5"
+    },
+    {
+      "path": "Game/SquareEnix/FINAL FANTASY XI/ROM4/0/6.DAT",
+      "size": 5213136,
+      "sha256": "9288740512a1687630bc577090696d319f8976ff8573b754da8b3faf81b2b4db"
     }
   ]
 }
